@@ -1,0 +1,139 @@
+// button { cursor: pointer; background: $b; border: 1px solid red; }
+// button:hover { background: $w; color: $b; }
+
+
+.buttons	{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	// DNU margins
+	font-weight: bold;
+}
+
+.buttons button:not(:last-child),
+.buttons .button:not(:last-child) { margin-right: 1.5rem; }
+
+button,
+a.button,
+input[type="text"],
+textarea {
+   font-size: .99rem; /* not inherited */
+   border-radius: 3px;
+}
+
+button,
+a.button	{
+	display: inline-block;
+	min-width: 8.4rem;
+	padding: .3rem .9rem;
+	text-align: center;
+	word-spacing: .3rem;
+	transition: .15s ease-in-out;
+   color: $w; // ok if all buttons.button have bg color
+}
+
+/*
+	BUTTON/'BUTTON' CLASSES
+	- ~ 'function' color codes:
+		- color for .details, a.edit, etc.
+		- then augment w/ button.details, etc.
+      [ https://github.com/vuejs/vue-loader/issues/363 ]
+
+		https://mayvendev.com/blog/inner-shadows-in-css-images-text-and-beyond
+		re: inset bevel text effect
+*/
+.btn {
+	cursor: pointer;
+	background: $b;
+	color: $w;
+	border: 1px solid $tr;
+}
+.btn:hover {
+	background: $w;
+	color: $b;
+	border: 1px solid $b;
+}
+
+// TO-DO: BUTTON MIXIN
+.btn.details { background: $theme; }
+.btn.details:hover,
+.btn.details:active {
+   color: $theme;
+   background: $w;
+   border: 1px solid $theme;
+   box-shadow: 3px 3px $theme;
+	box-shadow: inset .9rem .9rem .9rem -3 $theme;
+}
+
+.btn.edit { background: $edit; }
+.btn.edit:hover,
+.btn.edit:active {
+   color: $edit;
+   background: $w;
+   border: 1px solid $edit;
+   box-shadow: 3px 3px $edit;
+}
+
+.btn.log-hours { background: $log-hours; }
+.btn.log-hours:hover,
+.btn.log-hours:active {
+   color: $log-hours;
+   background: $w;
+   border: 1px solid $log-hours;
+   box-shadow: 3px 3px $log-hours;
+}
+
+.btn.all-projects	{ background: $theme; }
+.btn.all-projects:hover,
+.btn.all-projects:active {
+   color: $theme;
+   background: $w;
+   border: 1px solid $theme;
+   box-shadow: 3px 3px $theme;
+}
+
+.btn.save { background: $save; }
+.btn.save:hover,
+.btn.save:active {
+   color: $save;
+   background: $w;
+   border: 1px solid $save;
+   box-shadow: 3px 3px $save;
+}
+
+.btn.cancel	{ background: $cancel; }
+.btn.cancel:hover,
+.btn.cancel:active {
+   color: $cancel;
+   background: $w;
+   border: 1px solid $cancel;
+   box-shadow: 3px 3px $cancel;
+}
+
+.btn.logout	{ background: $tr; border: 0; }
+.btn.logout:hover,
+.btn.logout:active {
+   color: $w;
+   background: $tr;
+	box-shadow: none;
+	text-decoration: underline;
+}
+
+
+#project-detail .buttons .btn.details,
+#project-edit .buttons .btn.edit,
+#project-edit .buttons .btn.log-hours,
+#projects .buttons .btn.all-projects	{ display: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+//

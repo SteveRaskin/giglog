@@ -1,0 +1,67 @@
+
+// BREAK POINTS
+$small: 600px;
+$device: 768px;
+$tablet: 1024px;
+$large: 1500px;
+
+
+// UNITS
+$space: .3rem;
+
+/*
+	COLORS
+	======
+
+	.all-projects/(.home?) = global
+
+	// reds, darkest -> lightest:
+		maroon: rgb(128, 0, 0);
+		darkred: rgb(139, 0, 0);
+		firebrick: rgb(178, 34, 34);
+		crimson: rgb(220, 20, 60);
+		orange: rgb(255, 165, 0);
+
+	// greens, darkest -> lightest:
+		lightseagreen: rgb(32, 178, 170); // blue-green, fits with theme & edit
+		green: rgb(0, 128, 0);
+		forestgreen: rgb(34, 139, 34); (slightly lighter)
+
+		midnightblue: rgb(25, 25, 112);
+*/
+
+$w: #fff;
+$b: #000;
+$tr: transparent;
+$color1: rgb(18, 72, 255);
+$accent: ajdust-hue($color1, 15deg);
+
+$theme: rgb(18, 72, 255); // 'details'; giglog blue
+$edit: rgb(30, 144, 255); // dodgerblue
+$log-hours: rgb(32, 178, 170); // lightseagreen
+
+$save: rgb(255, 69, 0); // orangered
+$cancel: #000;
+
+
+// TYPOGRAPHY
+// $font1: 'Open Sans', Helvetica, Arial, 'sans-serif';
+// $font3: 'PT Sans Narrow', Helvetica, Arial, 'sans-serif';
+$font1: "Nunito", Helvetica, Arial, 'sans-serif';
+
+$body-copy1: #222;
+$body-copy2: #444;
+$link-color: rgb(18, 72, 255);
+$basesize: 16px;
+$lineheight: 1.65;
+
+
+$error: red;
+
+
+
+
+
+
+
+//
