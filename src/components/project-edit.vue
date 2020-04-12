@@ -304,7 +304,9 @@
 <script>
 
    export default {
-      props: [ "projectID" ],
+      props: {
+			projectID: String
+		},
       components: {
       },
       data () {
@@ -344,7 +346,7 @@
             //    this.$set(contact, 'editingContact', false) // creates 'editingContact' key in each contact object in projects.json
             // }
             this.project = data;
-            console.log("project: ", this.project);
+            // console.log("project-detail @create: ", this.project);
          })
 
          // console.log(this.project);
@@ -378,7 +380,7 @@
 
          editMode: function(e) {
             console.log("editMode");
-            let buttonID = e.currentTarget.id;
+            const buttonID = e.currentTarget.id;
             // toggle editMode of appropriate group
             switch (buttonID) {
             	case "edit-client":

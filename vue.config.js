@@ -41,47 +41,14 @@ module.exports = {
 		}
 	},
 
+
 	configureWebpack: {
 	/*
 		valid configureWebpack properties:
 			object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, externals?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, serve?, stats?, target?, watch?, watchOptions? }
 	*/
-	}
+	},
 }
-
-/*
-
-	many more to confirm - IIUC these build settings apply only if running 'vue-cli-service build';
-	see also notes re:
-	outputDir,
-	assetsDir,
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

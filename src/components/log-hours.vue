@@ -92,7 +92,9 @@
 
 
    export default {
-      props: [ "projectID" ],
+      props: {
+			projectID: String
+		},
       components: {
       },
       data () {
@@ -123,15 +125,15 @@
                this.project = data;
             })
 				.then(function setDateDefault() {
-					let dateInput = document.querySelector("#date"); // to focus
-					let today = new Date(); // not a legit format to set as date input value (required: "yyyy-mm-dd"), ergo:
-					let currentYear = today.getFullYear();
+					const dateInput = document.querySelector("#date"); // to focus
+					const today = new Date(); // not a legit format to set as date input value (required: "yyyy-mm-dd"), ergo:
+					const currentYear = today.getFullYear();
 					/*
 						.getMonth() returns number as 0-based index, w/out leading zero, ergo:
 						- '"0" + ' adds leading zero (& coerces to string), "+1" for readability, and slice() to eliminate superfluous leading zeros
 					*/
-					let currentMonth = ("0" + (today.getMonth() + 1)).slice(-2);
-					let currentDate = ("0" + today.getDate()).slice(-2);
+					const currentMonth = ("0" + (today.getMonth() + 1)).slice(-2);
+					const currentDate = ("0" + today.getDate()).slice(-2);
 					// regardless of display, required date format is "yyyy-mm-dd"
 					this.logDate.date = (currentYear + "-" + currentMonth + "-" + currentDate);
 					dateInput.focus();
@@ -139,15 +141,15 @@
       }, // created
       methods: {
 			sumHours: function(e) {
-				let timeIn = document.querySelector("#time-in").value; // string
-				let timeOut = document.querySelector("#time-out").value; // string
-				let timeBreak = (Math.round((document.querySelector("#break-time").value * 1 / 60) / 0.25) * 0.25).toFixed(2);
-				let timeInHrs = parseInt(timeIn.slice(0, 2));
-				let timeInMins = Math.round(parseInt(timeIn.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-				let timeOutHrs = parseInt(timeOut.slice(0, 2));
-				let timeOutMins = Math.round(parseInt(timeOut.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-				let timeInDate = new Date(this.logDate.date).setHours(timeInHrs, timeInMins);
-				let timeOutDate = new Date(this.logDate.date).setHours(timeOutHrs, timeOutMins);
+				const timeIn = document.querySelector("#time-in").value; // string
+				const timeOut = document.querySelector("#time-out").value; // string
+				const timeBreak = (Math.round((document.querySelector("#break-time").value * 1 / 60) / 0.25) * 0.25).toFixed(2);
+				const timeInHrs = parseInt(timeIn.slice(0, 2));
+				const timeInMins = Math.round(parseInt(timeIn.slice(3)) / 15) * 15; // round to nearest 1/4 hour
+				const timeOutHrs = parseInt(timeOut.slice(0, 2));
+				const timeOutMins = Math.round(parseInt(timeOut.slice(3)) / 15) * 15; // round to nearest 1/4 hour
+				const timeInDate = new Date(this.logDate.date).setHours(timeInHrs, timeInMins);
+				const timeOutDate = new Date(this.logDate.date).setHours(timeOutHrs, timeOutMins);
 				let totalHours = ((timeOutDate - timeInDate) / 3600000);
             // post-midnight timeOut doesn't increment date, ergo:
 				totalHours < 0 ? totalHours += 24 : totalHours;

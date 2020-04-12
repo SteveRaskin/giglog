@@ -1,25 +1,12 @@
 <template>
 	<div class="subheader">
 
-		<!-- <div class="headings"> -->
-		<!-- <h1 v-html="title"></h1> -->
-		<h1>{{ viewName }}</h1>
-			<!--
-				<h2 v-html="subtitle"></h2>
-				<h3>viewID: {{ viewID }}</h3>
-				<h3>ping: {{ ping }}</h3>
-	 		-->
+		<!-- <h1>{{ viewName }}</h1> -->
+		<h1>{{ title }}</h1>
+		<!-- <h1>subtitle: {{ subtitle }}</h1> -->
 
-			<!--
-			<app-search />:
-				.search-wrapper
-					+ .search
-					+ .search-results-wrapper [ can't make this 100% width ]
-			-->
-			<app-search v-bind:projects="projects" v-if="(viewName == 'projects' || viewName == 'ping')" ></app-search>
+		<app-search v-bind:projects="projects" v-if="(viewName == 'projects.vue' || viewName == 'ping')" />
 
-
-		<!-- </div><!ZZZ END .headings ZZZ -->
 	</div><!-- END .subheader -->
 </template>
 
@@ -30,37 +17,48 @@
 	// import searchMixin  from '../mixins/searchMixin.js';
 	import Search from '@/components/search.vue';
 
-
    export default {
 		components: {
 			'app-search': Search
 		},
-		// projects.vue data:
-		props: [ "viewName", "title", "subtitle", "projects" ],
+		props: {
+			viewName: String,
+			title: String,
+			subtitle: String,
+			projects: Array
+		},
       data() {
          return {
 				search: "",
          }
     	},
-
 		created: function() {
-			// console.log("created; log projects", this.projects);
-			// console.log("viewID in subheader @created:", this.viewID); // "projects"
-			console.log("subheader.vue > created: this.ping", this.viewName);
+			// console.log("subheader.vue > created: projects.length", this.projects.length);
+			// console.log("subheader.vue @created: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
 		},
+
 		beforeMount: function() {
+		},
+
+		mounted: function() {
+			// console.log("subheader.vue > mounted: projects.length", this.projects.length);
+			// console.log("subheader.vue @mounted: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
 		},
 
 		methods: {},
 		// mixins: [ searchMixin ],
+
 		computed: {
 			searchResultsLength: function() {
 				// eslint bitched about 'let filteredProjects ... '
-				const filteredProjects = [];
-				console.log("filteredProjects.length", filteredProjects.length);
+				let filteredProjects = [];
+				// console.log("filteredProjects.length", filteredProjects.length);
 				return filteredProjects.length;
 			}
-		}
+		} // computed
+
+
+
    }
 </script>
 
@@ -68,7 +66,7 @@
 
 <style scoped>
 
-	.subheader { min-height: 3rem; border: 2px solid lime; }
+	.subheader { }
 	#projects .subheader h2,
 	#project-detail .subheader h2 { display: none; }
 

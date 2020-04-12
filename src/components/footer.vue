@@ -1,17 +1,8 @@
 <template>
-	<footer>
+	<footer class="footer">
 
-		<div class="wtf" style="border: 3px solid blue;">
-			<p>Footer.vue</p>
-		</div>
-
-		<!-- <nav>
-			<ul v-if="loggedIn">
-				<li><router-link to="/projects" exact>all projects</router-link></li>
-				<li><router-link to="/add-project" exact>add project</router-link></li>
-				<li><a class="btn logout" href="/" v-on:click="signOut">log out</a></li>
-			</ul>
-		</nav> -->
+		<p>Footer.vue</p>
+		<button class="btn debug" @click="test">log route</button>
 
 	</footer>
 </template>
@@ -21,7 +12,8 @@
 
 <script>
 
-	import firebase from 'firebase';
+	import debugRoute from '@/mixins/debug_route.js';
+
 
    export default {
 		props: {
@@ -35,23 +27,10 @@
          }
     	},
 		created: function() {
-			console.log("footer.vue @created");
-			var _this = this;
-			firebase.auth().onAuthStateChanged(function(user) {
-				if (user) {
-					_this.loggedIn = true;
-				} else {
-					_this.loggedIn = false;
-				}
-			});
+			// console.log("footer.vue @created");
 		},
-		methods: {
-			signOut: function() {
-				firebase.auth().signOut().then(() => {
-					this.$router.replace('LogIn')
-				})
-			}
-		}
+		methods: {},
+		mixins: [debugRoute]
    }
 </script>
 
@@ -59,7 +38,17 @@
 
 <style lang="scss">
 
-	.dev { display: none; clear: both; width: 100%; font-size: 12px; }
+	.footer {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+		align-content: center;
+		align-items: center;
+		margin-top: auto;
+		padding: 0 6%;
+		background: transparent;
+		border: 1px solid lime;
+	}
 
 </style>
 

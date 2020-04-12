@@ -2,8 +2,6 @@
 
    <div class="container" v-bind:id="viewName">
 
-		<button class="btn debug" @click="test">TEST</button>
-
 		<app-subheader v-bind:viewName="viewName" v-bind:title="title" v-bind:subtitle="subtitle" v-bind:projects="projects" />
 
 		<ol class="projects">
@@ -52,21 +50,24 @@
 	// import firebase from 'firebase';
 
    export default {
-		props: [ ],
+		props: {},
       components: {},
       data() {
-			// data => subheader.vue props
+			/*
+				a component's return data are values used in its template,
+				including as PROPS of a component used in its template;
+				in projects.vue, e.g., the projects array is iterated in the template
+				*and* passed as a prop to the <sub-header /> component, ergo in subheader.vue
+				props include 'projects'
+			*/
          return {
-				viewName: "projects",
-				title: "Projectz",
-				subtitle: "I'm the subtitle",
+				viewName: "projects.vue",
+				title: "All Projects",
+				subtitle: "subtitle",
             projects: []
          }
       }, // data
       methods: {
-			test: function() {
-				console.log("this.$route:", this.$route)
-			}
       }, // methods
       created: function() {
 			// console.log("projects @created");
@@ -74,7 +75,7 @@
          .then(function(data){
             return data.json();
          }).then(function(data){
-				var projectsArray = [];
+				let projectsArray = [];
             // add key to each object (see also project-edit.vue)
 				// p.s. eslint bitched about for(let key ...
             for (const key in data) {
@@ -83,12 +84,14 @@
                projectsArray.push(data[key]);
                // console.log(data[key]);
             }
-				// console.log("viewID in Projects @created:", this.viewID);
 				// console.log("firebase.auth().currentUser @created:", firebase.auth().currentUser);
-				// console.log("projectsArray", projectsArray);
+				// console.log("projects @created: projectsArray", projectsArray);
+				// console.log("projects.vue @created: Array.isArray(projectsArray)?", Array.isArray(projectsArray), projectsArray);
             this.projects = projectsArray;
+				// console.log("projects.vue @created: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
          })
       }, // created
+
 		beforeMount: function() {},
 
       computed: {
@@ -96,8 +99,10 @@
 				return this.projects.slice().reverse();
 			},
       },
+
       directives: {
       },
+
       filters: {
          makeSnippet(value) {
             return value.slice(0, 39) + " ...";
@@ -109,8 +114,6 @@
 
 
 <style scoped>
-
-	.btn.debug { width: 9rem; margin-bottom: 1.5rem; }
 
 </style>
 

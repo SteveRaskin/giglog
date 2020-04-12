@@ -36,14 +36,21 @@
 	import searchMixin from '../mixins/searchMixin.js';
 
    export default {
-		props: [ "projects" ],
+		props: {
+			projects: Array
+		},
       data() {
          return {
 				search: ""
          }
     	},
 		created: function() {
-			console.log("search.vue @created");
+			// console.log("search.vue @created: this.projects.length", this.projects.length);
+			// console.log("search.vue @created: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
+		},
+		mounted: function() {
+			// console.log("search.vue @mounted: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
+			// console.log("search.vue @updated: this.projects.length", this.projects.length);
 		},
 		mixins: [ searchMixin ],
    }
@@ -54,7 +61,7 @@
 <style lang="scss">
 
 	#projects .subheader h2,
-	#project-detail .subheader h2 { display: none; }
+	#project-detail .subheader h2 { display: none; color: red; }
 
    .results-count { display: block; margin-bottom: .9rem; }
    .search-results li {

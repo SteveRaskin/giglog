@@ -9,17 +9,11 @@ import store from './store'
 
 import Header from './components/header.vue';
 import Subheader from './components/subheader.vue';
-// import Search from '@/components/search.vue';
 import Buttons from './components/buttons.vue';
 import Footer from './components/footer.vue';
 
-
-// import firebaseConfig from './router/firebaseConfig.js';
 import firebaseConfig from '@/router/firebaseConfig.js';
-console.log("fb config", firebaseConfig);
-
 var config = firebaseConfig.config;
-
 firebase.initializeApp(config);
 
 Vue.use(VueResource);
@@ -27,7 +21,6 @@ Vue.use(VueResource);
 // REGISTER GLOBAL COMPONENTS
 Vue.component('app-header', Header);
 Vue.component('app-subheader', Subheader);
-// Vue.component('app-search', Search);
 Vue.component('app-buttons', Buttons);
 Vue.component('app-footer', Footer);
 

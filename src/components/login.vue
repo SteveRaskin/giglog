@@ -68,23 +68,28 @@
 				errorMsg: ""
 			}
 		},
-      props: [ "" ],
+
+      props: {
+		},
+
       components: {
       },
 
       created: function() {
 			console.log('login.vue @created');
-			// let emailInput = document.querySelector("#email");
-			// emailInput.focus();
       },
-
+		mounted: function() {
+			let emailInput = document.querySelector("#email");
+			emailInput.focus();
+		},
       methods: {
 			logIn: function() {
-				let emailInput = document.querySelector("#email");
+				const emailInput = document.querySelector("#email");
 				firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
 					// arrow function non-optional re: this.$router
 					(user) => {
-						alert("u b logged in!");
+						const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
+						alert("welcome to giglog, " + userFirstName);
 						this.$router.replace('Projects')
 					},
 					(err) => {
@@ -98,14 +103,7 @@
 			}, // logIn
       },
 		watch: {
-			// wtf: function(){
-			// 	this.$watch('name', function (){
-			// 		console.log('name changed');
-			// 	})
-			// }
 		},
-
-
 
    } // export default
 </script>
@@ -166,39 +164,6 @@
 	}
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

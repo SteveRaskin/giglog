@@ -152,6 +152,7 @@ v-model will ignore the initial value, checked or selected attributes found on a
    export default {
       components: {
       },
+
       data () {
          return {
             project: {

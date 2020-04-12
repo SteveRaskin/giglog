@@ -2,11 +2,9 @@
    <!-- custom directive with optional argument (corresponds to binding.arg in the directive instance) -->
 
 	<div class="container" id="project-detail">
-		<button class="debug" @click="test">TEST</button>
 
 		<!-- bindings per props in subheader.vue -->
-		<app-subheader v-bind:title="title" v-bind:subtitle="subtitle" />
-
+		<app-subheader v-bind:viewName="viewName" v-bind:title="title" v-bind:subtitle="subtitle" />
 
 		<!-- ======================== CLIENT DATA ======================== -->
       <section class="client-data">
@@ -55,6 +53,7 @@
       </section><!-- END .contacts -->
 
 
+		<!-- TODO: confirm this is redundant and remove -->
 		<div class="project-metadata">
 	      <!-- <input type="text" v-model="search" placeholder="search blog" /> -->
 			<p>
@@ -123,7 +122,8 @@
       },
       data () {
          return {
-				title: "<span style='font-weight: 500;'>Project Details</span>",
+				viewName: "Project Detail",
+				title: "Project Detail",
 				subtitle: "subtitle",
 				id: this.$route.params.id,
 				project: {},
@@ -131,23 +131,17 @@
 				projectID: ""
          }
       }, // data
+
       methods: {
-			test: function() {
-				console.log("this.$route.params:", this.$route.params)
-			}
-
-
-
-
       }, // methods
+
       created: function() {
 			this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
          .then(function(data) {
             return data.json();
          }).then(function(data) {
 				this.project = data;
-				console.log(data);
-				console.log(this.project);
+				// console.log("project-detail.vue > created: data", data);
 			})
       }, // created
       computed: {
@@ -156,14 +150,13 @@
       }, // directives
       filters: {
       }, // filters
-      // mixins: [ searchMixin ]
+      // mixins: [ debugRoute ]
    } // export default
 </script>
 
 
 <style scoped>
 
-	.debug { display: none; }
 	#project-detail .main .subheader h2 { display: none; }
 
 	section  {
@@ -194,5 +187,7 @@
 
 	ul.contacts { margin: 0; padding: 0; }
 
+	/* TODO: confirm this is redundant and remove */
+	.project-metadata { display: none; }
 
 </style>
