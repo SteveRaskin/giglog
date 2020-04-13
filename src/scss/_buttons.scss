@@ -17,7 +17,7 @@ button,
 a.button,
 input[type="text"],
 textarea {
-   font-size: .99rem; /* not inherited */
+   font-size: 1.2rem; /* not inherited */
    border-radius: 3px;
 }
 
@@ -25,7 +25,8 @@ button,
 a.button	{
 	display: inline-block;
 	min-width: 8.4rem;
-	padding: .3rem .9rem;
+	padding: .45rem 1.8rem;
+	font-weight: 500;
 	text-align: center;
 	word-spacing: .3rem;
 	transition: .15s ease-in-out;

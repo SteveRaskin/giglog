@@ -2,8 +2,8 @@
 
    <div class="container" id="project-edit">
 
-		<h1 v-html="title"></h1>
-		<h2 v-html="subtitle"></h2>
+		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
+
       <!--
          about the mode switching:
          1. default view (i.e., editMode FALSE) displays dl (static data) + buttons, undisplays fieldset;
@@ -311,9 +311,10 @@
       },
       data () {
          return {
-            id: this.$route.params.id,
-            title: "<span style='color: darkgreen; font-weight: 500;'>Edit Project</span>",
-            subtitle: "ID: " + this.$route.params.id,
+				id: this.$route.params.id,
+				viewName: "Edit Project",
+				fileName: "project-edit.vue",
+				subtitle: "ID: " + this.$route.params.id + ", (hours.json)",
 				project: {},
             contactInfo: {},
             workLocation: true,
@@ -441,6 +442,8 @@
 <style scoped>
 
    /* @import url('/static/giglog.css'); */
+	h1 { margin-bottom: 1.5rem; }
+	h1 .project-id { font-size: 1.2rem; color: #999; }
 
    section {
       display: flex;

@@ -1,13 +1,14 @@
 <template>
+
 	<div class="subheader">
 
-		<!-- <h1>{{ viewName }}</h1> -->
-		<h1>{{ title }}</h1>
-		<!-- <h1>subtitle: {{ subtitle }}</h1> -->
+		<h1>{{ viewName }} <span>({{ fileName }})</span></h1>
 
-		<app-search v-bind:projects="projects" v-if="(viewName == 'projects.vue' || viewName == 'ping')" />
+		<!-- <app-search v-bind:projects="projects" v-if="(viewName == 'All Projects' || viewName == 'ping')" /> -->
+		<app-search v-bind:projects="projects" v-if="(fileName == 'projects.vue' || viewName == 'ping')" />
 
 	</div><!-- END .subheader -->
+
 </template>
 
 
@@ -23,8 +24,7 @@
 		},
 		props: {
 			viewName: String,
-			title: String,
-			subtitle: String,
+			fileName: String,
 			projects: Array
 		},
       data() {
@@ -65,6 +65,9 @@
 
 
 <style scoped>
+
+	h1 { margin-bottom: 1.5rem; }
+	h1 span { font-size: .6em; }
 
 	.subheader { }
 	#projects .subheader h2,

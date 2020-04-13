@@ -1,10 +1,12 @@
 <template>
+
 	<footer class="footer">
 
 		<p>Footer.vue</p>
 		<button class="btn debug" @click="test">log route</button>
 
 	</footer>
+
 </template>
 
 
@@ -14,10 +16,9 @@
 
 	import debugRoute from '@/mixins/debug_route.js';
 
-
    export default {
-		props: {
-		},
+		props: {},
+
       data() {
 			return {
 				title: "",
@@ -26,11 +27,15 @@
 				loggedIn: false
          }
     	},
+
 		created: function() {
 			// console.log("footer.vue @created");
 		},
+
 		methods: {},
+
 		mixins: [debugRoute]
+
    }
 </script>
 
@@ -51,22 +56,3 @@
 	}
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  -->

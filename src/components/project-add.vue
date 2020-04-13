@@ -2,7 +2,7 @@
 
    <div class="container" id="project-add">
 
-		<h1>Add a Project</h1>
+		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
       <form v-if="!submitted">
 
@@ -155,6 +155,8 @@ v-model will ignore the initial value, checked or selected attributes found on a
 
       data () {
          return {
+				viewName: "Add a Project",
+				fileName: "project-add.vue",
             project: {
                client: "",
                projectReference: "",

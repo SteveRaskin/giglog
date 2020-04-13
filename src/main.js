@@ -37,7 +37,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 			store: store,
 			components: {
 				App,
-				// 'app-subheader': Subheader
 			},
 			data: {},
 			template: '<App/>',
@@ -47,7 +46,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 router.beforeEach((to, from, next) => {
-	// eslint: DNU 'let'
 	const currentUser = firebase.auth().currentUser;
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	// if (from.name == 'SignUp' && currentUser ) next ('LogIn')

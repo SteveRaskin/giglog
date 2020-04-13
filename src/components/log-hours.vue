@@ -2,17 +2,12 @@
 
    <div class="container" id="log-hours">
 
-
-		<h1 v-html="title"></h1>
-      <h2 v-html="subtitle"></h2>
-
+		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
       <h3 class="client"><strong>{{ project.client }}</strong></h3>
 
 		<form v-if="!submitted">
 
-			<!-- ============ DATE ============ -->
-			<!-- ============ DATE ============ -->
 			<!-- ============ DATE ============ -->
 			<div class="date-group">
 				<div class="label-input date">
@@ -23,13 +18,10 @@
 
 
 			<!-- ============ HOURS ============ -->
-			<!-- ============ HOURS ============ -->
-			<!-- ============ HOURS ============ -->
 			<div class="hours-group">
 				<!--
 					The value of the time input is always in 24-hour format: "HH:mm", "HH:mm:ss"; HH is 00-23, mm & ss are 00-59;
-					"v-model when you can, v-bind when you must"
-					since both worked to set default values for timeIn, timeOut
+					"v-model when you can, v-bind when you must" (both ok re: default values for timeIn, timeOut)
 				-->
 	         <div class="label-input time">
 	            <label for="">time in</label>
@@ -100,7 +92,8 @@
       data () {
          return {
             id: this.$route.params.id,
-            title: "<span style='color: darkgreen; font-weight: 500;'>log hours</span>",
+				viewName: "Log Hours",
+				fileName: "log-hours.vue",
             subtitle: "ID: " + this.$route.params.id + ", (hours.json)",
             project: {},
             logDate: {
@@ -165,12 +158,14 @@
 
    /* @import url('/static/giglog.css'); */
 
+	h1 { margin-bottom: 1.5rem; }
+	h1 .project-id { font-size: 1.2rem; color: #999; }
+
    h3.client {
       display: inline-block;
-      /* width: auto; */
-      margin: 0 auto 3rem;
+      width: auto;
+      margin-bottom: 3rem;
       color: darkgreen;
-      text-align: center;
       text-transform: uppercase;
       border-bottom: 3px double darkgreen;
    }
@@ -230,44 +225,3 @@
 
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  -->

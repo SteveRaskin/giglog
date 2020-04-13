@@ -3,8 +3,7 @@
 
 	<div class="container" id="project-detail">
 
-		<!-- bindings per props in subheader.vue -->
-		<app-subheader v-bind:viewName="viewName" v-bind:title="title" v-bind:subtitle="subtitle" />
+		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
 		<!-- ======================== CLIENT DATA ======================== -->
       <section class="client-data">
@@ -123,8 +122,7 @@
       data () {
          return {
 				viewName: "Project Detail",
-				title: "Project Detail",
-				subtitle: "subtitle",
+				fileName: "project-detail.vue",
 				id: this.$route.params.id,
 				project: {},
             search: "",

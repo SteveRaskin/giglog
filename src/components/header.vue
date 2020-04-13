@@ -1,4 +1,5 @@
 <template>
+
 	<header>
 
 		<!-- <img class="logo" src="../assets/logo.png" /> -->
@@ -11,11 +12,9 @@
 			</ul>
 		</nav>
 
-		<p class="dev">{{ debugMsg }}</p>
-
 	</header>
-</template>
 
+</template>
 
 
 
@@ -24,16 +23,16 @@
 	import firebase from 'firebase';
 
    export default {
-		props: {
-		},
+		props: {},
+
       data() {
          return {
 				title: "",
 				subtitle: "",
-				debugMsg: "header.vue",
 				loggedIn: false
          }
     	},
+
 		created: function() {
 			// console.log("header.vue @created");
 			var _this = this;
@@ -45,13 +44,15 @@
 				}
 			});
 		},
+
 		methods: {
 			signOut: function() {
 				firebase.auth().signOut().then(() => {
 					this.$router.replace('LogIn')
 				})
 			}
-		}
+		} // methods
+
    }
 </script>
 
@@ -59,25 +60,4 @@
 
 <style lang="scss">
 
-	.dev { display: none; clear: both; width: 100%; font-size: 12px; }
-
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  -->
