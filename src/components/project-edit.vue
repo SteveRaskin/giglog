@@ -25,7 +25,7 @@
             </dd>
          </dl>
          <div class="buttons">
-            <button class="btn edit-link" id="edit-client" v-on:click="editMode">edit</button>
+            <button class="btn btn-edit" id="edit-client" v-on:click="editMode">edit</button>
          </div>
 
          <div class="fieldset-wrapper">
@@ -58,7 +58,7 @@
                   </div>
                </div>
                <div class="buttons">
-                  <button class="btn cancel" v-on:click="exitEditMode">cancel</button>
+                  <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
                   <button class="btn save" v-on:click="post">save changes</button>
                </div>
             </fieldset>
@@ -81,7 +81,7 @@
             </dd>
          </dl>
          <div class="buttons">
-            <button class="btn edit-link" id="edit-gig" v-if=!isEditingGig v-on:click="editMode">edit</button>
+            <button class="btn btn-edit" id="edit-gig" v-if=!isEditingGig v-on:click="editMode">edit</button>
          </div>
 
          <div class="fieldset-wrapper">
@@ -123,7 +123,7 @@
                   </div>
                </fieldset><!-- END .radios -->
                <div class="buttons">
-                  <button class="btn cancel" v-on:click="exitEditMode">cancel</button>
+                  <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
                   <button class="btn save" v-on:click="post">save changes</button>
                </div>
             </fieldset>
@@ -150,7 +150,7 @@
                            phone: <span class="contact-phone">{{ contact.phone }}</span>
 
                            <div class="buttons">
-                              <button class="btn edit-link" :key="ix" v-on:click="editContact(ix)">edit</button>
+                              <button class="btn btn-edit" :key="ix" v-on:click="editContact(ix)">edit</button>
                            </div>
                         </div><!-- END .contact-data -->
 
@@ -182,7 +182,7 @@
 											<!-- ======================== 'CANCEL'/'SAVE CHANGES'/'DELETE CONTACT' BUTTONS ======================== -->
 
 
-											<button class="btn cancel" v-on:click="exitEditMode">cancel</button>
+											<button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
 											<button class="btn delete-contact" v-on:click="deleteContact">delete contact</button>
                                  <button class="btn save" v-on:click="post">save changes</button>
                               </div><!-- END .buttons -->
@@ -199,7 +199,7 @@
 			<!-- ==================================== 'ADD CONTACT' BUTTON ==================================== -->
          <div class="add-contact-wrapper" v-bind:class="{ editMode: addingContact }">
             <div class="buttons">
-               <button class="btn edit-link new-contact" v-on:click="addContact">+ add contact</button>
+               <button class="btn btn-edit new-contact" v-on:click="addContact">+ add contact</button>
             </div><!-- END .buttons -->
 
             <div class="fieldset-wrapper">
@@ -222,7 +222,7 @@
                      <input type="text" v-model.lazy="newContact.phone" required />
                   </div>
                   <div class="buttons">
-                     <button class="btn cancel" v-on:click="exitEditMode">cancel</button>
+                     <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
                      <button class="btn save" v-on:click.prevent="saveNewContact">save new contact</button>
                   </div><!-- END .buttons -->
                </fieldset>
@@ -452,19 +452,17 @@
       margin-bottom: 3rem;
 		padding-bottom: 1.5rem;
 		padding: 1.8rem;
-		background: #fff;
-		border: 2px solid transparent;
+		background: #f9f9f9;
+		border: 1px solid transparent;
 		border-radius: 6px;
 		transition: .21s all ease-in-out;
    }
 	section:hover,
 	section.editMode {
-		background: #eee;
-		border: 2px solid #c3c3c3;
-		box-shadow: .6rem .6rem .6rem #ccc;
+		background: #f0f0f0;
+		border: 1px solid #eee;
+		box-shadow: .9rem .9rem .9rem #ccc;
 	}
-
-
 
 
    dl { display: flex; width: 100%; justify-content: flex-start; flex-flow: row wrap; }
@@ -487,7 +485,7 @@
 		font-size: 1.35rem;
       text-transform: uppercase;
    }
-   dd {}
+   dd { width: 100%; border: 1px dotted gold; }
 
    /* nested def list is child of dd (gig data section) */
    dd dl {}
@@ -537,14 +535,24 @@
    li.editMode .contact-data { max-height: 0; }
    li.editMode .fieldset-wrapper { max-height: 100vh; }
 
-   .edit-link {
-      min-width: 0;
-      padding: 0;
+
+	.buttons {
+		display: flex;
+		width: 100%;
+		flex-flow: row wrap;
+		justify-content: flex-end;
+		border: 1px dotted black;
+	}
+	.buttons .button {
+		border: 1px dotted red;
+	}
+   .btn-edit {
+      /* padding: 0; */
       color: dodgerblue;
       background: transparent;
-      font-weight: bold;
+      /* font-weight: bold; */
       text-transform: uppercase;
-      border: 0;
+      /* border: 0; */
       box-shadow: none;
       word-spacing: 0;
    }
@@ -562,41 +570,3 @@
 
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  -->

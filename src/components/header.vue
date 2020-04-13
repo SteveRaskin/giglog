@@ -3,7 +3,7 @@
 	<header>
 
 		<!-- <img class="logo" src="../assets/logo.png" /> -->
-		<h1><router-link to="/" exact>gig log</router-link></h1>
+		<h1><router-link to="/" exact>gigz</router-link></h1>
 		<nav>
 			<ul v-if="loggedIn">
 				<li><router-link to="/projects" exact>all projects</router-link></li>
