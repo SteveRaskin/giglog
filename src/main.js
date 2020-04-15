@@ -1,15 +1,17 @@
+// ~ entry point? ~ResourceLoader.java ?
 import Vue from 'vue'
 import App from './App.vue'
 import VueResource from 'vue-resource';
 import firebase from 'firebase';
 
-import './scss/app.scss'
+// import './scss/app.scss'
 import router from './router/routes.js'
 import store from './store'
 
 import Header from './components/header.vue';
 import Subheader from './components/subheader.vue';
 import Buttons from './components/buttons.vue';
+import Button from './components/button.vue';
 import Footer from './components/footer.vue';
 
 import firebaseConfig from '@/router/firebaseConfig.js';
@@ -22,6 +24,7 @@ Vue.use(VueResource);
 Vue.component('app-header', Header);
 Vue.component('app-subheader', Subheader);
 Vue.component('app-buttons', Buttons);
+Vue.component('app-button', Button);
 Vue.component('app-footer', Footer);
 
 

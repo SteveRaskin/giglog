@@ -5,25 +5,60 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
-		<!-- ======================== CLIENT DATA ======================== -->
+		<!-- ======================== CLIENT INFO ======================== -->
       <section class="client-data">
          <dl>
+				<!--
+					TODO: remove this, whether as a heading or <dt>
+					do sections need a heading or parent <dt>?
+					'Contacts' as a section heading makes sense, but preceding other project info not so much
+						- and maybe right-aligned and all caps?
+				-->
             <dt>client:</dt>
             <dd>
+					<!-- TODO: go ahead, you know you want to: change this stuff to a nested <dl> -->
                <p><strong>{{ project.client }}</strong></p>
-               <p>{{ project.address }} {{ project.city }} {{ project.state }} {{ project.zip }}</p>
+               <p class="address">
+						{{ project.address }}
+						<br />
+						{{ project.city }} {{ project.state }} {{ project.zip }}
+					</p>
+					<!-- TODO: spend a million hours converting .label + .value to <dt> & <dd> -->
+					<p>
+						<span class="label">ID:</span>
+						<span class="value"> {{ this.id }}</span>
+					</p>
             </dd>
          </dl>
 		</section><!-- END .client-data -->
 
-		<!-- ======================== GIG DATA ======================== -->
+		<!-- ======================== GIG INFO ======================== -->
       <section class="gig-data">
          <dl>
+				<!--
+					TODO: remove this, whether as a heading or <dt>
+					do sections need a heading or parent <dt>?
+				-->
             <dt>gig data:</dt>
             <dd>
                <dl>
+						<p>
+							<span class="label">work location:</span>
+							<span class="value">{{ project.workLocation }}</span>
+						</p>
                   <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
-                  <dt>description:</dt> <dd>{{ project.description }}</dd>
+                  <dt>task:</dt> <dd>{{ project.description }}</dd>
+						<p id="projectReference">
+							<span class="label">source:</span>
+							<span class="value">{{ project.source }}</span>
+						</p>
+						<p>
+							<span class="label">project:</span>
+							<span class="value">{{ project.projectReference }}</span>
+						</p>
+						<p><span class="label">description:</span> <span class="value">{{ project.description }}</span></p>
+						<p><span class="label">start date:</span> <span class="value">{{ project.startDate }}</span></p>
+
                   <dt>source:</dt> <dd>{{ project.source }}</dd>
                   <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
@@ -51,65 +86,12 @@
          </dl>
       </section><!-- END .contacts -->
 
+		<div class="buttons">
+			<app-button buttonClass="btn-edit" buttonText="edit project" path="project-edit" v-bind:id="id" />
+			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
+			<app-button buttonClass="btn-all-projects" buttonText="all projects" path="projects" />
+		</div>
 
-		<!-- TODO: confirm this is redundant and remove -->
-		<div class="project-metadata">
-	      <!-- <input type="text" v-model="search" placeholder="search blog" /> -->
-			<p>
-				<span class="label">ID:</span>
-				<span class="value">{{ this.id }}</span>
-			</p>
-			<p>
-				<span class="label">client:</span>
-				<span class="value">{{ project.client }}</span>
-			</p>
-			<p id="address">
-				<span class="label">address:</span>
-				<span class="value">{{ project.address }}</span>
-				<span class="value">{{ project.city }}</span>
-				<span class="value">{{ project.state }}</span>
-				<span class="value">{{ project.zip }}</span>
-			</p>
-			<p>
-				<span class="label">work location:</span>
-				<span class="value">{{ project.workLocation }}</span>
-			</p>
-			<p id="projectReference">
-				<span class="label">source:</span>
-				<span class="value">{{ project.source }}</span>
-			</p>
-
-			<p>
-				<span class="label">project:</span>
-				<span class="value">{{ project.projectReference }}</span>
-			</p>
-			<p><span class="label">description:</span> <span class="value">{{ project.description }}</span></p>
-			<p><span class="label">start date:</span> <span class="value">{{ project.startDate }}</span></p>
-		</div><!-- END .project-metadata -->
-
-		<div class="contacts-wrapper">
-			<p><span class="label">all contacts:</span>
-				<ul class="contacts">
-					<li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
-						<p>
-							<span class="strongest">{{ contact.name }}</span>
-						</p>
-						<p>
-							<span class="stronger">{{ contact.title }}</span>
-						</p>
-						<p>{{ contact.email }}</p>
-						<p>{{ contact.phone }}</p>
-					</li>
-				</ul>
-			</p>
-		</div><!-- END .contacts-wrapper -->
-
-		<app-buttons v-bind:projectID="id"></app-buttons>
-
-   	<!--
-			don't need filter but maybe by default highlight most recent? => trivial via CSS
-			- search function for sure
-		-->
    </div><!-- END .container -->
 </template>
 
@@ -186,6 +168,6 @@
 	ul.contacts { margin: 0; padding: 0; }
 
 	/* TODO: confirm this is redundant and remove */
-	.project-metadata { display: none; }
+	/* .project-metadata { display: none; } */
 
 </style>

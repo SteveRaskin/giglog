@@ -32,11 +32,11 @@
             <fieldset>
                <legend>editing client data</legend>
                <div class="label-input text">
-                  <label for="">client/company name</label>
+                  <label for="">company name</label>
                   <input type="text" v-model.lazy="project.client" />
                </div>
                <div class="label-input text">
-                  <label for="">project reference (website)</label>
+                  <label for="">company website</label>
                   <input type="text" v-model.lazy="project.projectReference" />
                </div>
                <div class="label-input text">
@@ -59,7 +59,7 @@
                </div>
                <div class="buttons">
                   <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                  <button class="btn save" v-on:click="post">save changes</button>
+                  <button class="btn btn-save" v-on:click="post">save changes</button>
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -122,9 +122,14 @@
                      <input type="text" v-model.lazy="project.workLocation" />
                   </div>
                </fieldset><!-- END .radios -->
+					<div class="label-input text">
+						<label for="">start date (TODO: datepicker)</label>
+						<input type="text" v-model.lazy="project.startDate" required />
+					</div>
+
                <div class="buttons">
                   <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                  <button class="btn save" v-on:click="post">save changes</button>
+                  <button class="btn btn-save" v-on:click="post">save changes</button>
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -144,7 +149,7 @@
                      <li v-bind:key="ix" v-bind:class="{ editMode: ix == contactIx }">
 
                         <div class="contact-data">
-                           {{ ix }}. <span class="contact-name">{{ contact.name }}</span><br />
+                           {{ ix + 1 }}. <span class="contact-name">{{ contact.name }}</span><br />
                            <span class="contact-title">{{ contact.title }}</span><br />
                            email: <span class="contact-email">{{ contact.email }}</span><br />
                            phone: <span class="contact-phone">{{ contact.phone }}</span>
@@ -174,17 +179,12 @@
                                  <label for="">phone</label>
                                  <input type="text" v-model.lazy="contact.phone" required />
                               </div>
+
+										<!-- ========= BUTTONS: 'CANCEL', 'SAVE CHANGES', 'DELETE CONTACT' ========= -->
                               <div class="buttons">
-
-
-											<!-- ======================== 'CANCEL'/'SAVE CHANGES'/'DELETE CONTACT' BUTTONS ======================== -->
-											<!-- ======================== 'CANCEL'/'SAVE CHANGES'/'DELETE CONTACT' BUTTONS ======================== -->
-											<!-- ======================== 'CANCEL'/'SAVE CHANGES'/'DELETE CONTACT' BUTTONS ======================== -->
-
-
 											<button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-											<button class="btn delete-contact" v-on:click="deleteContact">delete contact</button>
-                                 <button class="btn save" v-on:click="post">save changes</button>
+											<button class="btn btn-delete-contact" v-on:click="deleteContact">delete contact</button>
+                                 <button class="btn btn-save" v-on:click="post">save changes</button>
                               </div><!-- END .buttons -->
                            </fieldset>
                         </div><!-- END .fieldset-wrapper -->
@@ -223,7 +223,7 @@
                   </div>
                   <div class="buttons">
                      <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                     <button class="btn save" v-on:click.prevent="saveNewContact">save new contact</button>
+                     <button class="btn btn-save" v-on:click.prevent="saveNewContact">save new contact</button>
                   </div><!-- END .buttons -->
                </fieldset>
 
@@ -231,17 +231,12 @@
          </div><!-- END .add-contact-wrapper -->
 
 
-
-
-
-
-
-
       </section><!-- END .contacts -->
 
          <!-- DATES & RATE -->
-         <!-- <div class="label-input text">
-            <label for="">start date (TO-DO: datepicker)</label>
+<!--
+			<div class="label-input text">
+            <label for="">start date (TODO: datepicker)</label>
             <input type="text" v-model.lazy="project.startDate" required />
          </div>
          <div class="label-input text">
@@ -251,50 +246,17 @@
 
          <div class="buttons">
             <button v-on:click.prevent="post">save project</button>
-         </div> -->
-
+         </div>
+ -->
          <form v-if="!submitted">
 
 		</form>
 
-
-
-<div class="preview">
-	<div class="">
-		name: <span>{{ newContact.name }}</span><br />
-		title: <span>{{ newContact.title }}</span><br />
-		email: <span>{{ newContact.email }}</span><br />
-		phone: <span>{{ newContact.phone }}</span>
-	</div>
-
-</div>
-
-
-      <!-- PREVIEW -->
-		<div id="preview">
-			<h3>Preview</h3>
-         <!--
-            <p><span class="label">source:</span> <span class="value">{{ project.source }}</span></p>
-         -->
-         <p><span class="label">client:</span> <span class="value">{{ project.client }}</span></p>
-         <p><span class="label">project:</span> <span class="value">{{ project.projectReference }}</span></p>
-         <p><span class="label">address:</span> <span class="value">{{ project.address }}</span></p>
-         <p><span class="label">work location:</span> <span class="value">{{ project.workLocation }}</span></p>
-         <p><span class="label">source:</span> <span class="value">{{ project.source }}</span></p>
-         <p><span class="label">description:</span> <span class="value">{{ project.description }}</span></p>
-         <p><span class="label">start date:</span> <span class="value">{{ project.startDate }}</span></p>
-         <ul class="contacts">
-            <li class="contact" v-for="(contact, ix) in project.contacts" v-bind:key="ix">
-               <h5>{{ ix + 1 }}.</h5> <strong>{{ contact.name }}</strong><br />
-               title: <span>{{ contact.title }}</span><br />
-               email: <span>{{ contact.email }}</span><br />
-               phone: <span>{{ contact.phone }}</span>
-            </li>
-         </ul>
-		</div><!-- END #preview -->
-
-      <app-buttons v-bind:projectID="id"></app-buttons>
-
+		<div class="buttons">
+			<app-button buttonClass="btn-details" buttonText="project details" path="project-detail" v-bind:id="id" />
+			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
+			<app-button buttonClass="btn-all-projects" buttonText="all projects" path="projects" />
+		</div>
 
    </div>
 </template>
@@ -481,7 +443,6 @@
       width: 100%;
       color: #000;
       font-weight: bold;
-		/* text-align: center; */
 		font-size: 1.35rem;
       text-transform: uppercase;
    }
@@ -508,7 +469,8 @@
    section .fieldset-wrapper { width: 100%; }
 
 	fieldset,
-	legend { color: #000; background: #fff; font-weight: bold; text-transform: uppercase; }
+	legend { color: #000; background: #fff; font-weight: bold; text-transform: capitalize; }
+	legend { text-transform: uppercase; }
 
    /* init view: show the static data + 'edit' buttons, and hide the fieldset-wrapper */
    section > dl,
@@ -562,7 +524,6 @@
    .add-contact-wrapper.editMode .fieldset-wrapper { max-height: 100vh; }
 
 
-   #preview { display: none; }
 
 
 

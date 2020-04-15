@@ -95,14 +95,14 @@ v-model will ignore the initial value, checked or selected attributes found on a
                   <input type="text" v-model.lazy="contactInfo.phone" required />
                </div>
                <div class="buttons">
-                  <button class="btn save" v-on:click.prevent="addContactInfo">add Contact</button>
+						<app-button buttonClass="btn-save" buttonText="add contact" v-on:click.native="addContactInfo" />
    				</div><!-- END .buttons -->
             </fieldset><!-- END .contacts -->
          </div><!-- END .contacts-wrapper -->
 
          <!-- DATES & RATE -->
          <div class="label-input text">
-            <label for="">start date (TO-DO: datepicker)</label>
+            <label for="">start date (TODO: datepicker)</label>
             <input type="text" v-model.lazy="project.startDate" required />
          </div>
          <div class="label-input text">
@@ -111,36 +111,9 @@ v-model will ignore the initial value, checked or selected attributes found on a
          </div>
 
          <div class="buttons">
-            <button class="btn save" v-on:click.prevent="post">save project</button>
+				<app-button buttonClass="btn-save" buttonText="save project" v-on:click.native="post" />
          </div><!-- END .buttons -->
 		</form>
-
-
-
-      <!-- PREVIEW -->
-		<div id="preview">
-			<h3>Preview</h3>
-<!--
-<p><span class="label">source:</span> <span class="value">{{ project.source }}</span></p>
--->
-         <p><span class="label">client:</span> <span class="value">{{ project.client }}</span></p>
-         <p><span class="label">project:</span> <span class="value">{{ project.projectReference }}</span></p>
-
-         <p><span class="label">address:</span> <span class="value">{{ project.address }}</span></p>
-         <p><span class="label">work location:</span> <span class="value">{{ project.workLocation }}</span></p>
-         <p><span class="label">source:</span> <span class="value">{{ project.source }}</span></p>
-         <p><span class="label">description:</span> <span class="value">{{ project.description }}</span></p>
-         <p><span class="label">start date:</span> <span class="value">{{ project.startDate }}</span></p>
-         <ul class="contacts">
-            <li class="contact" v-for="(contact, ix) in project.contacts" v-bind:key="ix">
-               <h5>{{ ix + 1 }}.</h5> <strong>{{ contact.name }}</strong><br />
-               title: <span>{{ contact.title }}</span><br />
-               email: <span>{{ contact.email }}</span><br />
-               phone: <span>{{ contact.phone }}</span>
-            </li>
-         </ul>
-		</div><!-- END #preview -->
-
 
    </div>
 </template>

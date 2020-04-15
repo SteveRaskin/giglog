@@ -22,6 +22,8 @@
 		components: {
 			'app-search': Search
 		},
+		// e.g., projects.vue:
+		// <app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" v-bind:projects="projects" />
 		props: {
 			viewName: String,
 			fileName: String,

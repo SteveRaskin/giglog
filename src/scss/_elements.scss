@@ -155,15 +155,14 @@ background: #f0f0f0;
 
 
 /* ============ FORM CONTROLS ============ */
-form, #preview { border: 1px dotted #f0f0f0; }
-#preview	{ padding: 0 1.5rem; }
+form{ border: 1px dotted #f0f0f0; }
 
 
 fieldset { margin-bottom: 1.5rem; padding: 1.5rem; border: 3px double #ccc; border-radius: .3rem; }
 fieldset legend { padding: .3rem .9rem; border: 1px solid #999; border-radius: .3rem; }
 
 .label	{ display: inline-block; color: #777; font-weight: bold; }
-.value	{ color: #222; font-weight: bold; }
+.value	{ color: #222; font-weight: 600; }
 
 .label-input { display: flex; flex-flow: row wrap; margin-bottom: 1.5rem; }
 
@@ -229,7 +228,7 @@ input[type="password"] { height: 2.1rem; padding: 0 .3rem; /* NG: vertical paddi
 ul.contacts { list-style-position: inside;/*?*/ padding-left: 1.5rem; }
 .contacts li { margin-bottom: 1.5rem; }
 
-#preview .contacts li   { padding-left: .9rem; }
+.preview .contacts li   { padding-left: .9rem; }
 
 .done { border: 1px solid red !important; }
 
@@ -239,7 +238,7 @@ ul.contacts { list-style-position: inside;/*?*/ padding-left: 1.5rem; }
 /* from project-add.vue */
 
 ul.contacts   { list-style-position: inside; margin-top: .9rem; }
-#preview .contacts li   { padding: 0 0 .9rem .9rem; margin-bottom: .9rem; border-bottom: 1px dotted #ccc; }
+.preview .contacts li   { padding: 0 0 .9rem .9rem; margin-bottom: .9rem; border-bottom: 1px dotted #ccc; }
 
 h5 {
 	display: inline-flex;

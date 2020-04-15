@@ -56,10 +56,9 @@
    			<textarea v-model.lazy="logDate.notes"></textarea>
          </div>
 
-
 			<div class="buttons">
-				<button class="btn save" v-on:click.prevent="post">log hours</button>
-			</div><!-- END .buttons -->
+				<app-button buttonClass="btn-save" buttonText="save" path="" v-on:click.native="post" />
+			</div>
 
 		</form>
 
@@ -68,7 +67,7 @@
 
 		</div>
 
-		<div id="preview">
+		<div class="preview">
 			<h3>preview</h3>
 			<p>logDate.date: <b>{{ logDate.date }}</b></p>
 			<p>logDate.timeIn: <b>{{ logDate.timeIn }}</b></p>
@@ -148,6 +147,9 @@
 				totalHours < 0 ? totalHours += 24 : totalHours;
 				totalHours = parseFloat((totalHours - timeBreak).toFixed(2));
 				this.logDate.totalHours = totalHours;
+			},
+			post: function() {
+				console.log("log-hours @post");
 			}
       } // methods
    }
@@ -221,7 +223,6 @@
 	.label-input + .buttons { width: 100%; }
 
 
-	#preview { margin-top: 3rem; padding: 0; }
 
 
 </style>

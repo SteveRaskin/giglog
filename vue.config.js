@@ -36,7 +36,9 @@ module.exports = {
 	css: {
 		loaderOptions: {
 			sass: {
-				prependData: `@import 'src/scss/app.scss';`
+				// Sarah Drasner
+				// prependData: `@import "@/styles/_variables.scss";`
+				prependData: `@import '@/scss/app.scss';`
 			}
 		}
 	},

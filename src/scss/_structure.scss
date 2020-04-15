@@ -2,14 +2,24 @@
 *:before,
 *:after { box-sizing: inherit; margin: 0; padding: 0; font-family: inherit; }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-weight: normal; line-height: 1.11; }
 
-h1, h2, h3, h4, h5, h6 { font-weight: normal; line-height: 1.11; }
-
-a:link, a:visited, a:hover, a:active { text-decoration: none; }
+a:link,
+a:visited,
+a:hover,
+a:active { text-decoration: none; }
 
 ul { list-style: none; }
 
-html { width: 100%; /* DNU vw on html or body */ box-sizing: border-box; }
+html {
+	width: 100%; /* DNU vw on html or body */
+	box-sizing: border-box;
+}
 
 body {
 	width: 100%; /* DNU vw on html or body */
@@ -18,7 +28,6 @@ body {
    color: $body-copy1;
    font-weight: 300;
    letter-spacing: $space/10;
-   // font-size: $basesize * 1.2;
    line-height: $lineheight;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -26,8 +35,13 @@ body {
 
 #app { font-size: 1.11rem; }
 
-#preview	{ order: 9; width: 100%; }
-// anything else in elements.scss re; preview?
+.preview	{
+	order: 9;
+	width: 100%;
+	margin-top: 3rem;
+	padding: 0 1.5rem;
+	border: 1px dotted #f0f0f0;
+}
 
 // DEFAULTS
 img { max-width: 100%; height: auto; }

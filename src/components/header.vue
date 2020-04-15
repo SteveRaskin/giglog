@@ -2,13 +2,16 @@
 
 	<header>
 
-		<!-- <img class="logo" src="../assets/logo.png" /> -->
-		<h1><router-link to="/" exact>gigz</router-link></h1>
+		<h1>
+			<!-- <router-link v-bind:to="'/projects'" exact>gigz</router-link> -->
+			<router-link :to="'/projects'" exact>gigz</router-link>
+
+		</h1>
 		<nav>
 			<ul v-if="loggedIn">
-				<li><router-link to="/projects" exact>all projects</router-link></li>
-				<li><router-link to="/add-project" exact>add project</router-link></li>
-				<li><a class="btn logout" href="/" v-on:click="signOut">log out</a></li>
+				<app-button buttonClass="btn-hdr" buttonText="all projects" path="projects" />
+				<app-button buttonClass="btn-hdr" buttonText="add project" path="add-project" />
+				<app-button buttonClass="btn-logout" buttonText="log out" v-on:click.native="signOut" />
 			</ul>
 		</nav>
 

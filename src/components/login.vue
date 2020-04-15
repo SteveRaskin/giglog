@@ -31,7 +31,7 @@
                </div>
 
 		         <div class="buttons">
-						<button class="btn log-in" id="log-in" v-on:click="logIn">log in</button>
+						<app-button buttonClass="btn-log-in" buttonText="log in" v-on:click.native="logIn" />
 		         </div><!-- END .buttons -->
 				</fieldset>
 

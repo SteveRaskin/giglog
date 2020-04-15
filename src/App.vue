@@ -39,8 +39,10 @@
 </script>
 
 
-
 <style lang="scss">
+
+	// @import '@/assets/css/app.css';
+
 	.component-fade-enter-active,
 	.component-fade-leave-active {
 		transition: opacity .45s ease;

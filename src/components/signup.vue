@@ -50,7 +50,7 @@
 					</div>
 
 					<div class="buttons">
-						<button class="btn sign up" id="sign up" v-on:click="signUp">sign up</button>
+						<app-button buttonClass="btn-sign-up" buttonText="sign up" v-on:click.native="signUp" />
 					</div><!-- END .buttons -->
 				</fieldset>
 			</div><!-- END .fieldset-wrapper -->

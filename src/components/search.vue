@@ -3,7 +3,7 @@
 	<div class="search-wrapper">
 
 		<div class="search">
-			<input type="text" v-model="search" placeholder="search by client, contact name, description, project" />
+			<input type="text" v-model="search" placeholder="search by client (company), contact name, description" />
 		</div>
 
 		<div class="search-results-wrapper" v-bind:class="[{ open: filteredProjects.length > 0 }, { noresults: filteredProjects.length < 1 }]">

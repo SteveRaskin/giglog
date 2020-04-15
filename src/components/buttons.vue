@@ -9,13 +9,13 @@
 				in projects.vue, instead of an <app-buttons /> component,
 				there should be the multiple instances of an <app-button /> component
 		-->
-		<router-link tag="button" class="btn details" v-bind:to="'/project-detail/' + projectID">full project details</router-link>
-		<router-link tag="button" class="btn edit" v-bind:to="'/project-edit/' + projectID">edit project</router-link>
-		<router-link tag="button" class="btn log-hours" v-bind:to="'/log-hours/' + projectID">log hours</router-link>
-		<!-- <router-link tag="button" class="btn all-projects" v-bind:to="'/'">back to projects</router-link> -->
+		<router-link tag="button" class="btn btn-details" v-bind:to="'/project-detail/' + projectID">full project details</router-link>
+		<router-link tag="button" class="btn btn-edit" v-bind:to="'/project-edit/' + projectID">edit project</router-link>
+		<router-link tag="button" class="btn btn-log-hours" v-bind:to="'/log-hours/' + projectID">log hours</router-link>
+		<!-- <router-link tag="button" class="btn btn-all-projects" v-bind:to="'/'">back to projects</router-link> -->
 		<router-link
 			tag="button"
-			class="btn all-projects"
+			class="btn btn-all-projects"
 			v-bind:to="'/projects'"
 			exact
 			v-if="(fileName !== 'projects.vue')"
