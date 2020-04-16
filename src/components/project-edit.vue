@@ -255,7 +255,6 @@
 		<div class="buttons">
 			<app-button buttonClass="btn-details" buttonText="project details" path="project-detail" v-bind:id="id" />
 			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
-			<app-button buttonClass="btn-all-projects" buttonText="all projects" path="projects" />
 		</div>
 
    </div>

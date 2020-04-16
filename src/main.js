@@ -1,6 +1,5 @@
 // ~ entry point? ~ResourceLoader.java ?
 import Vue from 'vue'
-import App from './App.vue'
 import VueResource from 'vue-resource';
 import firebase from 'firebase';
 
@@ -8,9 +7,10 @@ import firebase from 'firebase';
 import router from './router/routes.js'
 import store from './store'
 
+import App from './App.vue'
 import Header from './components/header.vue';
 import Subheader from './components/subheader.vue';
-import Buttons from './components/buttons.vue';
+// import Buttons from './components/buttons.vue';
 import Button from './components/button.vue';
 import Footer from './components/footer.vue';
 
@@ -23,7 +23,7 @@ Vue.use(VueResource);
 // REGISTER GLOBAL COMPONENTS
 Vue.component('app-header', Header);
 Vue.component('app-subheader', Subheader);
-Vue.component('app-buttons', Buttons);
+// Vue.component('app-buttons', Buttons);
 Vue.component('app-button', Button);
 Vue.component('app-footer', Footer);
 

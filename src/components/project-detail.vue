@@ -89,7 +89,6 @@
 		<div class="buttons">
 			<app-button buttonClass="btn-edit" buttonText="edit project" path="project-edit" v-bind:id="id" />
 			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
-			<app-button buttonClass="btn-all-projects" buttonText="all projects" path="projects" />
 		</div>
 
    </div><!-- END .container -->

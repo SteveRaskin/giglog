@@ -61,7 +61,7 @@ export default new VueRouter({
 		},
 		{
 			path: '/project-detail/:id',
-			// name: 'ProjectDetail',
+			name: 'ProjectDetail',
 			component: projectDetail,
 			meta: {
 				requiresAuth: true
@@ -69,7 +69,7 @@ export default new VueRouter({
 		},
 		{
 			path: '/project-edit/:id',
-			// name: 'ProjectEdit',
+			name: 'ProjectEdit',
 			component: projectEdit,
 			meta: {
 				requiresAuth: true
@@ -77,7 +77,7 @@ export default new VueRouter({
 		},
 		{
 			path: '/log-hours/:id',
-			// name: 'LogHours',
+			name: 'LogHours',
 			component: logHours,
 			meta: {
 				requiresAuth: true

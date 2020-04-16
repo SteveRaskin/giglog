@@ -36,3 +36,8 @@ _private*
 
 src/router/firebase.web.setup.API.info.html
 src/router/firebaseConfig.js
+**/.sass-cache
+**/.sass-cache/*
+**.sass-cache**
+.sass-cache
+.sass-cache/*

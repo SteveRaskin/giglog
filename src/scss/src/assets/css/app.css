@@ -448,61 +448,76 @@ a.button {
   border: 1px solid #000;
   border-radius: 1.5em; }
 
-.btn.btn-details,
-.btn.btn-all-projects {
+.btn::before {
+  display: inline-block;
+  padding-right: .9rem;
+  font-size: 1.2em;
+  font-weight: bold; }
+
+.btn-details,
+.btn-all-projects,
+.btn-add-project {
   color: #1248ff;
   border: 1px solid #1248ff; }
 
-.btn.btn-details:hover,
-.btn.btn-details:active,
-.btn.btn-all-projects:hover,
-.btn.btn-all-projects:active {
+.btn-all-projects::before {
+  content: "\2190"; }
+
+.btn-add-project::before {
+  content: "\002B"; }
+
+/*
+https://www.toptal.com/designers/htmlarrows/math/*/
+.btn-details:hover,
+.btn-details:active,
+.btn-all-projects:hover,
+.btn-all-projects:active {
   color: #fff;
   background: #1248ff; }
 
-.btn.btn-edit {
+.btn-edit {
   color: dodgerblue;
   border: 1px solid dodgerblue; }
 
-.btn.btn-edit:hover,
-.btn.btn-edit:active {
+.btn-edit:hover,
+.btn-edit:active {
   color: #fff;
   background: dodgerblue; }
 
-.btn.btn-log-hours {
+.btn-log-hours {
   color: lightseagreen;
   border: 1px solid lightseagreen; }
 
-.btn.btn-log-hours:hover,
-.btn.btn-log-hours:active {
+.btn-log-hours:hover,
+.btn-log-hours:active {
   color: #fff;
   background: lightseagreen; }
 
-.btn.btn-save {
+.btn-save {
   color: orangered;
   border: 1px solid orangered; }
 
-.btn.btn-save:hover,
-.btn.btn-save:active {
+.btn-save:hover,
+.btn-save:active {
   color: #fff;
   background: orangered; }
 
-.btn.btn-cancel {
+.btn-cancel {
   background: #000; }
 
-.btn.btn-cancel:hover,
-.btn.btn-cancel:active {
+.btn-cancel:hover,
+.btn-cancel:active {
   color: #000;
   background: #fff;
   border: 1px solid #000; }
 
-.btn.btn-logout {
+.btn-logout {
   color: #000;
   background: transparent;
   border: 0; }
 
-.btn.btn-logout:hover,
-.btn.btn-logout:active {
+.btn-logout:hover,
+.btn-logout:active {
   background: transparent;
   box-shadow: none;
   text-decoration: underline; }

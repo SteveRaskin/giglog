@@ -56,6 +56,12 @@ a.button	{
 	border: 1px solid $b;
 	border-radius: 1.5em;
 }
+.btn::before {
+	display: inline-block;
+	padding-right: .9rem;
+	font-size: 1.2em;
+	font-weight: bold;
+}
 
 // Projects: details, edit, log hours
 // Add Project: add, save
@@ -66,77 +72,87 @@ a.button	{
 // also sign-up and sign-in, log-in
 
 // TODO: BUTTON MIXIN
-.btn.btn-details,
-.btn.btn-all-projects {
+.btn-details,
+.btn-all-projects,
+.btn-add-project {
 	color: $theme;
 	border: 1px solid $theme;
 }
 
-.btn.btn-details:hover,
-.btn.btn-details:active,
-.btn.btn-all-projects:hover,
-.btn.btn-all-projects:active {
+.btn-all-projects::before {
+	content: "\2190";
+}
+.btn-add-project::before {
+	content: "\002B";
+}
+/*
+https://www.toptal.com/designers/htmlarrows/math/*/
+
+.btn-details:hover,
+.btn-details:active,
+.btn-all-projects:hover,
+.btn-all-projects:active {
    color: $w;
    background: $theme;
 }
 
-.btn.btn-edit {
+.btn-edit {
 	color: $edit;
 	border: 1px solid $edit;
 }
-.btn.btn-edit:hover,
-.btn.btn-edit:active {
+.btn-edit:hover,
+.btn-edit:active {
 	color: $w;
    background: $edit;
 }
 
-.btn.btn-log-hours {
+.btn-log-hours {
 	color: $log-hours;
 	border: 1px solid $log-hours;
 }
-.btn.btn-log-hours:hover,
-.btn.btn-log-hours:active {
+.btn-log-hours:hover,
+.btn-log-hours:active {
    color: $w;
    background: $log-hours;
 }
 
-.btn.btn-save {
+.btn-save {
 	color: $save;
 	border: 1px solid $save;
 }
-.btn.btn-save:hover,
-.btn.btn-save:active {
+.btn-save:hover,
+.btn-save:active {
    color: $w;
    background: $save;
 }
 
 
 
-.btn.btn-cancel { background: $cancel; }
-.btn.btn-cancel:hover,
-.btn.btn-cancel:active {
+.btn-cancel { background: $cancel; }
+.btn-cancel:hover,
+.btn-cancel:active {
    color: $cancel;
    background: $w;
    border: 1px solid $cancel;
 }
 
-.btn.btn-logout	{
+.btn-logout	{
 	color: $b;
 	background: $tr;
 	border: 0;
 }
-.btn.btn-logout:hover,
-.btn.btn-logout:active {
+.btn-logout:hover,
+.btn-logout:active {
    background: $tr;
 	box-shadow: none;
 	text-decoration: underline;
 }
 
 
-// #project-detail .buttons .btn.btn-details,
-// #project-edit .buttons .btn.btn-edit,
-// #project-edit .buttons .btn.btn-log-hours,
-// #projects .buttons .btn.btn-all-projects	{ display: none; }
+// #project-detail .buttons .btn-details,
+// #project-edit .buttons .btn-edit,
+// #project-edit .buttons .btn-log-hours,
+// #projects .buttons .btn-all-projects	{ display: none; }
 
 
 

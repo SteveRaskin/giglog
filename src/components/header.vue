@@ -5,12 +5,13 @@
 		<h1>
 			<!-- <router-link v-bind:to="'/projects'" exact>gigz</router-link> -->
 			<router-link :to="'/projects'" exact>gigz</router-link>
-
 		</h1>
+
+		<p style="color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
 		<nav>
 			<ul v-if="loggedIn">
-				<app-button buttonClass="btn-hdr" buttonText="all projects" path="projects" />
-				<app-button buttonClass="btn-hdr" buttonText="add project" path="add-project" />
+				<app-button v-if="(viewName !== 'Projects')" buttonClass="btn-all-projects" buttonText="back to all projects" path="projects" />
+				<app-button buttonClass="btn-add-project" buttonText="add project" path="add-project" />
 				<app-button buttonClass="btn-logout" buttonText="log out" v-on:click.native="signOut" />
 			</ul>
 		</nav>
@@ -26,7 +27,9 @@
 	import firebase from 'firebase';
 
    export default {
-		props: {},
+		props: {
+			viewName: String
+		},
 
       data() {
          return {
@@ -36,8 +39,10 @@
          }
     	},
 
+		watch: {
+		},
+
 		created: function() {
-			// console.log("header.vue @created");
 			var _this = this;
 			firebase.auth().onAuthStateChanged(function(user) {
 				if (user) {
@@ -54,7 +59,9 @@
 					this.$router.replace('LogIn')
 				})
 			}
-		} // methods
+		}, // methods
+		updated: function() {
+		}
 
    }
 </script>

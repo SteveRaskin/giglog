@@ -2,7 +2,7 @@
 
 	<div id="app">
 
-		<app-header />
+		<app-header v-bind:viewName="viewName"/>
 
   		<main class="main">
 			<transition name="component-fade" mode="out-in">
@@ -26,14 +26,27 @@
 		},
 		data() {
          return {
-            // const activeProjectID = {}
+				viewName: ""
          }
       }, // data
-      methods: {
-      }, // methods
+
+		// watch: {
+		// 	viewName: function(newVal, oldVal) {
+		// 		console.log("'viewName' changed: ", newVal, " | was: ", oldVal);
+		// 		// this.viewName = newVal;
+		// 	}
+		// },
 		created: function() {
-			// console.log("app.vue @created");
-		}
+			this.viewName = this.$route.name;
+		},
+
+		methods: {
+		}, // methods
+		updated: function() {
+			this.viewName = this.$route.name;
+		},
+
+
 	}
 
 </script>
