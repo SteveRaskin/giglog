@@ -3,11 +3,10 @@
 	<header>
 
 		<h1>
-			<!-- <router-link v-bind:to="'/projects'" exact>gigz</router-link> -->
 			<router-link :to="'/projects'" exact>gigz</router-link>
 		</h1>
 
-		<p style="color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
+		<p style="display: none; color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
 		<nav>
 			<ul v-if="loggedIn">
 				<app-button v-if="(viewName !== 'Projects')" buttonClass="btn-all-projects" buttonText="back to all projects" path="projects" />

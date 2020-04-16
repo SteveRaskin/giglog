@@ -501,7 +501,6 @@
 		display: flex;
 		width: 100%;
 		flex-flow: row wrap;
-		justify-content: flex-end;
 		border: 1px dotted black;
 	}
 	.buttons .button {

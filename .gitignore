@@ -36,8 +36,10 @@ _private*
 
 src/router/firebase.web.setup.API.info.html
 src/router/firebaseConfig.js
-**/.sass-cache
-**/.sass-cache/*
-**.sass-cache**
-.sass-cache
-.sass-cache/*
+
+# from https://github.com/github/gitignore/blob/master/Sass.gitignore ... does it work?
+# see also https://gist.github.com/mynameispj/10143204
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
