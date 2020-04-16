@@ -14,7 +14,7 @@
 					'Contacts' as a section heading makes sense, but preceding other project info not so much
 						- and maybe right-aligned and all caps?
 				-->
-            <dt>client:</dt>
+            <dt>client: {{ project.client }}</dt>
             <dd>
 					<!-- TODO: go ahead, you know you want to: change this stuff to a nested <dl> -->
                <p><strong>{{ project.client }}</strong></p>
@@ -120,7 +120,7 @@
             return data.json();
          }).then(function(data) {
 				this.project = data;
-				// console.log("project-detail.vue > created: data", data);
+				console.log("project-detail.vue > created: data", data);
 			})
       }, // created
       computed: {

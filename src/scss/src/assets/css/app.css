@@ -525,4 +525,57 @@ https://www.toptal.com/designers/htmlarrows/math/*/
 .debug {
   color: lime; }
 
+/*
+
+how to constrain 'structure' (maybe change to layout.scss):
+
+- html
+- body (#app)
+	- header
+	- main
+	- footer
+
+_typography
+	- font-family set in variables;
+	- a, a:link, a:visited, a:hover, a:active
+	- h1 ~ h6:
+	- p
+	- ol, ul, li
+	- font-size, font-color, line-height?, letter-spacing,
+
+
+shared container classes, e.g., .preview in utilities or LAYOUT
+
+.container maybe only width
+section.card {}
+- ol, ul, dl, li, dt, dd
+
+===========================================================
+
+?
+https://vuejs.org/v2/style-guide/#Component-style-scoping-essential
+
+component layout in component scoped style;
+views in the .scss
+
+
+components TODO:
+- button [DONE]
+- input [ text, texarea, password ]
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
 /*# sourceMappingURL=app.css.map */
