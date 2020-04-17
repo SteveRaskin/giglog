@@ -1,13 +1,24 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 
-import projects from '../components/projects.vue';
-import projectAdd from '../components/project-add.vue';
-import projectDetail from '../components/project-detail.vue';
-import projectEdit from '../components/project-edit.vue';
-import logHours from '../components/log-hours.vue';
-import login from '../components/login.vue';
-import signup from '../components/signup.vue';
+// import projects from '../components/projects.vue';
+// import projectAdd from '../components/project-add.vue';
+// import projectDetail from '../components/project-detail.vue';
+// import projectEdit from '../components/project-edit.vue';
+// import logHours from '../components/log-hours.vue';
+// import login from '../components/login.vue';
+// import signup from '../components/signup.vue';
+
+import ProjectList from '../components/ProjectList.vue';
+import ProjectCreate from '../components/ProjectCreate.vue';
+import ProjectDetail from '../components/ProjectDetail.vue';
+import ProjectEdit from '../components/ProjectEdit.vue';
+import ProjectLogHours from '../components/ProjectLogHours.vue';
+import LogIn from '../components/Login.vue';
+import Signup from '../components/Signup.vue';
+
+
+
 
 Vue.use(VueRouter)
 
@@ -22,7 +33,7 @@ export default new VueRouter({
 		{
 			path: '/',
 			name: 'LogIn',
-			component: login,
+			component: LogIn,
 			meta: {
 				requiresAuth: false
 			}
@@ -30,7 +41,7 @@ export default new VueRouter({
 		{
 			path: '/login/',
 			name: 'LogIn',
-			component: login,
+			component: LogIn,
 			meta: {
 				requiresAuth: false
 			}
@@ -38,23 +49,23 @@ export default new VueRouter({
 		{
 			path: '/signup/',
 			name: 'SignUp',
-			component: signup,
+			component: Signup,
 			meta: {
 				requiresAuth: false
 			}
 		},
 		{
 			path: '/projects',
-			name: 'Projects',
-			component: projects,
+			name: 'ProjectList',
+			component: ProjectList,
 			meta: {
 				requiresAuth: true
 			}
 		},
 		{
 			path: '/add-project',
-			name: 'AddProject',
-			component: projectAdd,
+			name: 'ProjectCreate',
+			component: ProjectCreate,
 			meta: {
 				requiresAuth: true
 			}
@@ -62,7 +73,7 @@ export default new VueRouter({
 		{
 			path: '/project-detail/:id',
 			name: 'ProjectDetail',
-			component: projectDetail,
+			component: ProjectDetail,
 			meta: {
 				requiresAuth: true
 			}
@@ -70,15 +81,15 @@ export default new VueRouter({
 		{
 			path: '/project-edit/:id',
 			name: 'ProjectEdit',
-			component: projectEdit,
+			component: ProjectEdit,
 			meta: {
 				requiresAuth: true
 			}
 		},
 		{
 			path: '/log-hours/:id',
-			name: 'LogHours',
-			component: logHours,
+			name: 'ProjectLogHours',
+			component: ProjectLogHours,
 			meta: {
 				requiresAuth: true
 			}

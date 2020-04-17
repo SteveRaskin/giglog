@@ -3,7 +3,7 @@
 	<footer class="footer">
 
 		<p>Footer.vue</p>
-		<button class="btn btn-debug" @click="test">log route</button>
+		<app-button buttonClass="btn-debug" buttonText="log route" @click.native="test"/>
 
 	</footer>
 

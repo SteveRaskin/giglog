@@ -9,7 +9,7 @@
 		<p style="display: none; color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
 		<nav>
 			<ul v-if="loggedIn">
-				<app-button v-if="(viewName !== 'Projects')" buttonClass="btn-all-projects" buttonText="back to all projects" path="projects" />
+				<app-button v-if="(viewName !== 'ProjectList')" buttonClass="btn-all-projects" buttonText="back to all projects" path="projects" />
 				<app-button buttonClass="btn-add-project" buttonText="add project" path="add-project" />
 				<app-button buttonClass="btn-logout" buttonText="log out" v-on:click.native="signOut" />
 			</ul>

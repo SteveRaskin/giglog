@@ -206,7 +206,7 @@
 	#projects .buttons .btn-all-projects	{ display: none; }
 	*/
 
-
+	.btn-debug { background: #999; color: $w; }
 
 	.debug { color: lime; }
 
