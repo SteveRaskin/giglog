@@ -8,11 +8,10 @@ import router from './router/routes.js'
 import store from './store'
 
 import App from './App.vue'
-import Header from './components/header.vue';
-import Subheader from './components/subheader.vue';
-// import Buttons from './components/buttons.vue';
-import Button from './components/button.vue';
-import Footer from './components/footer.vue';
+import Header from './components/AppHeader.vue';
+import Subheader from './components/AppSubheader.vue';
+import Button from './components/AppButton.vue';
+import Footer from './components/AppFooter.vue';
 
 import firebaseConfig from '@/router/firebaseConfig.js';
 var config = firebaseConfig.config;
