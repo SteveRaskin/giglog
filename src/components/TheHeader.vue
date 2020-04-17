@@ -9,6 +9,10 @@
 		<p style="display: none; color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
 		<nav>
 			<ul v-if="loggedIn">
+				<!--
+					TODO: 'all projects' & add 'project' should be <router-link>;
+					'log out' should be an <app-button /> if it's a button
+				-->
 				<app-button v-if="(viewName !== 'ProjectList')" buttonClass="btn-all-projects" buttonText="back to all projects" path="projects" />
 				<app-button buttonClass="btn-add-project" buttonText="add project" path="add-project" />
 				<app-button buttonClass="btn-logout" buttonText="log out" v-on:click.native="signOut" />
@@ -55,7 +59,8 @@
 		methods: {
 			signOut: function() {
 				firebase.auth().signOut().then(() => {
-					this.$router.replace('LogIn')
+					// this.$router.replace('LogIn')
+					this.$router.replace({ name: 'LogIn' })
 				})
 			}
 		}, // methods

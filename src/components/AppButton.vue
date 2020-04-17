@@ -2,6 +2,20 @@
 <template>
 
 		<!-- √√√ v-bind:to="'/' + path + '/' + id" -->
+
+		<!--
+			TODO:
+				AppButton.vue really oughta be a native html button;
+
+				<router-link /> is appropriate:
+					- in TheHeader.vue
+					- in ProjectList.vue
+
+				<app-button /> is appropriate:
+					- both Login.vue & Signup.vue: buttons that run a function with the router update aspect, DNU router-link
+					- ProjectEdit.vue: 'save', 'cancel'
+					- footer debug
+		-->
 		<router-link
 			tag="button"
 			class="btn"

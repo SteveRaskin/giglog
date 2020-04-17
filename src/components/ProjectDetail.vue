@@ -120,7 +120,7 @@
             return data.json();
          }).then(function(data) {
 				this.project = data;
-				console.log("project-detail.vue > created: data", data);
+				// console.log("project-detail.vue > created: data", data);
 			})
       }, // created
       computed: {

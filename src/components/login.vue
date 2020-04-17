@@ -31,7 +31,7 @@
                </div>
 
 		         <div class="buttons">
-						<app-button buttonClass="btn-log-in" buttonText="log in" v-on:click.native="logIn" />
+						<button class="btn btn-log-in" v-on:click="logIn">log in</button>
 		         </div><!-- END .buttons -->
 				</fieldset>
 
@@ -65,7 +65,8 @@
 				error: false,
 				errorMsgBefore: "oh nohz! somethin' ain't right!",
 				errorMsgAfter: "please try again",
-				errorMsg: ""
+				errorMsg: "",
+				loginButtonPath: null
 			}
 		},
 
@@ -90,7 +91,7 @@
 					(user) => {
 						const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
 						alert("welcome to giglog, " + userFirstName);
-						this.$router.replace('Projects')
+						this.$router.replace({ name: 'Projects' })
 					},
 					(err) => {
 						console.log("err.message:", err.message);

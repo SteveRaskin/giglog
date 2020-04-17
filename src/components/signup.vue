@@ -107,7 +107,9 @@
 					firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
 						// arrow function non-optional re: this.$router
 						(user) => {
-							alert('account created');
+							const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
+							// alert("welcome to giglog, " + userFirstName);
+							alert('your account has been created, ' + userFirstName + ', please log in');
 							// if (currentUser) {
 							// 	console.log('currentUser');
 							// }
