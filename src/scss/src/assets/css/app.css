@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *:before,
 *:after {
@@ -555,6 +556,45 @@ section.card {}
 ?
 https://vuejs.org/v2/style-guide/#Component-style-scoping-essential
 
+Bad
+- mycomponent.vue
+- myComponent.vue
+
+Good
+- MyComponent.vue
+- my-component.vue
+
+Base components (aka presentational, dumb, or pure components) ... should be prefixed, e.g., as Base, App, or V. These components lay the foundation for consistent styling and behavior in your application. They may only contain:
+
+- HTML elements,
+- other base components, and
+- 3rd-party UI components.
+
+But they’ll never contain global state (e.g. from a Vuex store). Their names often include the name of an element they wrap (e.g. BaseButton, BaseTable), unless no element exists for their specific purpose (e.g. BaseIcon). If you build similar components for a more specific context, they will almost always consume these components (e.g. BaseButton may be used in ButtonSubmit).
+
+[ IMO BaseComponentXYZ is dreck; prefer AppButton.vue ]
+
+
+https://vuejs.org/v2/style-guide/#Single-instance-component-names-strongly-recommended
+
+Components that should only ever have a single active instance should be prefixed with 'The', to denote that there can be only one. These components never accept props, since they are specific to your app, not their context within your app. If you find the need to add props, it’s a good indication that this is actually a reusable component that is only used once per page for now. [ um, what about header.vue? ]
+
+Bad
+- Heading.vue
+- MySidebar.vue
+
+Good
+- TheHeading.vue
+- TheSidebar.vue
+
+
+https://vuejs.org/v2/style-guide/#Tightly-coupled-component-names-strongly-recommended
+
+
+
+
+
+
 component layout in component scoped style;
 views in the .scss
 
@@ -567,8 +607,15 @@ components TODO:
 
 
 
+https://vuejs.org/v2/style-guide/#Base-component-names-strongly-recommended
 
 
+
+
+
+
+
+git checkout -b RENAME_COMPONENTS_PER_VUE_STYLE_GUIDE
 
 
 
