@@ -161,7 +161,12 @@
                            phone: <span class="contact-phone">{{ contact.phone }}</span>
 
                            <div class="buttons">
-                              <button class="btn btn-edit" :key="ix" v-on:click="editContact(ix)">edit</button>
+										<app-button
+											buttonClass="btn-edit"
+											buttonText="edit"
+											:key="ix"
+											v-on:click.native="editContact(ix)"
+										/>
                            </div>
                         </div><!-- END .contact-data -->
 
@@ -205,7 +210,11 @@
 			<!-- ==================================== 'ADD CONTACT' BUTTON ==================================== -->
          <div class="add-contact-wrapper" v-bind:class="{ editMode: addingContact }">
             <div class="buttons">
-               <button class="btn btn-edit new-contact" v-on:click="addContact">+ add contact</button>
+					<app-button
+						buttonClass="btn-edit new-contact"
+						buttonText="+ add contact"
+						v-on:click.native="addContact"
+					/>
             </div><!-- END .buttons -->
 
             <div class="fieldset-wrapper">
@@ -228,8 +237,16 @@
                      <input type="text" v-model.lazy="newContact.phone" required />
                   </div>
                   <div class="buttons">
-                     <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                     <button class="btn btn-save" v-on:click.prevent="saveNewContact">save new contact</button>
+							<app-button
+								buttonClass="btn-cancel"
+								buttonText="cancel"
+								v-on:click.native="exitEditMode"
+							/>
+							<app-button
+								buttonClass="btn-save"
+								buttonText="save new contact"
+								v-on:click.native.prevent="saveNewContact"
+							/>
                   </div><!-- END .buttons -->
                </fieldset>
 
