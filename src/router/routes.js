@@ -1,21 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 
-// import projects from '../components/projects.vue';
-// import projectAdd from '../components/project-add.vue';
-// import projectDetail from '../components/project-detail.vue';
-// import projectEdit from '../components/project-edit.vue';
-// import logHours from '../components/log-hours.vue';
-// import login from '../components/login.vue';
-// import signup from '../components/signup.vue';
-
 import projects from '../components/ProjectList.vue';
 import projectAdd from '../components/ProjectCreate.vue';
 import projectDetail from '../components/ProjectDetail.vue';
 import projectEdit from '../components/ProjectEdit.vue';
 import logHours from '../components/ProjectLogHours.vue';
-import login from '../components/login.vue';
-import signup from '../components/signup.vue';
+import login from '../components/ViewLogIn.vue';
+import signup from '../components/ViewSignUp.vue';
 
 
 
@@ -26,6 +18,7 @@ export default new VueRouter({
 	mode: 'history',
 	routes: [
       // !quotes around imports (i.e., name key/component key values)
+		//  *** HEADS-UP; CAREFUL IF RENAMING ***
 		{
 			path: '*',
 			redirect: 'LogIn'
