@@ -1,12 +1,13 @@
 <template>
    <!-- custom directive with optional argument (corresponds to binding.arg in the directive instance) -->
 
-	<div class="container" id="project-detail">
+	<div class="container project-detail">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
 		<!-- ======================== CLIENT INFO ======================== -->
       <section class="client-data">
+
          <dl>
 				<!--
 					TODO: remove this, whether as a heading or <dt>
@@ -14,7 +15,8 @@
 					'Contacts' as a section heading makes sense, but preceding other project info not so much
 						- and maybe right-aligned and all caps?
 				-->
-            <dt>client: {{ project.client }}</dt>
+				<!-- <dt>client: {{ project.client }} ... {{ this.$route.params.client }}</dt> -->
+				<dt>client: {{ project.client }}</dt>
             <dd>
 					<!-- TODO: go ahead, you know you want to: change this stuff to a nested <dl> -->
                <p><strong>{{ project.client }}</strong></p>
@@ -87,8 +89,18 @@
       </section><!-- END .contacts -->
 
 		<div class="buttons">
-			<app-button buttonClass="btn-edit" buttonText="edit project" path="project-edit" v-bind:id="id" />
-			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
+			<router-link
+				tag="button"
+				class="btn btn-edit"
+				:to="{ name: 'ProjectEdit', params: { id: this.id, client: this.client }}"
+				>edit
+			</router-link>
+			<router-link
+				tag="button"
+				class="btn btn-log-hours"
+				:to="{ name: 'LogHours', params: { id: this.id, client: this.client }}"
+				>log hours
+			</router-link>
 		</div>
 
    </div><!-- END .container -->
@@ -98,29 +110,36 @@
 
    // import search  from '../mixins/searchMixin.js';
    export default {
+		props: {
+			client: String,
+			id: String
+		},
       components: {
       },
       data () {
          return {
 				viewName: "Project Detail",
 				fileName: "project-detail.vue",
-				id: this.$route.params.id,
 				project: {},
             search: "",
-				projectID: ""
+				// data via props (also $route object params):
          }
       }, // data
 
-      methods: {
-      }, // methods
+		methods: {
+			debug: function(id) {
+				// console.log("ProjectDetail @debug: project.id", id);
+			}
+		}, // methods
 
       created: function() {
+			// TAN 'note; why url, path must be ;id to get project data'
+			// this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json")
+			// odd, but strange: this.id is id prop which is only coming from the router link, yet unless the path variable is the id, the id prop is lost
 			this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
-         .then(function(data) {
-            return data.json();
-         }).then(function(data) {
+			.then(data => data.json())
+         .then(data => {
 				this.project = data;
-				// console.log("project-detail.vue > created: data", data);
 			})
       }, // created
       computed: {

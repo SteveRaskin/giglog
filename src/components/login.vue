@@ -31,15 +31,21 @@
                </div>
 
 		         <div class="buttons">
-						<button class="btn btn-log-in" v-on:click="logIn">log in</button>
-		         </div><!-- END .buttons -->
+						<app-button buttonClass="btn-log-in" buttonText="log in" v-on:click.native="logIn" />
+		         </div>
 				</fieldset>
 
          </div><!-- END .fieldset-wrapper -->
 
 			<p>
 				no account yet?
-				<router-link :to="{ name: 'SignUp', params: {} }">Sign Up</router-link>
+				<router-link
+					tag="button"
+					class="btn btn-sign-up"
+					:to="{ name: 'SignUp', params: {} }"
+					>sign up
+				</router-link>
+
 			</p>
 
       </section>

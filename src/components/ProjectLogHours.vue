@@ -84,7 +84,7 @@
 
    export default {
       props: {
-			projectID: String
+			// projectID: String
 		},
       components: {
       },
@@ -150,6 +150,7 @@
 			},
 			post: function() {
 				console.log("log-hours @post");
+				this.$router.replace({ name: 'Projects' })
 			}
       } // methods
    }

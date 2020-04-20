@@ -56,20 +56,16 @@ firebase.auth().onAuthStateChanged(function(user) {
 router.beforeEach((to, from, next) => {
 	const currentUser = firebase.auth().currentUser;
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-	// if (from.name == 'SignUp' && currentUser ) next ('LogIn')
+	// if (from.name == 'SignUp' && currentUser) next ('LogIn')
 	// else if (requiresAuth && !currentUser) next ('LogIn')
 	if (requiresAuth && !currentUser) {
-		console.log("main.js: if");
-		next('LogIn');
+		// next('LogIn'); //
+		from.name === "LogIn" ? next() : next("LogIn"); //
 	}
 	else if (!requiresAuth && currentUser) {
-		console.log("main.js: else if");
-		// next('Projects'); was throwing an error at signUp(),
-		// but since signUp() redirects to login.vue @success: OK!
-		next();
+		from.name === "SignUp" ? next() : next("Projects"); //
 	}
 	else {
-		console.log("main.js: else");
 		next();
 	}
 });

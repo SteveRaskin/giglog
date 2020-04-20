@@ -25,7 +25,7 @@
             </dd>
          </dl>
          <div class="buttons">
-            <button class="btn btn-edit" id="edit-client" v-on:click="editMode">edit</button>
+				<app-button buttonClass="btn-edit" buttonID="edit-client" buttonText="edit" v-on:click.native="editMode" />
          </div>
 
          <div class="fieldset-wrapper">
@@ -58,8 +58,8 @@
                   </div>
                </div>
                <div class="buttons">
-                  <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                  <button class="btn btn-save" v-on:click="post">save changes</button>
+						<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+						<app-button buttonClass="btn-save" buttonText="save" v-on:click.native="post" />
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -81,7 +81,13 @@
             </dd>
          </dl>
          <div class="buttons">
-            <button class="btn btn-edit" id="edit-gig" v-if=!isEditingGig v-on:click="editMode">edit</button>
+				<app-button
+					v-if=!isEditingGig
+					buttonClass="btn-edit"
+					buttonID="edit-gig"
+					buttonText="edit"
+					v-on:click.native="editMode"
+				/>
          </div>
 
          <div class="fieldset-wrapper">
@@ -128,8 +134,8 @@
 					</div>
 
                <div class="buttons">
-                  <button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-                  <button class="btn btn-save" v-on:click="post">save changes</button>
+						<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+						<app-button buttonClass="btn-save" buttonText="save changes" v-on:click.native="post" />
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -182,9 +188,9 @@
 
 										<!-- ========= BUTTONS: 'CANCEL', 'SAVE CHANGES', 'DELETE CONTACT' ========= -->
                               <div class="buttons">
-											<button class="btn btn-cancel" v-on:click="exitEditMode">cancel</button>
-											<button class="btn btn-delete-contact" v-on:click="deleteContact">delete contact</button>
-                                 <button class="btn btn-save" v-on:click="post">save changes</button>
+	<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+	<app-button buttonClass="btn-delete-contact" buttonText="delete contact" v-on:click.native="deleteContact" />
+	<app-button buttonClass="btn-save" buttonText="save changes" v-on:click.native="post" />
                               </div><!-- END .buttons -->
                            </fieldset>
                         </div><!-- END .fieldset-wrapper -->
@@ -253,8 +259,18 @@
 		</form>
 
 		<div class="buttons">
-			<app-button buttonClass="btn-details" buttonText="project details" path="project-detail" v-bind:id="id" />
-			<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="id" />
+			<router-link
+				tag="button"
+				class="btn btn-edit"
+				:to="{ name: 'ProjectDetail', params: { id: this.id }}"
+				>exit (to detail view)
+			</router-link>
+			<router-link
+				tag="button"
+				class="btn btn-log-hours"
+				:to="{ name: 'LogHours', params: { id: this.id }}"
+				>log hours
+			</router-link>
 		</div>
 
    </div>
@@ -266,16 +282,19 @@
 
    export default {
       props: {
-			projectID: String
+			client: String,
+			id: String
 		},
       components: {
       },
       data () {
          return {
-				id: this.$route.params.id,
+				// id: this.$route.params.id,
+				routerParamID: this.$route.params.id,
+				routerParamClient: this.$route.params.client,
+
 				viewName: "Edit Project",
 				fileName: "project-edit.vue",
-				subtitle: "ID: " + this.$route.params.id + ", (hours.json)",
 				project: {},
             contactInfo: {},
             workLocation: true,
@@ -296,6 +315,8 @@
          }
       }, // data
       created: function() {
+			// TAN 'note; why url, path must be ;id to get project data'
+			// odd, but strange: this.id is id prop which is only coming from the router link, yet unless the path variable is the id, the id prop is lost
          this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
          .then(data => data.json())
          .then(data => {
@@ -318,7 +339,7 @@
          // ======================== POST ========================
          post: function() {
             console.log("post", this.project);
-            this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json", this.project)
+            this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json", this.project)
                .then(response => {
                   console.log("response.body:", response.body);
                }, response => {
@@ -333,7 +354,6 @@
                // )
                this.isEditingClient = false;
                this.isEditingGig = false;
-
 
 					// console.log(this.newContact.name, this.newContact.title, this.newContact.email, this.newContact.phone);
 

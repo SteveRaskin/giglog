@@ -51,7 +51,7 @@
 
 					<div class="buttons">
 						<app-button buttonClass="btn-sign-up" buttonText="sign up" v-on:click.native="signUp" />
-					</div><!-- END .buttons -->
+					</div>
 				</fieldset>
 			</div><!-- END .fieldset-wrapper -->
 
@@ -65,7 +65,13 @@
 
 			<p>
 				already have an account?
-				<router-link :to="{ name: 'LogIn', params: {} }">Log In</router-link>
+				<router-link
+					tag="button"
+					class="btn btn-edit"
+					:to="{ name: 'LogIn', params: {} }"
+					>log in
+				</router-link>
+
 			</p>
 
 		</section>
@@ -108,15 +114,8 @@
 						// arrow function non-optional re: this.$router
 						(user) => {
 							const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
-							// alert("welcome to giglog, " + userFirstName);
 							alert('your account has been created, ' + userFirstName + ', please log in');
-							// if (currentUser) {
-							// 	console.log('currentUser');
-							// }
-							// else if (!currentUser) {
-							// 	console.log('no currentUser');
-							// }
-							this.$router.replace('LogIn');
+							this.$router.replace({ name: 'LogIn' })
 						},
 						(err) => {
 							console.log("err.message:", err.message);

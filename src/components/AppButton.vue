@@ -1,29 +1,13 @@
 <!-- TAN -->
 <template>
 
-		<!-- √√√ v-bind:to="'/' + path + '/' + id" -->
-
-		<!--
-			TODO:
-				AppButton.vue really oughta be a native html button;
-
-				<router-link /> is appropriate:
-					- in TheHeader.vue
-					- in ProjectList.vue
-
-				<app-button /> is appropriate:
-					- both Login.vue & Signup.vue: buttons that run a function with the router update aspect, DNU router-link
-					- ProjectEdit.vue: 'save', 'cancel'
-					- footer debug
-		-->
-		<router-link
-			tag="button"
-			class="btn"
-			v-bind:class="buttonClass"
-			v-bind:to="buttonPath"
-			exact
-			>{{ buttonText }}
-		</router-link>
+	<button
+		class="btn"
+		v-bind:class="buttonClass"
+		v-bind:id="buttonID"
+		v-bind:to="buttonPath"
+		>{{ buttonText }}
+	</button>
 
 </template>
 
@@ -34,6 +18,7 @@
    export default {
 		props: {
 			buttonClass: String,
+			buttonID: String,
 			buttonText: String,
 			path: {
 				type: String,
@@ -64,6 +49,8 @@
 
 
 <style scoped lang="scss">
+
+	// this would be clever except that we need access to these for <router-link tag="button" /> too
 
 	.buttons	{
 		display: flex;

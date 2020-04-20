@@ -28,9 +28,24 @@
 					<span class="value"> {{ project.source }}</span>
 				</p>
 				<div class="buttons">
-					<app-button buttonClass="btn-details" buttonText="project details" path="project-detail" v-bind:id="project.id" />
-					<app-button buttonClass="btn-edit" buttonText="edit project" path="project-edit" v-bind:id="project.id" />
-					<app-button buttonClass="btn-log-hours" buttonText="log hours" path="log-hours" v-bind:id="project.id" />
+					<router-link
+						tag="button"
+						class="btn btn-details"
+						:to="{ name: 'ProjectDetail', params: { id: project.id, client: project.client }}"
+						>details
+					</router-link>
+					<router-link
+						tag="button"
+						class="btn btn-edit"
+						:to="{ name: 'ProjectEdit', params: { id: project.id, client: project.client }}"
+						>edit
+					</router-link>
+					<router-link
+						tag="button"
+						class="btn btn-log-hours"
+						:to="{ name: 'LogHours', params: { id: project.id, client: project.client }}"
+						>log hours
+					</router-link>
 				</div>
 
          </li>
@@ -55,24 +70,30 @@
          return {
 				viewName: "projects",
 				fileName: "projects.vue",
-            projects: []
+            projects: [],
+				activeID: ""
          }
       }, // data
-      methods: {}, // methods
+      methods: {
+			debug: function(arg) {
+				// console.log("ProjectList @debug: arg", arg);
+			}
+		}, // methods
       created: function() {
-			// console.log("projects @created");
 			this.$http.get('https://sr-giglog.firebaseio.com/projects.json')
          .then(function(data){
             return data.json();
          }).then(function(data){
 				let projectsArray = [];
-            // add key to each object (see also project-edit.vue)
+				// project objects in projects.json do not have an 'id' key;
+				// ergo use firebase keys as project.id for use herein
             for (const key in data) {
                data[key].id = key;
-               this.projectID = key;
+					if (!data[key].client.length) {
+						data[key].client = "default client"
+					}
                projectsArray.push(data[key]);
-					// console.log("data[key].startDate", data[key].startDate);
-            }
+            } // for
             this.projects = projectsArray;
          })
       }, // created

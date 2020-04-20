@@ -14,8 +14,8 @@ import projectAdd from '../components/ProjectCreate.vue';
 import projectDetail from '../components/ProjectDetail.vue';
 import projectEdit from '../components/ProjectEdit.vue';
 import logHours from '../components/ProjectLogHours.vue';
-import login from '../components/Login.vue';
-import signup from '../components/Signup.vue';
+import login from '../components/login.vue';
+import signup from '../components/signup.vue';
 
 
 
@@ -32,12 +32,13 @@ export default new VueRouter({
 		},
 		{
 			path: '/',
-			name: 'ix',
+			name: 'LogIn',
 			component: login,
 			meta: {
 				requiresAuth: false
 			}
 		},
+		// maybe don't need this
 		{
 			path: '/login/',
 			name: 'LogIn',
@@ -62,6 +63,7 @@ export default new VueRouter({
 				requiresAuth: true
 			}
 		},
+
 		{
 			path: '/add-project',
 			name: 'AddProject',
@@ -70,10 +72,18 @@ export default new VueRouter({
 				requiresAuth: true
 			}
 		},
+
+		// ===========================================================
+
 		{
 			path: '/project-detail/:id',
 			name: 'ProjectDetail',
 			component: projectDetail,
+			props: true,
+			params: {
+				id: String,
+				client: String
+			},
 			meta: {
 				requiresAuth: true
 			}
@@ -82,6 +92,11 @@ export default new VueRouter({
 			path: '/project-edit/:id',
 			name: 'ProjectEdit',
 			component: projectEdit,
+			props: true,
+			params: {
+				id: String,
+				client: String
+			},
 			meta: {
 				requiresAuth: true
 			}
@@ -90,6 +105,11 @@ export default new VueRouter({
 			path: '/log-hours/:id',
 			name: 'LogHours',
 			component: logHours,
+			props: true,
+			params: {
+				id: String,
+				client: String
+			},
 			meta: {
 				requiresAuth: true
 			}
