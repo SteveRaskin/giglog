@@ -25,7 +25,7 @@
             </dd>
          </dl>
          <div class="buttons">
-				<app-button buttonClass="btn-edit" buttonID="edit-client" buttonText="edit" v-on:click.native="editMode" />
+				<app-button buttonClass="btn-color-2 btn-edit" buttonID="edit-client" buttonText="edit" v-on:click.native="editMode" />
          </div>
 
          <div class="fieldset-wrapper">
@@ -58,8 +58,8 @@
                   </div>
                </div>
                <div class="buttons">
-						<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
-						<app-button buttonClass="btn-save" buttonText="save" v-on:click.native="post" />
+						<app-button buttonClass="btn-color-bw btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+						<app-button buttonClass="btn-color-4 btn-save" buttonText="save" v-on:click.native="post" />
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -83,7 +83,7 @@
          <div class="buttons">
 				<app-button
 					v-if=!isEditingGig
-					buttonClass="btn-edit"
+					buttonClass="btn-color-2 btn-edit"
 					buttonID="edit-gig"
 					buttonText="edit"
 					v-on:click.native="editMode"
@@ -134,8 +134,8 @@
 					</div>
 
                <div class="buttons">
-						<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
-						<app-button buttonClass="btn-save" buttonText="save changes" v-on:click.native="post" />
+						<app-button buttonClass="btn-color-bw btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+						<app-button buttonClass="btn-color-4 btn-save" buttonText="save changes" v-on:click.native="post" />
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -162,7 +162,7 @@
 
                            <div class="buttons">
 										<app-button
-											buttonClass="btn-edit"
+											buttonClass="btn-color-2 btn-edit"
 											buttonText="edit"
 											:key="ix"
 											v-on:click.native="editContact(ix)"
@@ -193,9 +193,9 @@
 
 										<!-- ========= BUTTONS: 'CANCEL', 'SAVE CHANGES', 'DELETE CONTACT' ========= -->
                               <div class="buttons">
-	<app-button buttonClass="btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
-	<app-button buttonClass="btn-delete-contact" buttonText="delete contact" v-on:click.native="deleteContact" />
-	<app-button buttonClass="btn-save" buttonText="save changes" v-on:click.native="post" />
+	<app-button buttonClass="btn-color-bw btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
+	<app-button buttonClass="btn-color-6 btn-delete" buttonText="delete contact" v-on:click.native="deleteContact" />
+	<app-button buttonClass="btn-color-4 btn-save" buttonText="save changes" v-on:click.native="post" />
                               </div><!-- END .buttons -->
                            </fieldset>
                         </div><!-- END .fieldset-wrapper -->
@@ -211,7 +211,7 @@
          <div class="add-contact-wrapper" v-bind:class="{ editMode: addingContact }">
             <div class="buttons">
 					<app-button
-						buttonClass="btn-edit new-contact"
+						buttonClass="btn-color-2 btn-add"
 						buttonText="+ add contact"
 						v-on:click.native="addContact"
 					/>
@@ -238,12 +238,12 @@
                   </div>
                   <div class="buttons">
 							<app-button
-								buttonClass="btn-cancel"
+								buttonClass="btn-color-bw btn-cancel"
 								buttonText="cancel"
 								v-on:click.native="exitEditMode"
 							/>
 							<app-button
-								buttonClass="btn-save"
+								buttonClass="btn-color-4 btn-save"
 								buttonText="save new contact"
 								v-on:click.native.prevent="saveNewContact"
 							/>
@@ -278,13 +278,13 @@
 		<div class="buttons">
 			<router-link
 				tag="button"
-				class="btn btn-edit"
+				class="btn btn-color-2 btn-edit"
 				:to="{ name: 'ProjectDetail', params: { id: this.id }}"
 				>exit (to detail view)
 			</router-link>
 			<router-link
 				tag="button"
-				class="btn btn-log-hours"
+				class="btn btn-color-3 btn-log-hours"
 				:to="{ name: 'LogHours', params: { id: this.id }}"
 				>log hours
 			</router-link>
@@ -332,7 +332,7 @@
          }
       }, // data
       created: function() {
-			// TAN 'note; why url, path must be ;id to get project data'
+			// TAN 'why url, path must be ;id to get project data'
 			// odd, but strange: this.id is id prop which is only coming from the router link, yet unless the path variable is the id, the id prop is lost
          this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
          .then(data => data.json())
@@ -535,24 +535,13 @@
 
 
 	.buttons {
-		display: flex;
-		width: 100%;
-		flex-flow: row wrap;
-		border: 1px dotted black;
+		/* move to button central
+			display: flex;
+			width: 100%;
+			flex-flow: row wrap;
+ 		*/
 	}
-	.buttons .button {
-		border: 1px dotted red;
-	}
-   .btn-edit {
-      /* padding: 0; */
-      color: dodgerblue;
-      background: transparent;
-      /* font-weight: bold; */
-      text-transform: uppercase;
-      /* border: 0; */
-      box-shadow: none;
-      word-spacing: 0;
-   }
+
 
    .add-contact-wrapper { width: 100%; }
    .add-contact-wrapper.editMode > .buttons { max-height: 0; }

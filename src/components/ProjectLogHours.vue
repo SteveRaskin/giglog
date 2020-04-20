@@ -57,7 +57,7 @@
          </div>
 
 			<div class="buttons">
-				<app-button buttonClass="btn-save" buttonText="save" path="" v-on:click.native="post" />
+				<app-button buttonClass="btn-color-4 btn-save" buttonText="save" path="" v-on:click.native="post" />
 			</div>
 
 		</form>

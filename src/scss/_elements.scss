@@ -60,7 +60,7 @@ header	{
 
 
 
-.main > a { color: $theme; border-bottom: 1px dotted $theme; }
+.main > a { color: $theme1; border-bottom: 1px dotted $theme1; }
 .main > a:hover { color: #000; border-bottom: 1px solid $b; }
 
 .main > h1 {
@@ -81,7 +81,7 @@ header	{
 	font-size: 1.2rem;
 	text-align: center;
 	color: $w;
-	background: lighten($theme, 6%);
+	background: lighten($theme1, 6%);
 	border-radius: 3px;
 }
 
@@ -101,7 +101,7 @@ header	{
 	h1 {
 		width: auto;
 		font-size: 2.1rem;
-		color: $theme;
+		color: $theme1;
 	}
 	.search-wrapper {
 		width: 100%;

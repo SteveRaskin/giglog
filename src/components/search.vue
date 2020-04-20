@@ -69,7 +69,7 @@
 		padding: $space * 3;
       color: rgb(18, 72, 255);
       background: #fff;
-      border: .15rem solid lighten($theme, 9%);
+      border: .15rem solid lighten($theme1, 9%);
       border-radius: .3rem;
 		transition: ease-in-out all .15s;
    }
@@ -80,8 +80,8 @@
       border: .15rem solid rgb(18, 72, 255);
    }
 	.search-results li a {
-		color: $theme;
-		border-bottom: 1px dotted $theme;
+		color: $theme1;
+		border-bottom: 1px dotted $theme1;
 		transition: ease-in-out all .15s;
 	}
 	.search-results li:hover a {

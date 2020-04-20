@@ -11,11 +11,9 @@
                <legend>giglog login</legend>
 
 					<p class="error" v-bind:class="{ true: error }">
-						{{ errorMsgBefore }}
-						<br />
+						<span class="error-before">{{ errorMsgBefore }}</span>
 						<span class="errorMsg">{{ errorMsg }}</span>
-						<br />
-						{{ errorMsgAfter }}
+						<span class="error-after">{{ errorMsgAfter }}</span>
 					</p>
 
 					<!-- EMAIL ADDRESS -->
@@ -31,26 +29,18 @@
                </div>
 
 		         <div class="buttons">
-						<app-button buttonClass="btn-log-in" buttonText="log in" v-on:click.native="logIn" />
+						<app-button buttonClass="btn-color-1" buttonText="log in" v-on:click.native="logIn" />
 		         </div>
 				</fieldset>
 
          </div><!-- END .fieldset-wrapper -->
 
 			<p>
-				no account yet?
-				<router-link
-					tag="button"
-					class="btn btn-sign-up"
-					:to="{ name: 'SignUp', params: {} }"
-					>sign up
-				</router-link>
-
+				If you don't yet have an account, please create one on the
+				<router-link tag="a" class="" :to="{ name: 'SignUp', params: {} }">sign up page</router-link>
 			</p>
 
       </section>
-      <!-- <form v-if="!submitted">
-		</form> -->
 
    </div>
 </template>
@@ -69,8 +59,8 @@
 				email: "",
 				password: "",
 				error: false,
-				errorMsgBefore: "oh nohz! somethin' ain't right!",
-				errorMsgAfter: "please try again",
+				errorMsgBefore: "Message from firebase.io:",
+				errorMsgAfter: "Please try again.",
 				errorMsg: "",
 				loginButtonPath: null
 			}
@@ -116,7 +106,7 @@
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 
    section  {
       display: flex;
@@ -124,7 +114,7 @@
       align-items: flex-start;
       margin-bottom: 3rem;
 		padding-bottom: 1.5rem;
-		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme; text-transform: uppercase; }
+		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
    }
 
    .buttons,
@@ -164,10 +154,16 @@
 			max-height: 100vh;
 			height: auto;
 			margin-bottom: .9rem;
-			padding: .3rem .9rem;
-			border: 1px solid $error;
+			padding: 0;
+			border: 0;
 		}
-		.errorMsg { font-weight: bold; text-transform: uppercase; }
+		.error-before { margin-right: .9rem; }
+		.errorMsg {
+			margin-right: .9rem;
+			font-weight: bold;
+			text-transform: none;
+		}
+		.error-after {}
 	}
 
 </style>

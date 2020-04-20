@@ -30,19 +30,19 @@
 				<div class="buttons">
 					<router-link
 						tag="button"
-						class="btn btn-details"
+						class="btn btn-color-1 btn-details"
 						:to="{ name: 'ProjectDetail', params: { id: project.id, client: project.client }}"
 						>details
 					</router-link>
 					<router-link
 						tag="button"
-						class="btn btn-edit"
+						class="btn btn-color-2 btn-edit"
 						:to="{ name: 'ProjectEdit', params: { id: project.id, client: project.client }}"
 						>edit
 					</router-link>
 					<router-link
 						tag="button"
-						class="btn btn-log-hours"
+						class="btn btn-color-3 btn-log-hours"
 						:to="{ name: 'LogHours', params: { id: project.id, client: project.client }}"
 						>log hours
 					</router-link>

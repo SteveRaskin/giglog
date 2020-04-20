@@ -42,6 +42,10 @@ body {
   -moz-osx-font-smoothing: grayscale; }
 
 #app {
+  display: flex;
+  height: 100vh;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   font-size: 1.11rem; }
 
 .preview {
@@ -90,10 +94,11 @@ header {
     margin: 1.5rem 0; }
 
 .main {
+  flex-grow: 1;
+  flex-shrink: 0;
   width: 100%;
   position: relative;
-  margin-top: calc(12rem + 0px);
-  border: 0px dotted red; }
+  margin-top: calc(12rem + 0px); }
 
 .container {
   display: flex;
@@ -401,56 +406,43 @@ ol.projects {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  /* DNU margins */
-  font-weight: bold; }
+  /* DNU margins */ }
 
-.buttons button:not(:last-child),
-.buttons .button:not(:last-child) {
+.buttons .btn:not(:last-child) {
   margin-right: 1.5rem; }
 
 button,
-a.button,
+a.btn,
 input[type="text"],
 textarea {
   font-size: 1.2rem;
   /* not inherited */
   border-radius: .3em; }
 
-button,
-a.button {
-  display: inline-block;
-  min-width: 8.4rem;
-  padding: .45rem 1.8rem;
-  font-weight: 500;
-  text-align: center;
-  word-spacing: .3rem;
-  transition: .15s ease-in-out;
-  /* ok if all buttons.button have bg color */
-  color: #fff; }
-
 /*
-	BUTTON/'BUTTON' CLASSES
-	- ~ 'function' color codes:
-		- color for .details, a.edit, etc.
-		- then augment w/ button.details, etc.
 		[ https://github.com/vuejs/vue-loader/issues/363 ]
-
 		https://mayvendev.com/blog/inner-shadows-in-css-images-text-and-beyond
 		re: inset bevel text effect
 */
 .btn {
-  cursor: pointer;
-  /* background: $b; */
+  display: inline-block;
+  padding: .45rem 1.8rem;
+  text-align: center;
   color: #000;
   background: #fff;
-  border: 1px solid transparent; }
+  font-weight: 500;
+  text-transform: capitalize;
+  word-spacing: .3rem;
+  border: 1px solid #000;
+  border-radius: 1.5em;
+  cursor: pointer;
+  transition: .15s ease-in-out; }
 
 .btn:hover {
-  /* backup */
-  background: #000;
   color: #fff;
+  background: #000;
   border: 1px solid #000;
-  border-radius: 1.5em; }
+  border-radius: .3em; }
 
 .btn::before {
   display: inline-block;
@@ -459,20 +451,130 @@ a.button {
   font-weight: bold; }
 
 /*
-	Projects: details, edit, log hours
-	Add Project: add, save
-	Detail: edit, log hours, all projects;
-	Edit: edit, cancel, save
-	Log Hours: log hours (should be 'save')
-	! on buttons, the ???
-	also sign-up and sign-in, log-in
+app:
+.btn-sign-up {}
+.btn-log-in {}
+.btn-log-out {}
+
+Header:
+.btn-all-projects {}
+.btn-add-project {}
+
+Projects:
+.btn-details {}
+.btn-edit {}
+.btn-log-hours {}
+
+Create, Edit, Log Hours:
+.btn-add {}
+.btn-delete {}
+.btn-save {}
+.btn-cancel {}
+
+=============================
+
+NEUTRAL ACTIONS: THEME BLUE
+.btn-sign-up {}
+.btn-log-in {}
+.btn-log-out {}
+.btn-all-projects {}
+.btn-add-project {}
+
+SEMI-POSITIVE ACTIONS: THEME BLUE LIGHT ~ DODGERBLUE:
+.btn-details {}
+.btn-edit {}
+.btn-log-hours {}
+.btn-add {} // add project, add contact
+
+POSITIVE ACTIONS: GREEN:
+.btn-save {}
+
+SEMI-NEGATIVE ACTIONS: BLACK:
+.btn-cancel {}
+
+NEGATIVE ACTIONS: RED
+.btn-delete {}
+
+
+details: theme blue,
+edit: light blue,
+log hours: lightseagreen
+
+save: new, fuller green ?
+
 */
 /* TODO: BUTTON MIXIN */
-.btn-details,
-.btn-all-projects,
-.btn-add-project {
+.btn-color-1 {
   color: #1248ff;
   border: 1px solid #1248ff; }
+
+.btn-color-1:hover,
+.btn-color-1:active {
+  color: #fff;
+  background: #1248ff;
+  border: 1px solid #1248ff; }
+
+/* https://www.toptal.com/designers/htmlarrows/math/*/
+.btn-color-2 {
+  color: dodgerblue;
+  border: 1px solid dodgerblue; }
+
+.btn-color-2:hover,
+.btn-color-2:active {
+  color: #fff;
+  background: dodgerblue;
+  border: 1px solid dodgerblue; }
+
+.btn-color-3 {
+  color: lightseagreen;
+  border: 1px solid lightseagreen; }
+
+.btn-color-3:hover,
+.btn-color-3:active {
+  color: #fff;
+  background: lightseagreen;
+  border: 1px solid lightseagreen; }
+
+.btn-color-4 {
+  color: #0f960f;
+  border: 1px solid #0f960f; }
+
+.btn-color-4:hover,
+.btn-color-4:active {
+  color: #fff;
+  background: #0f960f;
+  border: 1px solid #0f960f; }
+
+.btn-color-5 {
+  color: orangered;
+  border: 1px solid orangered; }
+
+.btn-color-5:hover,
+.btn-color-5:active {
+  color: #fff;
+  background: orangered;
+  border: 1px solid orangered; }
+
+.btn-color-6 {
+  color: #d20f0f;
+  border: 1px solid #d20f0f; }
+
+.btn-color-6:hover,
+.btn-color-6:active {
+  color: #fff;
+  background: #d20f0f;
+  border: 1px solid #d20f0f; }
+
+.btn-color-bw {
+  color: #000;
+  background: #fff;
+  border: 1px solid #000; }
+
+.btn-color-bw:hover,
+.btn-color-bw:active {
+  color: #fff;
+  background: #000;
+  border: 1px solid #000; }
 
 .btn-all-projects::before {
   content: "\2190"; }
@@ -480,67 +582,6 @@ a.button {
 .btn-add-project::before {
   content: "\002B"; }
 
-/* https://www.toptal.com/designers/htmlarrows/math/*/
-.btn-details:hover,
-.btn-details:active,
-.btn-all-projects:hover,
-.btn-all-projects:active {
-  color: #fff;
-  background: #1248ff; }
-
-.btn-edit {
-  color: dodgerblue;
-  border: 1px solid dodgerblue; }
-
-.btn-edit:hover,
-.btn-edit:active {
-  color: #fff;
-  background: dodgerblue; }
-
-.btn-log-hours {
-  color: lightseagreen;
-  border: 1px solid lightseagreen; }
-
-.btn-log-hours:hover,
-.btn-log-hours:active {
-  color: #fff;
-  background: lightseagreen; }
-
-.btn-save {
-  color: orangered;
-  border: 1px solid orangered; }
-
-.btn-save:hover,
-.btn-save:active {
-  color: #fff;
-  background: orangered; }
-
-.btn-cancel {
-  background: #000; }
-
-.btn-cancel:hover,
-.btn-cancel:active {
-  color: #000;
-  background: #fff;
-  border: 1px solid #000; }
-
-.btn-logout {
-  color: #000;
-  background: transparent;
-  border: 0; }
-
-.btn-logout:hover,
-.btn-logout:active {
-  background: transparent;
-  box-shadow: none;
-  text-decoration: underline; }
-
-/*
-#project-detail .buttons .btn-details,
-#project-edit .buttons .btn-edit,
-#project-edit .buttons .btn-log-hours,
-#projects .buttons .btn-all-projects	{ display: none; }
-*/
 .btn-debug {
   background: #999;
   color: #fff; }

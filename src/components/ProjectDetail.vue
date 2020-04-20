@@ -91,13 +91,13 @@
 		<div class="buttons">
 			<router-link
 				tag="button"
-				class="btn btn-edit"
+				class="btn btn-color-2 btn-edit"
 				:to="{ name: 'ProjectEdit', params: { id: this.id, client: this.client }}"
 				>edit
 			</router-link>
 			<router-link
 				tag="button"
-				class="btn btn-log-hours"
+				class="btn btn-color-3 btn-log-hours"
 				:to="{ name: 'LogHours', params: { id: this.id, client: this.client }}"
 				>log hours
 			</router-link>

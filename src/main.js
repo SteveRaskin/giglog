@@ -52,15 +52,16 @@ firebase.auth().onAuthStateChanged(function(user) {
 	} // if
 });
 
-// 'to' and 'from' are both route objects
+// 'to', 'from', 'next' are route objects
 router.beforeEach((to, from, next) => {
 	const currentUser = firebase.auth().currentUser;
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	// if (from.name == 'SignUp' && currentUser) next ('LogIn')
 	// else if (requiresAuth && !currentUser) next ('LogIn')
-	if (requiresAuth && !currentUser) {
-		// next('LogIn'); //
-		from.name === "LogIn" ? next() : next("LogIn"); //
+	if (requiresAuth && !currentUser) { // i.e., protected routes and logged out:
+		// next('LogIn');
+		from.name === "LogIn" && next.name !== "Projects" ? next() : next("LogIn"); //
+		// from.name === "LogIn" ? next() : next("LogIn"); //
 	}
 	else if (!requiresAuth && currentUser) {
 		from.name === "SignUp" ? next() : next("Projects"); //

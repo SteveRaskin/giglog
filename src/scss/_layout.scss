@@ -33,7 +33,13 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-#app { font-size: 1.11rem; }
+#app {
+	display: flex;
+	height: 100vh;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	font-size: 1.11rem;
+}
 
 .preview	{
 	order: 9;
@@ -90,10 +96,12 @@ header {
 }
 
 .main {
+	flex-grow: 1;
+	flex-shrink: 0;
 	width: 100%;
 	position: relative;
 	margin-top: calc(12rem + 0px); //  TBD re; responsiveness, per Header height
-	border: 0px dotted red;
+	// border: 3px dotted red;
 }
 
 .container	{

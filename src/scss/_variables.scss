@@ -27,22 +27,19 @@ $tr: transparent;
 $color1: rgb(18, 72, 255);
 $accent: ajdust-hue($color1, 15deg);
 
-
-// COLORS (see buttons.scss)
-// Projects: details, edit, log hours
-// Add Project: add, save
-// Detail: edit, log hours, all projects;
-// Edit: edit, cancel, save
-// Log Hours: log hours (should be 'save')
-// ! on buttons, the
-$details: rgb(18, 72, 255);
-$add: rgb(255, 69, 0);
-$save: rgb(255, 69, 0);
-$edit: rgb(30, 144, 255); // dodgerblue .. should be gold-ish?
-$log-hours: rgb(32, 178, 170); // lightseagreen
-$theme: rgb(18, 72, 255); // 'details'; giglog blue
-$save: rgb(255, 69, 0); // orangered
-$cancel: #000;
+// $theme1 = blue 1
+// $theme2 = blue 2 dodgerblue
+// $theme3 = lightseagreen
+// $theme4 = full green TBD
+// $theme5 = med orangered, e.g., 'exit' ?
+// $theme6 = full 'delete' red
+$theme1: rgb(18, 72, 255);
+$theme2: rgb(30, 144, 255);
+$theme3: rgb(32, 178, 170);
+$theme4: rgb(15, 150, 15);
+// $theme5: rgb(210, 90, 90);
+$theme5: rgb(255, 69, 0);
+$theme6: rgb(210, 15, 15);
 
 
 $error: red;

@@ -3,27 +3,27 @@
 	<header>
 
 		<h1>
-			<router-link :to="'/projects'" exact>gigz</router-link>
+			<router-link :to="{ path: '/' }">gigz</router-link>
 		</h1>
 
 		<p style="display: none; color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
 		<nav>
-			<ul v-if="(loggedIn && viewName !== 'LogIn' && viewName !== 'SignUp')">
+			<div class="buttons" v-if="(loggedIn && viewName !== 'LogIn' && viewName !== 'SignUp')">
 				<router-link
 					v-if="(viewName !== 'Projects')"
 					tag="button"
-					class="btn btn-all-projects"
+					class="btn btn-color-1 btn-all-projects"
 					:to="{ name: 'Projects', params: {}}"
 					>Project List
 				</router-link>
 				<router-link
 					tag="button"
-					class="btn btn-add-projects"
+					class="btn btn-color-1 btn-add-projects"
 					:to="{ name: 'AddProject', params: {}}"
 					>Add a Project
 				</router-link>
-				<app-button buttonClass="btn-logout" buttonText="log out" v-on:click.native="signOut" />
-			</ul>
+				<app-button buttonClass="btn-log-out" buttonText="log out" v-on:click.native="signOut" />
+			</div>
 		</nav>
 
 	</header>

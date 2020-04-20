@@ -1,64 +1,57 @@
-// button { cursor: pointer; background: $b; border: 1px solid red; }
-// button:hover { background: $w; color: $b; }
+// 'button' styles shared by <router-link /> components, <app-button />
 
-// for the sake of <router-link /> components, which otherwise won't pick up these rules in <app-button />
-
+// .btn-edit {
+// 	color: dodgerblue;
+// 	background: transparent;
+// 	text-transform: uppercase;
+// 	box-shadow: none;
+// 	word-spacing: 0;
+// }
 
 .buttons	{
+	// width: 100%;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
 	/* DNU margins */
-	font-weight: bold;
 }
+// TODO: override this in TheHeader.vue
+.buttons .btn:not(:last-child) { margin-right: 1.5rem; }
 
-.buttons button:not(:last-child),
-.buttons .button:not(:last-child) { margin-right: 1.5rem; }
 
 button,
-a.button,
+a.btn,
 input[type="text"],
 textarea {
 	font-size: 1.2rem; /* not inherited */
 	border-radius: .3em;
 }
 
-button,
-a.button	{
-	display: inline-block;
-	min-width: 8.4rem;
-	padding: .45rem 1.8rem;
-	font-weight: 500;
-	text-align: center;
-	word-spacing: .3rem;
-	transition: .15s ease-in-out;
-	/* ok if all buttons.button have bg color */
-	color: $w;
-}
-
 /*
-	BUTTON/'BUTTON' CLASSES
-	- ~ 'function' color codes:
-		- color for .details, a.edit, etc.
-		- then augment w/ button.details, etc.
 		[ https://github.com/vuejs/vue-loader/issues/363 ]
-
 		https://mayvendev.com/blog/inner-shadows-in-css-images-text-and-beyond
 		re: inset bevel text effect
 */
+
 .btn {
-	cursor: pointer;
-	/* background: $b; */
+	display: inline-block;
+	padding: .45rem 1.8rem;
+	text-align: center;
 	color: $b;
 	background: $w;
-	border: 1px solid $tr;
-}
-.btn:hover {
-	/* backup */
-	background: $b;
-	color: $w;
+	font-weight: 500;
+	text-transform: capitalize;
+	word-spacing: .3rem;
 	border: 1px solid $b;
 	border-radius: 1.5em;
+	cursor: pointer;
+	transition: .15s ease-in-out;
+}
+.btn:hover {
+	color: $w;
+	background: $b;
+	border: 1px solid $b;
+	border-radius: .3em;
 }
 .btn::before {
 	display: inline-block;
@@ -66,97 +59,159 @@ a.button	{
 	font-size: 1.2em;
 	font-weight: bold;
 }
+
 /*
-	Projects: details, edit, log hours
-	Add Project: add, save
-	Detail: edit, log hours, all projects;
-	Edit: edit, cancel, save
-	Log Hours: log hours (should be 'save')
-	! on buttons, the ???
-	also sign-up and sign-in, log-in
+app:
+.btn-sign-up {}
+.btn-log-in {}
+.btn-log-out {}
+
+Header:
+.btn-all-projects {}
+.btn-add-project {}
+
+Projects:
+.btn-details {}
+.btn-edit {}
+.btn-log-hours {}
+
+Create, Edit, Log Hours:
+.btn-add {}
+.btn-delete {}
+.btn-save {}
+.btn-cancel {}
+
+=============================
+
+NEUTRAL ACTIONS: THEME BLUE
+.btn-sign-up {}
+.btn-log-in {}
+.btn-log-out {}
+.btn-all-projects {}
+.btn-add-project {}
+
+SEMI-POSITIVE ACTIONS: THEME BLUE LIGHT ~ DODGERBLUE:
+.btn-details {}
+.btn-edit {}
+.btn-log-hours {}
+.btn-add {} // add project, add contact
+
+POSITIVE ACTIONS: GREEN:
+.btn-save {}
+
+SEMI-NEGATIVE ACTIONS: BLACK:
+.btn-cancel {}
+
+NEGATIVE ACTIONS: RED
+.btn-delete {}
+
+
+details: theme blue,
+edit: light blue,
+log hours: lightseagreen
+
+save: new, fuller green ?
+
 */
 
 /* TODO: BUTTON MIXIN */
-.btn-details,
-.btn-all-projects,
-.btn-add-project {
-	color: $theme;
-	border: 1px solid $theme;
+
+// $theme1 = blue 1
+// $theme2 = blue 2 dodgerblue
+
+// $theme3 = lightseagreen
+// $theme4 = full green TBD
+
+// $theme5 = med orangered, e.g., 'exit' ?
+// $theme6 = full 'delete' red
+
+.btn-color-1 {
+	color: $theme1;
+	border: 1px solid $theme1;
+}
+.btn-color-1:hover,
+.btn-color-1:active {
+	color: $w;
+	background: $theme1;
+	border: 1px solid $theme1;
 }
 
-.btn-all-projects::before {
-	content: "\2190";
-}
-.btn-add-project::before {
-	content: "\002B";
-}
 /* https://www.toptal.com/designers/htmlarrows/math/*/
 
-.btn-details:hover,
-.btn-details:active,
-.btn-all-projects:hover,
-.btn-all-projects:active {
+.btn-color-2 {
+	color: $theme2;
+	border: 1px solid $theme2;
+}
+.btn-color-2:hover,
+.btn-color-2:active {
 	color: $w;
-	background: $theme;
+	background: $theme2;
+	border: 1px solid $theme2;
 }
 
-.btn-edit {
-	color: $edit;
-	border: 1px solid $edit;
+.btn-color-3 {
+	color: $theme3;
+	border: 1px solid $theme3;
 }
-.btn-edit:hover,
-.btn-edit:active {
+.btn-color-3:hover,
+.btn-color-3:active {
 	color: $w;
-	background: $edit;
+	background: $theme3;
+	border: 1px solid $theme3;
 }
 
-.btn-log-hours {
-	color: $log-hours;
-	border: 1px solid $log-hours;
+.btn-color-4 {
+	color: $theme4;
+	border: 1px solid $theme4;
 }
-.btn-log-hours:hover,
-.btn-log-hours:active {
+.btn-color-4:hover,
+.btn-color-4:active {
 	color: $w;
-	background: $log-hours;
+	background: $theme4;
+	border: 1px solid $theme4;
 }
 
-.btn-save {
-	color: $save;
-	border: 1px solid $save;
+.btn-color-5 {
+	color: $theme5;
+	border: 1px solid $theme5;
 }
-.btn-save:hover,
-.btn-save:active {
+.btn-color-5:hover,
+.btn-color-5:active {
 	color: $w;
-	background: $save;
+	background: $theme5;
+	border: 1px solid $theme5;
+}
+
+.btn-color-6 {
+	color: $theme6;
+	border: 1px solid $theme6;
+}
+.btn-color-6:hover,
+.btn-color-6:active {
+	color: $w;
+	background: $theme6;
+	border: 1px solid $theme6;
 }
 
 
-
-.btn-cancel { background: $cancel; }
-.btn-cancel:hover,
-.btn-cancel:active {
-	color: $cancel;
-	background: $w;
-	border: 1px solid $cancel;
-}
-
-.btn-logout	{
+// $theme-bw
+.btn-color-bw {
 	color: $b;
-	background: $tr;
-	border: 0;
+	background: $w;
+	border: 1px solid $b;
 }
-.btn-logout:hover,
-.btn-logout:active {
-	background: $tr;
-	box-shadow: none;
-	text-decoration: underline;
+.btn-color-bw:hover,
+.btn-color-bw:active {
+	color: $w;
+	background: $b;
+	border: 1px solid $b;
 }
 
-/*
-#project-detail .buttons .btn-details,
-#project-edit .buttons .btn-edit,
-#project-edit .buttons .btn-log-hours,
-#projects .buttons .btn-all-projects	{ display: none; }
-*/
+// ===========================================================
+// buttons w/pseudo-icon content
+
+.btn-all-projects::before { content: "\2190"; }
+.btn-add-project::before { content: "\002B"; }
+
 
 .btn-debug { background: #999; color: $w; }

@@ -12,11 +12,9 @@
 					<legend>giglog sign-up</legend>
 
 					<p class="error" v-bind:class="{ true: error }">
-						{{ errorMsgBefore }}
-						<br />
+						<span class="error-before">{{ errorMsgBefore }}</span>
 						<span class="errorMsg">{{ errorMsg }}</span>
-						<br />
-						{{ errorMsgAfter }}
+						<span class="error-after">{{ errorMsgAfter }}</span>
 					</p>
 
 					<!-- USER NAME -->
@@ -50,28 +48,14 @@
 					</div>
 
 					<div class="buttons">
-						<app-button buttonClass="btn-sign-up" buttonText="sign up" v-on:click.native="signUp" />
+						<app-button buttonClass="btn-color-1" buttonText="sign up" v-on:click.native="signUp" />
 					</div>
 				</fieldset>
 			</div><!-- END .fieldset-wrapper -->
 
 			<p>
-				password: <b>{{ password }}</b>
-				<br />
-				confirm password: <b>{{ confirmPassword }}</b>
-				<br />
-				<!-- match? <b>{{ match }}</b> -->
-			</p>
-
-			<p>
 				already have an account?
-				<router-link
-					tag="button"
-					class="btn btn-edit"
-					:to="{ name: 'LogIn', params: {} }"
-					>log in
-				</router-link>
-
+				<router-link tag="a" class="" :to="{ name: 'LogIn', params: {} }">log in</router-link>
 			</p>
 
 		</section>
@@ -93,9 +77,9 @@
 				password: "",
 				confirmPassword: "",
 				error: false,
-				errorMsgBefore: "oh nohz! somethin' ain't right!",
-				errorMsgAfter: "please try again",
-				errorMsg: ""
+				errorMsgBefore: "Message from firebase.io:",
+				errorMsgAfter: "Please try again.",
+				errorMsg: "",
 			}
 		},
 		methods: {
@@ -142,7 +126,7 @@
       align-items: flex-start;
       margin-bottom: 3rem;
 		padding-bottom: 1.5rem;
-		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme; text-transform: uppercase; }
+		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
    }
 
    .buttons,
@@ -182,10 +166,16 @@
 			max-height: 100vh;
 			height: auto;
 			margin-bottom: .9rem;
-			padding: .3rem .9rem;
-			border: 1px solid $error;
+			padding: 0;
+			border: 0;
 		}
-		.errorMsg { font-weight: bold; text-transform: uppercase; }
+		.error-before { margin-right: .9rem; }
+		.errorMsg {
+			margin-right: .9rem;
+			font-weight: bold;
+			text-transform: none;
+		}
+		.error-after {}
 	}
 
 

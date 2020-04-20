@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 
+import welcome from '../components/ViewWelcome.vue';
 import projects from '../components/ProjectList.vue';
 import projectAdd from '../components/ProjectCreate.vue';
 import projectDetail from '../components/ProjectDetail.vue';
@@ -8,7 +9,6 @@ import projectEdit from '../components/ProjectEdit.vue';
 import logHours from '../components/ProjectLogHours.vue';
 import login from '../components/ViewLogIn.vue';
 import signup from '../components/ViewSignUp.vue';
-
 
 
 
@@ -23,10 +23,20 @@ export default new VueRouter({
 			path: '*',
 			redirect: 'LogIn'
 		},
+
+		// {
+		// 	path: '/',
+		// 	name: 'LogIn',
+		// 	component: login,
+		// 	meta: {
+		// 		requiresAuth: false
+		// 	}
+		// },
+
 		{
 			path: '/',
-			name: 'LogIn',
-			component: login,
+			name: 'Welcome',
+			component: welcome,
 			meta: {
 				requiresAuth: false
 			}
