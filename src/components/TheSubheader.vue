@@ -5,7 +5,7 @@
 		<h1>{{ viewName }} <span>({{ fileName }})</span></h1>
 
 		<!-- <app-search v-bind:projects="projects" v-if="(viewName == 'All Projects' || viewName == 'ping')" /> -->
-		<app-search v-bind:projects="projects" v-if="(fileName == 'projects.vue' || viewName == 'ping')" />
+		<app-search v-if="(fileName == 'projects.vue')" v-bind:projects="projects" />
 
 	</div><!-- END .subheader -->
 
@@ -59,22 +59,29 @@
 			}
 		} // computed
 
-
-
    }
 </script>
 
 
 
-<style scoped>
+<style lang="scss" scoped>
 
 	h1 { margin-bottom: 1.5rem; }
 	h1 span { font-size: .6em; }
 
-	.subheader { }
-	#projects .subheader h2,
-	#project-detail .subheader h2 { display: none; }
-
 	.results-count { margin: .9rem 0 1.5rem; font-weight: bold; }
+
+	.subheader {
+		border: 1px solid #999;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		margin-bottom: 1.5rem;
+		h1 {
+			width: auto;
+			font-size: 2.1rem;
+			color: $theme1;
+		}
+	}
 
 </style>

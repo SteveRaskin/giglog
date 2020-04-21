@@ -1,8 +1,7 @@
 <template>
+   <div class="container container-login">
 
-   <div class="container" id="login">
-
-      <section>
+      <section class="section-login">
 
 			<h1>log in</h1>
 

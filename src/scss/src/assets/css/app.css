@@ -1,89 +1,44 @@
 /*
-think base lib; app doesn't need mosaic, but:
-
-typography;
-	font-sizes & font-weight,
-	text-transforms,
-	anchor styles,
-
-a,
-img,
-h1, h2, h3, h4, h5, h6
-dl, ol, ul defaults
-
-?
-then it should precede layout
-
 
 section? no padding globally; margin-bottom only
+	- width only; global design? don't think so
 
-EGADS, REMEMBER: W/OUT 'scoped', RULES IN A .vue COMPONENT LEAK INTO GLOBAL, e.g.,
+??? convention, but makes sense only (?) for ViewXYZ components (e.g., TheSubheader.vue doesn't have a .container YET; should it? should they all?):
 
-section { border: 1px solid blue; } in signup applied to login
+<template>
+	<div class="container container-[view]">
 
+		<section class="section-[view]">
 */
-.subheader {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between; }
-  .subheader h1 {
-    width: auto;
-    font-size: 2.1rem;
-    color: #1248ff; }
-  .subheader .search-wrapper {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center; }
-    .subheader .search-wrapper .search {
-      width: 100%; }
-  .subheader .search-results-wrapper {
-    width: 100%;
-    margin: .3rem 0 1.5rem;
-    padding: 0 1.5rem;
-    max-height: 0;
-    height: 0;
-    overflow: hidden;
-    background: #f0f0f0;
-    border-top: 0;
-    border-bottom: 0;
-    border-radius: 0 0 .3rem .3rem;
-    transition: .3s all ease-in-out; }
-    .subheader .search-results-wrapper.open {
-      max-height: 100vh;
-      height: auto;
-      padding: 0.9rem 1.5rem;
-      border-top: 0px solid #e6e6e6;
-      border-bottom: 3px solid #bfbfbf; }
-    .subheader .search-results-wrapper.noresults {
-      max-height: 100vh;
-      height: auto;
-      padding: 0.9rem 1.5rem;
-      border-top: 0px solid #e6e6e6;
-      border-bottom: 3px solid #bfbfbf; }
-    .subheader .search-results-wrapper .results-count {
-      margin-bottom: .3rem;
-      font-weight: bold; }
-    .subheader .search-results-wrapper ul {
-      overflow: hidden;
-      transition: .3s all ease-in-out; }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  font-family: inherit; }
 
-.add-contact {
-  margin-bottom: 1.5rem;
-  padding: .9rem 0 1.5rem 1.5rem;
-  border: 3px double #999;
-  border-width: 3px 0; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  line-height: 1.11; }
 
-.add-contact h3 {
-  margin-bottom: .9rem; }
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none; }
 
-.checkboxes label,
-.checkboxes input {
-  display: inline-block; }
+ul {
+  list-style: none; }
 
-.checkboxes input {
-  margin-right: .9rem; }
+img {
+  max-width: 100%;
+  height: auto; }
 
 /* from project-detail.vue */
 /*
@@ -111,9 +66,6 @@ ul.contacts {
 
 .contacts li {
   margin-bottom: 1.5rem; }
-
-.preview .contacts li {
-  padding-left: .9rem; }
 
 .done {
   border: 1px solid red !important; }
@@ -146,39 +98,7 @@ h5 {
 .done {
   border: 1px solid red !important; }
 
-/* only projects.vue */
-ol.projects {
-  list-style-position: inside;
-  /*max-width: 33rem;*/
-  margin: 0 auto 1.5rem; }
-
 /**/
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-  font-family: inherit; }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-  line-height: 1.11; }
-
-a:link,
-a:visited,
-a:hover,
-a:active {
-  text-decoration: none; }
-
-ul {
-  list-style: none; }
-
 html {
   width: 100%;
   /* DNU vw on html or body */
@@ -203,14 +123,6 @@ body {
   justify-content: space-between;
   font-size: 1.11rem; }
 
-img {
-  max-width: 100%;
-  height: auto; }
-
-.wrapper {
-  height: 0;
-  width: auto; }
-
 /*
    <body>
 	- <app>
@@ -223,13 +135,13 @@ header {
   order: 0;
   position: fixed;
   top: 0;
+  width: 100%;
+  height: 10.5rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  width: 100%;
-  height: 10.5rem;
   margin-bottom: .9rem;
   padding: 1.5rem 3rem 3rem 11%;
   background: #fff;
@@ -251,7 +163,6 @@ header {
   display: flex;
   max-width: 78%;
   margin: 0 auto 3rem;
-  padding-top: 1.8rem;
   flex-flow: column nowrap;
   justify-content: space-between; }
 
@@ -338,6 +249,13 @@ input[type="password"] {
   height: 2.1rem;
   padding: 0 .3rem;
   /* NG: vertical padding re: FF */ }
+
+.checkboxes label,
+.checkboxes input {
+  display: inline-block; }
+
+.checkboxes input {
+  margin-right: .9rem; }
 
 .buttons {
   width: 100%;

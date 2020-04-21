@@ -4,7 +4,6 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" v-bind:projects="projects" />
 
-		<p class="debug">debug</p>
 		<ol class="projects">
 
 			<li class="project" v-for="(project, ix) in reverseprojects" v-bind:key="project.key">
@@ -85,7 +84,7 @@
             return data.json();
          }).then(function(data){
 				let projectsArray = [];
-				// project objects in projects.json do not have an 'id' key;
+				// project objects in projects.json don't have an 'id' key;
 				// ergo use firebase keys as project.id for use herein
             for (const key in data) {
                data[key].id = key;
@@ -120,6 +119,12 @@
 
 
 <style lang="scss" scoped>
+
+	ol.projects   {
+		list-style-position: inside;
+		/*max-width: 33rem;*/
+		margin: 0 auto 1.5rem;
+	}
 
 	li.project > h5 {
 		margin-right: .6rem;

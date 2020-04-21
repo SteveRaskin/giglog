@@ -1,8 +1,7 @@
 <template>
+	<div class="container container-sign-up">
 
-	<div class="container sign-up" id="sign-up">
-
-		<section>
+		<section class="section-sign-up">
 
 			<h1>sign up</h1>
 
@@ -59,6 +58,7 @@
 			</p>
 
 		</section>
+
 	</div>
 </template>
 
@@ -117,7 +117,7 @@
 
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 
    section {
       display: flex;
@@ -126,7 +126,6 @@
 		margin-bottom: 3rem;
 		padding-bottom: 1.5rem;
 		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
-		border: 1px solid blue;
    }
 
 	.error {

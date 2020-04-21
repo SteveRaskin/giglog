@@ -50,6 +50,10 @@ input[type="text"] {
 input[type="text"],
 input[type="password"] { height: 2.1rem; padding: 0 .3rem; /* NG: vertical padding re: FF */ }
 
+.checkboxes label,
+.checkboxes input	{ display: inline-block; }
+.checkboxes input	{ margin-right: .9rem; }
+
 
 
 

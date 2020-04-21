@@ -556,6 +556,14 @@
    .add-contact-wrapper { width: 100%; }
    .add-contact-wrapper.editMode > .buttons { max-height: 0; }
    .add-contact-wrapper.editMode .fieldset-wrapper { max-height: 100vh; }
+	.add-contact   {
+		margin-bottom: 1.5rem;
+		padding: .9rem 0 1.5rem 1.5rem;
+		border: 3px double #999;
+		border-width: 3px 0;
+	}
+	.add-contact h3   { margin-bottom: .9rem; }
+
 
 
 

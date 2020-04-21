@@ -58,6 +58,7 @@ router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	// if (from.name == 'SignUp' && currentUser) next ('LogIn')
 	// else if (requiresAuth && !currentUser) next ('LogIn')
+	console.log("currentUser", currentUser);
 	if (requiresAuth && !currentUser) { // i.e., protected routes and logged out:
 		// next('LogIn');
 		from.name === "LogIn" && next.name !== "Projects" ? next() : next("LogIn"); //
