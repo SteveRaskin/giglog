@@ -62,6 +62,8 @@
 
 	.search-wrapper {
 		width: 100%;
+		// subheader has margin-bottom, so w/search, counter it here w/negative margin-top
+		margin: -1.5rem 0 1.5rem;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
@@ -94,8 +96,10 @@
 				border-top: 0px solid lighten($b, 90%);
 				border-bottom: 3px solid lighten($b, 75%);
 			}
+
 			.results-count {
 				display: block;
+				// margin: .9rem 0 1.5rem;
 				margin-bottom: .9rem;
 				font-weight: bold;
 			}

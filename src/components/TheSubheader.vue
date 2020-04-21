@@ -4,9 +4,6 @@
 
 		<h1>{{ viewName }} <span>({{ fileName }})</span></h1>
 
-		<!-- <app-search v-bind:projects="projects" v-if="(viewName == 'All Projects' || viewName == 'ping')" /> -->
-		<app-search v-if="(fileName == 'projects.vue')" v-bind:projects="projects" />
-
 	</div><!-- END .subheader -->
 
 </template>
@@ -16,14 +13,10 @@
 <script>
 
 	// import searchMixin  from '../mixins/searchMixin.js';
-	import Search from '@/components/search.vue';
 
    export default {
 		components: {
-			'app-search': Search
 		},
-		// e.g., projects.vue:
-		// <app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" v-bind:projects="projects" />
 		props: {
 			viewName: String,
 			fileName: String,
@@ -35,22 +28,19 @@
          }
     	},
 		created: function() {
-			// console.log("subheader.vue > created: projects.length", this.projects.length);
-			// console.log("subheader.vue @created: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
 		},
 
 		beforeMount: function() {
 		},
 
 		mounted: function() {
-			// console.log("subheader.vue > mounted: projects.length", this.projects.length);
-			// console.log("subheader.vue @mounted: Array.isArray(this.projects)?", Array.isArray(this.projects), this.projects);
 		},
 
 		methods: {},
 		// mixins: [ searchMixin ],
 
 		computed: {
+			// TODO: put this somewhere appropriate
 			searchResultsLength: function() {
 				// eslint bitched about 'let filteredProjects ... '
 				let filteredProjects = [];
@@ -66,21 +56,17 @@
 
 <style lang="scss" scoped>
 
-	h1 { margin-bottom: 1.5rem; }
-	h1 span { font-size: .6em; }
-
-	.results-count { margin: .9rem 0 1.5rem; font-weight: bold; }
-
 	.subheader {
-		border: 1px solid #999;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
 		margin-bottom: 1.5rem;
 		h1 {
 			width: auto;
+			margin-bottom: 1.5rem;
 			font-size: 2.1rem;
 			color: $theme1;
+			span { font-size: .6em; }
 		}
 	}
 

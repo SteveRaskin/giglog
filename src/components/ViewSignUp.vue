@@ -119,14 +119,8 @@
 
 <style lang="scss" scoped>
 
-   section {
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: flex-start;
-		margin-bottom: 3rem;
-		padding-bottom: 1.5rem;
-		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
-   }
+
+	h1 { margin-bottom: 1.5rem; }
 
 	.error {
 		max-height: 0;

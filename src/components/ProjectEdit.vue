@@ -439,10 +439,6 @@
 
 <style lang="scss" scoped>
 
-   /* @import url('/static/giglog.css'); */
-	h1 { margin-bottom: 1.5rem; }
-	h1 .project-id { font-size: 1.2rem; color: #999; }
-
    section {
       display: flex;
       flex-flow: column nowrap;

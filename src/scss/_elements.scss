@@ -22,6 +22,17 @@ h4,
 h5,
 h6 { font-weight: normal; line-height: 1.11; }
 
+h1 {
+	font-size: 1.5rem;
+	color: $theme1;
+	text-transform: uppercase;
+}
+h1 span {
+	font-size: .99rem;
+	text-transform: none;
+}
+
+
 a:link,
 a:visited,
 a:hover,
@@ -74,6 +85,12 @@ h5 {
 .done { border: 1px solid red !important; }
 
 
+section {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	margin-bottom: 3rem;
+}
 
 
 

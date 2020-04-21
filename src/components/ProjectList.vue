@@ -4,6 +4,8 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" v-bind:projects="projects" />
 
+		<app-search v-if="(fileName == 'projects.vue')" v-bind:projects="projects" />
+
 		<ol class="projects">
 
 			<li class="project" v-for="(project, ix) in reverseprojects" v-bind:key="project.key">
@@ -58,17 +60,21 @@
 
 <script>
 
-   export default {
+	import Search from '@/components/search.vue';
+
+	export default {
+
+		components: {
+			'app-search': Search
+		},
 
 		props: {},
-
-      components: {},
 
       data() {
 			// TAN
          return {
 				viewName: "projects",
-				fileName: "projects.vue",
+				fileName: "ProjectList.vue",
             projects: [],
 				activeID: ""
          }
