@@ -41,14 +41,6 @@ body {
 	font-size: 1.11rem;
 }
 
-.preview	{
-	order: 9;
-	width: 100%;
-	margin-top: 3rem;
-	padding: 0 1.5rem;
-	border: 1px dotted #f0f0f0;
-}
-
 // DEFAULTS
 img { max-width: 100%; height: auto; }
 
@@ -58,21 +50,17 @@ img { max-width: 100%; height: auto; }
 }
 
 
-// BIG BOXES
-
-/* ============ CONTAINER, GLOBAL STUFF ============ */
-
 /*
    <body>
 	- <app>
 	- - <header>
-	- - <main> [ actually div.main ]
-	- - - <div.container>
+	- - <main> [ div.main ]
+	- - - <div.container [view/component]>
 	- - <footer>
 */
 
 header {
-	order: 0; // header is child of #vueApp, which is flex
+	order: 0;
    position: fixed;
    top: 0;
 	display: flex;
@@ -120,41 +108,3 @@ header {
    color: #fff;
    margin-bottom: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//

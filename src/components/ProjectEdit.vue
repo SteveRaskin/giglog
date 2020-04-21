@@ -1,6 +1,6 @@
 <template>
 
-   <div class="container" id="project-edit">
+   <div class="container project-edit" style="border: 1px solid red;">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
@@ -15,7 +15,7 @@
             - etc.
       -->
       <!-- ======================== CLIENT DATA ======================== -->
-      <section class="client-data" v-bind:class="{ editMode: isEditingClient }">
+      <section class="card client-data" v-bind:class="{ editMode: isEditingClient }">
          <dl>
             <dt>client:</dt>
             <dd>
@@ -30,7 +30,7 @@
 
          <div class="fieldset-wrapper">
             <fieldset>
-               <legend>editing client data</legend>
+					<legend><span>editing</span> client</legend>
                <div class="label-input text">
                   <label for="">company name</label>
                   <input type="text" v-model.lazy="project.client" />
@@ -68,9 +68,9 @@
 
 
       <!-- ======================== GIG DATA ======================== -->
-      <section class="gig-data" v-bind:class="{ editMode: isEditingGig }">
+      <section class="card gig-data" v-bind:class="{ editMode: isEditingGig }">
          <dl>
-            <dt>gig:</dt>
+            <dt>assignment:</dt>
             <dd>
                <dl>
                   <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
@@ -92,10 +92,10 @@
 
          <div class="fieldset-wrapper">
             <fieldset v-if="isEditingGig">
-               <legend>editing gig data</legend>
+               <legend><span>editing</span> assignment</legend>
 
                <div class="label-input text">
-                  <label for="">referred by/source:</label>
+                  <label for="">referrer:</label>
                   <input type="text" v-model.lazy="project.source" />
                </div>
                <div class="label-input text">
@@ -104,7 +104,7 @@
                </div>
 
                <fieldset class="radios">
-                  <legend>work location:</legend>
+						<legend><span>editing</span> work location</legend>
                   <div class="label-input radio">
                      <label>
                         <input type="radio" name="work-location" id="remote" value="remote" v-model="workLocation" />
@@ -144,7 +144,7 @@
 
 
       <!-- ======================== CONTACTS ======================== -->
-      <section class="contacts-wrapper">
+      <section class="card contacts-wrapper">
 
          <dl>
             <dt>contacts:</dt>
@@ -156,7 +156,7 @@
 
                         <div class="contact-data">
                            {{ ix + 1 }}. <span class="contact-name">{{ contact.name }}</span><br />
-                           <span class="contact-title">{{ contact.title }}</span><br />
+                           title: <span class="contact-title">{{ contact.title }}</span><br />
                            email: <span class="contact-email">{{ contact.email }}</span><br />
                            phone: <span class="contact-phone">{{ contact.phone }}</span>
 
@@ -173,7 +173,7 @@
                         <div class="fieldset-wrapper">
 
                            <fieldset>
-                              <legend>edit contact:</legend>
+										<legend><span>editing</span> contact</legend>
                               <div class="label-input text contact">
                                  <label for="">name</label>
                                  <input type="text" class="contact-info" v-model.lazy="contact.name" required />
@@ -437,7 +437,7 @@
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
 
    /* @import url('/static/giglog.css'); */
 	h1 { margin-bottom: 1.5rem; }
@@ -448,15 +448,17 @@
       flex-flow: column nowrap;
       align-items: flex-start;
       margin-bottom: 3rem;
-		padding-bottom: 1.5rem;
+   }
+	// section.card
+	.card {
 		padding: 1.8rem;
 		background: #f9f9f9;
 		border: 1px solid transparent;
 		border-radius: 6px;
 		transition: .21s all ease-in-out;
-   }
-	section:hover,
-	section.editMode {
+	}
+	.card:hover,
+	.card.editMode {
 		background: #f0f0f0;
 		border: 1px solid #eee;
 		box-shadow: .9rem .9rem .9rem #ccc;
@@ -501,15 +503,32 @@
    section > .buttons, */
    dl,
    .buttons,
-   section .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
-   section .fieldset-wrapper { width: 100%; }
+	// heads-up; if this is eventually moved to global _form_controls.scss,
+	// not all .fieldset-wrapper will have section parent (could be appropriate)
+   .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
+   .fieldset-wrapper { width: 100%; }
+
 
 	fieldset,
 	legend { color: #000; background: #fff; font-weight: bold; text-transform: capitalize; }
 	legend { text-transform: uppercase; }
+	legend span {
+		margin-right: .9rem;
+		padding: .15rem .6rem;
+		font-weight: normal;
+		color: $b;
+		background: gold;
+		text-transform: none;
+		border-radius: .15rem;
+	}
+	legend span::after {
+		display: inline-block;
+		content: ":"
+	}
 
    /* init view: show the static data + 'edit' buttons, and hide the fieldset-wrapper */
    section > dl,
+	/* why'd ya do it? this is bad */
    section > .buttons { max-height: 100vh; }
    section .fieldset-wrapper { max-height: 0; }
 
@@ -534,18 +553,78 @@
    li.editMode .fieldset-wrapper { max-height: 100vh; }
 
 
-	.buttons {
-		/* move to button central
-			display: flex;
-			width: 100%;
-			flex-flow: row wrap;
- 		*/
-	}
-
-
    .add-contact-wrapper { width: 100%; }
    .add-contact-wrapper.editMode > .buttons { max-height: 0; }
    .add-contact-wrapper.editMode .fieldset-wrapper { max-height: 100vh; }
+
+
+
+
+// hacking via inspector re: nested dl
+// ? if you're gonna use a nested dl in 'Assignment', then why not in contacts?
+// because in Contacts you can lose the ~prefixes, i.e., no need for 'title', 'email', 'phone'
+// and make all these 'edit' buttons look like links
+
+// but if reasonable to leave 'Assigment' as dl, then dupe it in Detail.vue
+// Assignment & Contacts look good; dupe into detail vue
+
+
+dl {
+	display: flex;
+	width: 100%;
+	justify-content: flex-start;
+	flex-flow: row wrap;
+	align-items: center;
+	align-content: center;
+}
+dd dt[data-v-3a5b1d43] {
+	width: auto;
+	color: #333;
+	text-align: left;
+	font-size: inherit;
+	text-transform: none;
+	/* border: 1px solid red; */
+	/* height: auto; */
+	flex-basis: 9rem;
+	/* align-content: center; */
+	/* align-items: center; */
+	align-self: stretch;
+	font-weight: normal;
+}
+
+dd dd[data-v-3a5b1d43]:not(:last-child) {
+	margin-bottom: .9rem;
+}
+dd dd[data-v-3a5b1d43] {
+	/* width: calc(100% - 7.5rem); */
+	/* width: auto; */
+	/* display: block; */
+	flex-grow: 0;
+	flex-basis: calc(100% - 9rem);
+	/* border: 1px solid blue; */
+}
+
+
+.buttons {
+	margin: .9rem 0 1.5rem;
+}
+
+// https://www.the-art-of-web.com/css/format-dl/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

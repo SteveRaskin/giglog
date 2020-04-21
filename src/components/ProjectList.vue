@@ -119,7 +119,7 @@
 
 
 
-<style scoped>
+<style lang="scss" scoped>
 
 	li.project > h5 {
 		margin-right: .6rem;
@@ -161,9 +161,9 @@
 	}
 
 
-
-
 	li.project .label { margin-right: .6rem; }
+
+ 	.buttons { margin: 1.5rem 0; }
 
 
 </style>

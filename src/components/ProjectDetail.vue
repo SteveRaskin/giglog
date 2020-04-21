@@ -41,7 +41,7 @@
 					TODO: remove this, whether as a heading or <dt>
 					do sections need a heading or parent <dt>?
 				-->
-            <dt>gig data:</dt>
+            <dt>assignment:</dt>
             <dd>
                <dl>
 						<p>

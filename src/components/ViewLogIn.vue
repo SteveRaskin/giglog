@@ -106,60 +106,35 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 
    section  {
       display: flex;
       flex-flow: column nowrap;
       align-items: flex-start;
-      margin-bottom: 3rem;
+		margin-bottom: 3rem;
 		padding-bottom: 1.5rem;
 		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
    }
 
-   .buttons,
-   section .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
-   section .fieldset-wrapper { width: 100%; }
-   legend { color: #000; font-weight: bold; text-transform: uppercase; }
-
-   /* init view: show the static data + 'edit' buttons, and hide the fieldset-wrapper */
-   section > .buttons { max-height: 100vh; }
-   section .fieldset-wrapper { max-height: 100vh; }
-
-
-   .edit-link {
-      min-width: 0;
-      padding: 0;
-      color: dodgerblue;
-      background: transparent;
-      font-weight: bold;
-      text-transform: uppercase;
-      border: 0;
-      box-shadow: none;
-      word-spacing: 0;
-   }
+	.fieldset-wrapper { width: 100%; }
+	legend { color: #000; font-weight: bold; text-transform: uppercase; }
 
 	.error {
 		max-height: 0;
 		height: 0;
 		overflow: hidden;
 		margin-bottom: 0;
-		padding: 0 .9rem;
 		color: $error;
-		border-top: 0;
-		border-bottom: 0;
-		border-radius: .3rem;
 		transition: .9s all ease-in-out;
 		&.true {
 			max-height: 100vh;
 			height: auto;
 			margin-bottom: .9rem;
-			padding: 0;
-			border: 0;
 		}
-		.error-before { margin-right: .9rem; }
+		.error-before { margin-right: .6rem; }
 		.errorMsg {
-			margin-right: .9rem;
+			margin-right: .6rem;
 			font-weight: bold;
 			text-transform: none;
 		}
@@ -167,8 +142,3 @@
 	}
 
 </style>
-
-
-
-
-<!--  -->

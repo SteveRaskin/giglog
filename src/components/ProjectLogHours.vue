@@ -223,6 +223,14 @@
 	.label-input.textarea { width: 51%; }
 	.label-input + .buttons { width: 100%; }
 
+	.preview	{
+		order: 9;
+		width: 100%;
+		margin-top: 3rem;
+		padding: 0 1.5rem;
+		border: 1px dotted #f0f0f0;
+	}
+
 
 
 

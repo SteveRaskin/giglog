@@ -1,89 +1,31 @@
-/* previously, per node-sass: sourceMappingURL=giglog.css.map */
+// elements ? shared? element defaults?
 
-/* ============ LAYOUT ============ */
-header	{
-   h1	{
-		display: flex;
-		align-items: center;
-		height: 100%;
-		max-height: 6rem;
-		margin-left: -1.8rem;
-		padding: 0 1.8rem;
-		font-size: 3rem;
-		background: #1248ff;
-		border-radius: 3rem 0;
-		transition: .3s all ease-in-out;
-   }
-   h1 > a {
-		display: block;
-		color: $w;
-		transition: .3s all ease-in-out;
-	}
-   h1:hover	{
-		color: $w;
-		background: #fff;
-		border-radius: 1.5rem 0;
-	}
-	h1 > a:hover {
-		color: #1248ff;
-		transition: .3s all ease-in-out;
-	}
+/*
+think base lib; app doesn't need mosaic, but:
 
-	nav {
-		ul	{
-			display: flex;
-			justify-content: space-between;
-			margin: .9rem 0;
-			padding: .3rem 0;
-			li	{
-				white-space: nowrap;
-				margin-right: .9rem;
-			}
-			li > a	{
-				padding: .3rem 2.1rem;
-				color: #fff;
-				text-decoration: none;
-				box-shadow: inset 0 0 0 #fff;
-				border: 1px solid transparent;
-				background: #666;
-				border-radius: 3px;
-				transition: .15s all ease-in-out;
-			}
-			li > a:hover,
-			li > .router-link-active { /*background: #f0f0f0;*/ color: #333; box-shadow: inset 0 2.1rem #f0f0f0; }
-			li > .router-link-active { color: darkgreen; font-weight: bold; }
-		} /* ul */
-	} /* nav */
+typography;
+	font-sizes & font-weight,
+	text-transforms,
+	anchor styles,
 
-} /* header */
+a,
+img,
+h1, h2, h3, h4, h5, h6
+dl, ol, ul defaults
+
+?
+then it should precede layout
 
 
+section? no padding globally; margin-bottom only
 
+EGADS, REMEMBER: W/OUT 'scoped', RULES IN A .vue COMPONENT LEAK INTO GLOBAL, e.g.,
 
-.main > a { color: $theme1; border-bottom: 1px dotted $theme1; }
-.main > a:hover { color: #000; border-bottom: 1px solid $b; }
+section { border: 1px solid blue; } in signup applied to login
 
-.main > h1 {
-	// width: auto;
-	// font-size: 2.1rem;
-	// margin: 0 auto 1.5rem;
-	// padding: 0 1.5rem;
-	// text-align: center;
-	// border-bottom: 1px solid green;
-}
+*/
 
-/* itis? */
-.main > h1 span	{ font-weight: bold; color: darkgreen !important; }
-
-.main h2 {
-	width: auto;
-	padding: .3rem .9rem;
-	font-size: 1.2rem;
-	text-align: center;
-	color: $w;
-	background: lighten($theme1, 6%);
-	border-radius: 3px;
-}
+// move it to scoped TheSubheader.vue
 
 // div.subheader{}
 // 	h1 {}
@@ -93,7 +35,6 @@ header	{
 // 		.search-results-wrapper {}
 // 			h3 {}
 // 			ul {}
-
 .subheader {
 	display: flex;
 	flex-flow: row wrap;
@@ -153,37 +94,7 @@ background: #f0f0f0;
 
 
 
-
-/* ============ FORM CONTROLS ============ */
-form{ border: 1px dotted #f0f0f0; }
-
-
-fieldset { margin-bottom: 1.5rem; padding: 1.5rem; border: 3px double #ccc; border-radius: .3rem; }
-fieldset legend { padding: .3rem .9rem; border: 1px solid #999; border-radius: .3rem; }
-
-.label	{ display: inline-block; color: #777; font-weight: bold; }
-.value	{ color: #222; font-weight: 600; }
-
-.label-input { display: flex; flex-flow: row wrap; margin-bottom: 1.5rem; }
-
-.state-zip  { display: flex; flex-flow: row nowrap; justify-content: space-between; }
-.label-input.state,
-.label-input.zip     { width: 48%; }
-
-.label-input.billing { margin: 0; }
-.label-input.contact button { margin-top: .3rem; }
-
-.label-input.radio:nth-of-type(3)  { margin-bottom: .3rem; }
-.label-input#elsewhere label { visibility: hidden; height: 0; }
-
-
-input[type="text"],
-input[type="password"] { border: 1px solid #ccc; }
-
-input[type="text"],
-input[type="password"],
-textarea { display: block; width: 100%; padding: .9rem; font-size: .99rem; }
-textarea { resize: vertical; }
+// move to Edit
 
 .add-contact   {
 	margin-bottom: 1.5rem;
@@ -196,14 +107,6 @@ textarea { resize: vertical; }
 .checkboxes label,
 .checkboxes input	{ display: inline-block; }
 .checkboxes input	{ margin-right: .9rem; }
-
-input[type="text"] {
-   font-size: .99rem; /* not inherited */
-   border-radius: 3px;
-}
-
-input[type="text"],
-input[type="password"] { height: 2.1rem; padding: 0 .3rem; /* NG: vertical padding re: FF */ }
 
 
 /* from project-detail.vue */
@@ -257,22 +160,6 @@ ol.projects   {
 	/*max-width: 33rem;*/
 	margin: 0 auto 1.5rem;
 }
-
-// TODO: remove when there's a proper button element?
-.projects .buttons { margin: 1.5rem 0; }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
