@@ -4,7 +4,7 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" v-bind:projects="projects" />
 
-		<app-search v-if="(fileName == 'projects.vue')" v-bind:projects="projects" />
+		<app-search v-if="(viewName == 'Projects')" v-bind:projects="projects" />
 
 		<ol class="projects">
 
@@ -73,7 +73,7 @@
       data() {
 			// TAN
          return {
-				viewName: "projects",
+				viewName: "Projects",
 				fileName: "ProjectList.vue",
             projects: [],
 				activeID: ""

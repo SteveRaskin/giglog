@@ -63,7 +63,7 @@
 		margin-bottom: 1.5rem;
 		h1 {
 			width: auto;
-			margin-bottom: 1.5rem;
+			// margin-bottom: 1.5rem;
 			font-size: 2.1rem;
 			color: $theme1;
 			span { font-size: .6em; }

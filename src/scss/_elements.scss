@@ -1,8 +1,5 @@
 /*
 
-section? no padding globally; margin-bottom only
-	- width only; global design? don't think so
-
 ??? convention, but makes sense only (?) for ViewXYZ components (e.g., TheSubheader.vue doesn't have a .container YET; should it? should they all?):
 
 <template>
@@ -84,12 +81,23 @@ h5 {
 }
 .done { border: 1px solid red !important; }
 
+//
+
+.container	{
+	display: flex;
+	max-width: 78%; // TB var'd, re; header padding-left
+	margin: 0 auto 3rem; // DNU top margin re; collapse w/.main
+	flex-flow: column nowrap;
+	justify-content: space-between;
+}
 
 section {
 	display: flex;
+	width: 100%;
 	flex-flow: column nowrap;
 	align-items: flex-start;
 	margin-bottom: 3rem;
+	border: 1px dotted red;
 }
 
 

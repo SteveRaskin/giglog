@@ -1,6 +1,6 @@
 <template>
 
-   <div class="container project-edit" style="border: 1px solid red;">
+   <div class="container project-edit">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
@@ -439,24 +439,18 @@
 
 <style lang="scss" scoped>
 
-   section {
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: flex-start;
-      margin-bottom: 3rem;
-   }
 	// section.card
 	.card {
 		padding: 1.8rem;
 		background: #f9f9f9;
-		border: 1px solid transparent;
+		// border: 1px solid transparent;
 		border-radius: 6px;
 		transition: .21s all ease-in-out;
 	}
 	.card:hover,
 	.card.editMode {
 		background: #f0f0f0;
-		border: 1px solid #eee;
+		// border: 1px solid #eee;
 		box-shadow: .9rem .9rem .9rem #ccc;
 	}
 
@@ -617,6 +611,9 @@ dd dd[data-v-3a5b1d43] {
 
 
 
+section {
+	border: 2px dotted lime;
+}
 
 
 
