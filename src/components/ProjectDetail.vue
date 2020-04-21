@@ -6,62 +6,33 @@
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
 		<!-- ======================== CLIENT INFO ======================== -->
-      <section class="client-data">
-
+      <section class="card client-data">
          <dl>
-				<!--
-					TODO: remove this, whether as a heading or <dt>
-					do sections need a heading or parent <dt>?
-					'Contacts' as a section heading makes sense, but preceding other project info not so much
-						- and maybe right-aligned and all caps?
-				-->
-				<!-- <dt>client: {{ project.client }} ... {{ this.$route.params.client }}</dt> -->
-				<dt>client: {{ project.client }}</dt>
+            <dt>client:</dt>
             <dd>
-					<!-- TODO: go ahead, you know you want to: change this stuff to a nested <dl> -->
                <p><strong>{{ project.client }}</strong></p>
-               <p class="address">
-						{{ project.address }}
-						<br />
-						{{ project.city }} {{ project.state }} {{ project.zip }}
-					</p>
-					<!-- TODO: spend a million hours converting .label + .value to <dt> & <dd> -->
+               <p>{{ project.address }}</p>
+               <p>{{ project.city }} {{ project.state }} {{ project.zip }}</p>
 					<p>
 						<span class="label">ID:</span>
 						<span class="value"> {{ this.id }}</span>
 					</p>
             </dd>
          </dl>
+			<!-- TODO: confirm whether .label & .value are required after porting in markup from Edit -->
 		</section><!-- END .client-data -->
 
 		<!-- ======================== GIG INFO ======================== -->
       <section class="gig-data">
-         <dl>
-				<!--
-					TODO: remove this, whether as a heading or <dt>
-					do sections need a heading or parent <dt>?
-				-->
-            <dt>assignment:</dt>
+
+			<dl>
+            <dt>gig:</dt>
             <dd>
                <dl>
-						<p>
-							<span class="label">work location:</span>
-							<span class="value">{{ project.workLocation }}</span>
-						</p>
                   <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
                   <dt>task:</dt> <dd>{{ project.description }}</dd>
-						<p id="projectReference">
-							<span class="label">source:</span>
-							<span class="value">{{ project.source }}</span>
-						</p>
-						<p>
-							<span class="label">project:</span>
-							<span class="value">{{ project.projectReference }}</span>
-						</p>
-						<p><span class="label">description:</span> <span class="value">{{ project.description }}</span></p>
-						<p><span class="label">start date:</span> <span class="value">{{ project.startDate }}</span></p>
-
-                  <dt>source:</dt> <dd>{{ project.source }}</dd>
+						<dt>referrer:</dt> <dd>{{ project.source }}</dd>
+						<dt>reference ???:</dt> <dd>{{ project.projectReference }}</dd>
                   <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
             </dd>
@@ -71,16 +42,18 @@
 
 		<!-- ======================== CONTACTS ======================== -->
       <section class="contacts-wrapper">
-         <dl>
+			<dl>
             <dt>contacts:</dt>
             <dd>
+
                <ul class="contacts">
                   <li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
-                     <div v-if="!contact.editingContact">
-                        {{ contact.name }} ({{ ix }})<br />
-                        {{ contact.title }}<br />
-                        {{ contact.email }}<br />
-                        {{ contact.phone }}
+                     <div class="contact-data">
+                        <!-- {{ ix + 1 }}. -->
+								<p class="contact-name">{{ contact.name }}</p>
+                        <p class="contact-title">{{ contact.title }}</p>
+                        <p class="contact-email">{{ contact.email }}</p>
+                        <p class="contact-phone">{{ contact.phone }}</p>
                      </div>
 						</li><!-- END .contact -->
                </ul>
@@ -119,7 +92,7 @@
       data () {
          return {
 				viewName: "Project Detail",
-				fileName: "project-detail.vue",
+				fileName: "ProjectDetail.vue",
 				project: {},
             search: "",
 				// data via props (also $route object params):
@@ -155,37 +128,8 @@
 
 <style scoped>
 
-	#project-detail .main .subheader h2 { display: none; }
+	dl + .buttons { display: inline-block; margin-top: 0; border: 2px solid red; }
 
-	section  {
-		display: flex;
-		flex-flow: row wrap;
-		align-items: flex-end;
-		margin-bottom: 1.5rem;
-		padding-bottom: 1.5rem;
-		border-bottom: 3px double #ccc;
-	}
-	section .buttons { margin: 0 0 0 auto; }
-	/*section button { margin: 0 0 0 auto; }*/
-
-	dl {
-		display: flex;
-		justify-content: flex-start;
-		/*padding: .9rem;*/
-		flex-flow: row wrap;
-	}
-
-	dt { width: 100%; margin-bottom: .3rem; }
-	dd { /*width: 21rem;*/ margin-bottom: 1.5rem; font-weight: bold; border: 0px solid lime; }
-	dd:last-of-type   { margin-bottom: 0; }
-
-	dt.inline,
-	dd.inline   { width: auto; }
-	dl + .buttons { display: inline-block; margin-top: 0; }
-
-	ul.contacts { margin: 0; padding: 0; }
-
-	/* TODO: confirm this is redundant and remove */
-	/* .project-metadata { display: none; } */
+	/* ul.contacts { margin: 0; padding: 0; } */
 
 </style>

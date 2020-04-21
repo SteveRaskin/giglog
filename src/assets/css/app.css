@@ -65,11 +65,6 @@ img {
 .project .btns {
   margin-top: .3rem; }
 
-ul.contacts {
-  list-style-position: inside;
-  /*?*/
-  padding-left: 1.5rem; }
-
 .contacts li {
   margin-bottom: 1.5rem; }
 
@@ -86,14 +81,10 @@ ul.contacts {
   font-style: italic; }
 
 /* from project-add.vue */
-ul.contacts {
-  list-style-position: inside;
-  margin-top: .9rem; }
-
 .preview .contacts li {
   padding: 0 0 .9rem .9rem;
   margin-bottom: .9rem;
-  border-bottom: 1px dotted #ccc; }
+  border-bottom: 11px dotted #c00; }
 
 h5 {
   display: inline-flex;
@@ -116,10 +107,45 @@ section {
   width: 100%;
   flex-flow: column nowrap;
   align-items: flex-start;
-  margin-bottom: 3rem;
-  border: 1px dotted red; }
+  margin-bottom: 3rem; }
 
-/**/
+dl {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: flex-start; }
+
+dt {
+  width: 100%;
+  margin-bottom: .3rem;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.35rem;
+  text-transform: uppercase; }
+
+dd {
+  width: 100%;
+  border: 1px dotted dodgerblue; }
+
+dd:last-of-type {
+  margin-bottom: 0; }
+
+dd dl {
+  border: 1px solid red; }
+
+dd dt {
+  width: 7.5rem;
+  color: #333;
+  text-align: left;
+  font-size: .9rem;
+  text-transform: none; }
+
+dd dd {
+  width: calc(100% - 7.5rem); }
+
+dd dd:not(:last-child) {
+  margin-bottom: .9rem; }
+
 html {
   width: 100%;
   /* DNU vw on html or body */
@@ -184,7 +210,8 @@ header {
   min-height: 6rem;
   background: #000;
   color: #fff;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  border: 1px solid red; }
 
 /* ============ FORM CONTROLS ============ */
 form {
@@ -392,10 +419,10 @@ textarea {
   background: #000;
   border: 1px solid #000; }
 
-.btn-all-projects::before {
+.container-project-edit .btn-all-projects::before {
   content: "\2190"; }
 
-.btn-add-project::before {
+.container-project-edit .btn-add-project::before {
   content: "\002B"; }
 
 .btn-debug {

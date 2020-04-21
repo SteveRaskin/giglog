@@ -1,10 +1,6 @@
 /* ============ FORM CONTROLS ============ */
 
 // forms: signup, login, edit, log hours, add project
-// so pull form styles from all of them, but keep here only shareable
-// prob significant scope stuff in Edit
-
-// broad strokes/lib; anything here not shareable goes to the view/component instead
 
 
 form { border: 1px dotted #f0f0f0; }
@@ -200,8 +196,11 @@ textarea {
 	border: 1px solid $b;
 }
 
-.btn-all-projects::before { content: "\2190"; }
-.btn-add-project::before { content: "\002B"; }
+// ===========================================================
+// button special cases & exceptions:
+
+.container-project-edit .btn-all-projects::before { content: "\2190"; }
+.container-project-edit .btn-add-project::before { content: "\002B"; }
 
 
 .btn-debug { background: #999; color: $w; }

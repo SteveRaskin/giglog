@@ -1,20 +1,10 @@
 <template>
 
-   <div class="container project-edit">
+   <div class="container container-project-edit">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
-      <!--
-         about the mode switching:
-         1. default view (i.e., editMode FALSE) displays dl (static data) + buttons, undisplays fieldset;
-         2. onclick = toggles editMode, toggles 'editMode' class on section; CSS accordingly undisplays dl + buttons, displays fieldset
-         3. ergo, how to transition?
-         - orig version used toggled 'isEditingXyz' boolean prop; no classes involved, elements toggled by vue, e.g.,
-            - <dl v-if="!isEditingClient">
-            - <div class="buttons" v-if=!isEditingClient>
-            - etc.
-      -->
-      <!-- ======================== CLIENT DATA ======================== -->
+      <!-- ======================== CLIENT ======================== -->
       <section class="card client-data" v-bind:class="{ editMode: isEditingClient }">
          <dl>
             <dt>client:</dt>
@@ -25,9 +15,13 @@
             </dd>
          </dl>
          <div class="buttons">
-				<app-button buttonClass="btn-color-2 btn-edit" buttonID="edit-client" buttonText="edit" v-on:click.native="editMode" />
+				<app-button
+					buttonClass="btn-color-2 btn-edit"
+					buttonID="edit-client"
+					buttonText="edit"
+					v-on:click.native="editMode"
+				/>
          </div>
-
          <div class="fieldset-wrapper">
             <fieldset>
 					<legend><span>editing</span> client</legend>
@@ -58,8 +52,16 @@
                   </div>
                </div>
                <div class="buttons">
-						<app-button buttonClass="btn-color-bw btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
-						<app-button buttonClass="btn-color-4 btn-save" buttonText="save" v-on:click.native="post" />
+						<app-button
+							buttonClass="btn-color-bw btn-cancel"
+							buttonText="cancel"
+							v-on:click.native="exitEditMode"
+						/>
+						<app-button
+							buttonClass="btn-color-4 btn-save"
+							buttonText="save"
+							v-on:click.native="post"
+						/>
                </div>
             </fieldset>
          </div><!-- END .fieldset-wrapper -->
@@ -67,10 +69,10 @@
 
 
 
-      <!-- ======================== GIG DATA ======================== -->
+      <!-- ======================== GIG ======================== -->
       <section class="card gig-data" v-bind:class="{ editMode: isEditingGig }">
          <dl>
-            <dt>assignment:</dt>
+            <dt>gig:</dt>
             <dd>
                <dl>
                   <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
@@ -91,8 +93,9 @@
          </div>
 
          <div class="fieldset-wrapper">
-            <fieldset v-if="isEditingGig">
-               <legend><span>editing</span> assignment</legend>
+				<!-- <fieldset v-if="isEditingGig"> -->
+				<fieldset>
+               <legend><span>editing</span> gig</legend>
 
                <div class="label-input text">
                   <label for="">referrer:</label>
@@ -150,57 +153,69 @@
             <dt>contacts:</dt>
             <dd>
                <ul class="contacts">
+                  <li
+							v-for="(contact, ix) in project.contacts"
+							v-bind:key="ix"
+							v-bind:class="{ editMode: ix == contactIx }"
+						>
+                     <div class="contact-data">
+                        <!-- {{ ix + 1 }}. -->
+								<p class="contact-name">{{ contact.name }}</p>
+                        <p class="contact-title">{{ contact.title }}</p>
+                        <p class="contact-email">{{ contact.email }}</p>
+                        <p class="contact-phone">{{ contact.phone }}</p>
 
-                  <template v-for="(contact, ix) in project.contacts">
-                     <li v-bind:key="ix" v-bind:class="{ editMode: ix == contactIx }">
+                        <div class="buttons">
+									<app-button
+										buttonClass="btn-color-2 btn-edit"
+										buttonText="edit"
+										:key="ix"
+										v-on:click.native="editContact(ix)"
+									/>
+                        </div>
+                     </div><!-- END .contact-data -->
 
-                        <div class="contact-data">
-                           {{ ix + 1 }}. <span class="contact-name">{{ contact.name }}</span><br />
-                           title: <span class="contact-title">{{ contact.title }}</span><br />
-                           email: <span class="contact-email">{{ contact.email }}</span><br />
-                           phone: <span class="contact-phone">{{ contact.phone }}</span>
+                     <div class="fieldset-wrapper">
+
+                        <fieldset>
+									<legend><span>editing</span> contact</legend>
+                           <div class="label-input text contact">
+                              <label for="">name</label>
+                              <input type="text" class="contact-info" v-model.lazy="contact.name" required />
+                           </div>
+                           <div class="label-input text contact">
+                              <label for="">title</label>
+                              <input type="text" v-model.lazy="contact.title" required />
+                           </div>
+                           <div class="label-input text contact">
+                              <label for="">email address</label>
+                              <input type="text" v-model.lazy="contact.email" required />
+                           </div>
+                           <div class="label-input text contact">
+                              <label for="">phone</label>
+                              <input type="text" v-model.lazy="contact.phone" required />
+                           </div>
 
                            <div class="buttons">
 										<app-button
-											buttonClass="btn-color-2 btn-edit"
-											buttonText="edit"
-											:key="ix"
-											v-on:click.native="editContact(ix)"
+											buttonClass="btn-color-bw btn-cancel"
+											buttonText="cancel"
+											v-on:click.native="exitEditMode"
 										/>
-                           </div>
-                        </div><!-- END .contact-data -->
-
-                        <div class="fieldset-wrapper">
-
-                           <fieldset>
-										<legend><span>editing</span> contact</legend>
-                              <div class="label-input text contact">
-                                 <label for="">name</label>
-                                 <input type="text" class="contact-info" v-model.lazy="contact.name" required />
-                              </div>
-                              <div class="label-input text contact">
-                                 <label for="">title</label>
-                                 <input type="text" v-model.lazy="contact.title" required />
-                              </div>
-                              <div class="label-input text contact">
-                                 <label for="">email address</label>
-                                 <input type="text" v-model.lazy="contact.email" required />
-                              </div>
-                              <div class="label-input text contact">
-                                 <label for="">phone</label>
-                                 <input type="text" v-model.lazy="contact.phone" required />
-                              </div>
-
-										<!-- ========= BUTTONS: 'CANCEL', 'SAVE CHANGES', 'DELETE CONTACT' ========= -->
-                              <div class="buttons">
-	<app-button buttonClass="btn-color-bw btn-cancel" buttonText="cancel" v-on:click.native="exitEditMode" />
-	<app-button buttonClass="btn-color-6 btn-delete" buttonText="delete contact" v-on:click.native="deleteContact" />
-	<app-button buttonClass="btn-color-4 btn-save" buttonText="save changes" v-on:click.native="post" />
-                              </div><!-- END .buttons -->
-                           </fieldset>
-                        </div><!-- END .fieldset-wrapper -->
-                     </li><!-- END .contact -->
-                  </template>
+										<app-button
+											buttonClass="btn-color-6 btn-delete"
+											buttonText="delete contact"
+											v-on:click.native="deleteContact"
+										/>
+										<app-button
+											buttonClass="btn-color-4 btn-save"
+											buttonText="save changes"
+											v-on:click.native="post"
+										/>
+                           </div><!-- END .buttons -->
+                        </fieldset>
+                     </div><!-- END .fieldset-wrapper -->
+                  </li><!-- END .contact -->
                </ul>
             </dd>
          </dl>
@@ -309,9 +324,8 @@
 				// id: this.$route.params.id,
 				routerParamID: this.$route.params.id,
 				routerParamClient: this.$route.params.client,
-
-				viewName: "Edit Project",
-				fileName: "project-edit.vue",
+				viewName: "Project Edit",
+				fileName: "ProjectEdit.vue",
 				project: {},
             contactInfo: {},
             workLocation: true,
@@ -348,7 +362,6 @@
             this.project = data;
             // console.log("project-detail @create: ", this.project);
          })
-
          // console.log(this.project);
       }, // created
 
@@ -377,9 +390,22 @@
                this.exitEditMode();
          }, // post function
 
+			/*
+				re: editMode toggle:
+				1. default view (i.e., editMode FALSE) displays dl (static data) + buttons, undisplays fieldset;
+				2. click => toggle '.editMode' class on section:
+				 	dl + buttons hidden, fieldset displayed (CSS)
+
+				3. ergo, how to transition?
+				- orig version used toggled 'isEditingXyz' boolean prop; no classes involved, elements toggled by vue, e.g.,
+				- <dl v-if="!isEditingClient">
+				- <div class="buttons" v-if=!isEditingClient>
+				- etc.
+			*/
+
          editMode: function(e) {
-            console.log("editMode");
             const buttonID = e.currentTarget.id;
+				console.log("editMode.buttonID", buttonID);
             // toggle editMode of appropriate group
             switch (buttonID) {
             	case "edit-client":
@@ -443,50 +469,19 @@
 	.card {
 		padding: 1.8rem;
 		background: #f9f9f9;
-		// border: 1px solid transparent;
 		border-radius: 6px;
 		transition: .21s all ease-in-out;
 	}
 	.card:hover,
 	.card.editMode {
-		background: #f0f0f0;
-		// border: 1px solid #eee;
+		background: #f0f0ff;
 		box-shadow: .9rem .9rem .9rem #ccc;
 	}
-
-
-   dl { display: flex; width: 100%; justify-content: flex-start; flex-flow: row wrap; }
 
    /*
       each <section> contains a def list, with <dt> els:
          - 'Client', 'Gig', 'Contacts' ....
-         - both 'Gig' and 'Contacts'
    */
-
-   /*
-      as there are nested def lists, keep the dt/dd rules asap,
-      i.e., no padding/margins; prefer to style the nested def list els
-   */
-   dt {
-      width: 100%;
-      color: #000;
-      font-weight: bold;
-		font-size: 1.35rem;
-      text-transform: uppercase;
-   }
-   dd { width: 100%; border: 1px dotted gold; }
-
-   /* nested def list is child of dd (gig data section) */
-   dd dl {}
-   dd dt {
-		width: 7.5rem;
-		color: #333;
-		text-align: left;
-		font-size: .9rem;
-		text-transform: none;
-	}
-   dd dd { width: calc(100% - 7.5rem); }
-   dd dd:not(:last-child) { margin-bottom: .9rem; }
 
    /* re: transitions: shared attributes */
    /* section > dl,
@@ -495,8 +490,8 @@
    .buttons,
 	// heads-up; if this is eventually moved to global _form_controls.scss,
 	// not all .fieldset-wrapper will have section parent (could be appropriate)
-   .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
-   .fieldset-wrapper { width: 100%; }
+   .card .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
+   .card .fieldset-wrapper { width: 100%; }
 
 
 	fieldset,
@@ -554,86 +549,28 @@
 	}
 	.add-contact h3   { margin-bottom: .9rem; }
 
-
-
-
-
-// hacking via inspector re: nested dl
-// ? if you're gonna use a nested dl in 'Assignment', then why not in contacts?
-// because in Contacts you can lose the ~prefixes, i.e., no need for 'title', 'email', 'phone'
-// and make all these 'edit' buttons look like links
-
-// but if reasonable to leave 'Assigment' as dl, then dupe it in Detail.vue
-// Assignment & Contacts look good; dupe into detail vue
-
-
-dl {
-	display: flex;
-	width: 100%;
-	justify-content: flex-start;
-	flex-flow: row wrap;
-	align-items: center;
-	align-content: center;
-}
-dd dt[data-v-3a5b1d43] {
-	width: auto;
-	color: #333;
-	text-align: left;
-	font-size: inherit;
-	text-transform: none;
-	/* border: 1px solid red; */
-	/* height: auto; */
-	flex-basis: 9rem;
-	/* align-content: center; */
-	/* align-items: center; */
-	align-self: stretch;
-	font-weight: normal;
-}
-
-dd dd[data-v-3a5b1d43]:not(:last-child) {
-	margin-bottom: .9rem;
-}
-dd dd[data-v-3a5b1d43] {
-	/* width: calc(100% - 7.5rem); */
-	/* width: auto; */
-	/* display: block; */
-	flex-grow: 0;
-	flex-basis: calc(100% - 9rem);
-	/* border: 1px solid blue; */
-}
-
-
-.buttons {
-	margin: .9rem 0 1.5rem;
-}
+// nested dl in 'gig', but not in contacts, 'cause no need for ~dt, i.e., 'title', 'email', 'phone'
 
 // https://www.the-art-of-web.com/css/format-dl/
 
 
-
-section {
-	border: 2px dotted lime;
+.btn.btn-edit {
+	padding: 0;
+	text-transform: uppercase;
+	border: 0;
+	border-bottom: 1px dashed $theme2;
+	border-radius: 0;
+	background: transparent;
+}
+.btn.btn-edit:hover {
+	color: $theme2;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	border-bottom: 1px solid $theme2;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.btn-all-projects::before { content: "\2190"; }
+.btn-add-project::before { content: "\002B"; }
 
 </style>
