@@ -169,9 +169,15 @@
 									<app-button
 										buttonClass="btn-color-2 btn-edit"
 										buttonText="edit"
-										:key="ix"
+										v-bind:key="ix"
 										v-on:click.native="editContact(ix)"
 									/>
+									<!-- <app-button
+										buttonClass="btn-color-6 btn-delete"
+										buttonText="delete contact"
+										v-bind:key="ix"
+										v-on:click.native="deleteContact(ix)"
+									/> -->
                         </div>
                      </div><!-- END .contact-data -->
 
@@ -205,7 +211,8 @@
 										<app-button
 											buttonClass="btn-color-6 btn-delete"
 											buttonText="delete contact"
-											v-on:click.native="deleteContact"
+											v-bind:key="ix"
+											v-on:click.native="deleteContact(ix)"
 										/>
 										<app-button
 											buttonClass="btn-color-4 btn-save"
@@ -222,7 +229,7 @@
 
 
 
-			<!-- ==================================== 'ADD CONTACT' BUTTON ==================================== -->
+			<!-- ==================================== 'ADD CONTACT' ==================================== -->
          <div class="add-contact-wrapper" v-bind:class="{ editMode: addingContact }">
             <div class="buttons">
 					<app-button
@@ -421,43 +428,46 @@
 
          editContact: function(ix) {
             console.log("editContact; ix:", ix);
+				// updating this.contactIx => '.editMode' is applied to corresponding li[ix] in ul.contacts
             this.contactIx = ix;
             console.log("this.contactIx: " + this.contactIx);
          }, // editContact
 
-         exitEditMode: function() {
-            console.log("exitEditMode");
-            this.isEditingClient = false;
-            this.isEditingGig = false;
-            this.contactIx = "-1";
-            this.addingContact = false;
-         }, // exitEditMode
-
 			addContact: function(e) {
 			   console.log('addContact');
+				// this.addingContact = true => '.editMode' applied to .add-contact-wrapper
 			   this.addingContact = true;
-				// this.contacts.push(this.newContact);
+				// this.project.contacts.push(this.newContact);
 			   // this.project.contacts.push(this.contactInfo); //
 			   // this.contactInfo = {};
 			},
 
-			deleteContact: function(e) {
-			   console.log('deleteContact');
-				// this.contacts.push(this.newContact);
+
+			deleteContact: function(ix) {
+				this.contactIx = ix;
+				console.log('deleteContact this.contactIx', this.contactIx);
+				this.project.contacts.splice(ix, 1);
+				this.post();
 			   // this.project.contacts.push(this.contactInfo); //
 			   // this.contactInfo = {};
 			},
 
 
 			saveNewContact: function(newContact) {
-				// console.log(this.newContact.name);
-				// console.log(this.newContact.title);
-				// console.log(this.newContact.email);
-				// console.log(this.newContact.phone);
-				console.log("this.newContact", this.newContact);
+				console.log("saveNewContact this.newContact", this.newContact);
 				this.project.contacts.push(this.newContact);
 				this.post();
-			}
+			},
+
+			exitEditMode: function() {
+            // console.log("exitEditMode");
+            this.isEditingClient = false;
+            this.isEditingGig = false;
+            this.contactIx = "-1";
+            this.addingContact = false;
+         }, // exitEditMode
+
+
       } // methods
    } // export default
 </script>
@@ -513,8 +523,8 @@
 
    /* init view: show the static data + 'edit' buttons, and hide the fieldset-wrapper */
    section > dl,
-	/* why'd ya do it? this is bad */
-   section > .buttons { max-height: 100vh; }
+	/* why'd ya do it? this is bad ? max-height a zillion in case there are enough contacts to be a problem */
+   section > .buttons { max-height: 900vh; }
    section .fieldset-wrapper { max-height: 0; }
 
    /* editMode: disappear the static data + 'edit' buttons, bring on the fieldset-wrapper */

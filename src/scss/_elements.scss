@@ -124,14 +124,11 @@ dt {
 dd {
 	width: 100%;
 	// margin-bottom: 1.5rem;
-	border: 1px dotted dodgerblue;
 }
 dd:last-of-type { margin-bottom: 0; }
 
 // nested def dl
-dd dl {
-	border: 1px solid red;
-}
+dd dl {}
 dd dt {
 	width: 7.5rem;
 	color: #333;
@@ -144,5 +141,3 @@ dd dd:not(:last-child) { margin-bottom: .9rem; }
 
 
 // dl + .buttons { display: inline-block; margin-top: 0; }
-
-// ul.contacts { margin: 0; padding: 0; }

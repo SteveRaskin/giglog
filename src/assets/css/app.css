@@ -124,14 +124,10 @@ dt {
   text-transform: uppercase; }
 
 dd {
-  width: 100%;
-  border: 1px dotted dodgerblue; }
+  width: 100%; }
 
 dd:last-of-type {
   margin-bottom: 0; }
-
-dd dl {
-  border: 1px solid red; }
 
 dd dt {
   width: 7.5rem;

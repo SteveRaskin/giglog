@@ -126,10 +126,6 @@
 </script>
 
 
-<style scoped>
-
-	dl + .buttons { display: inline-block; margin-top: 0; border: 2px solid red; }
-
-	/* ul.contacts { margin: 0; padding: 0; } */
+<style lang="scss" scoped>
 
 </style>
