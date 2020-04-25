@@ -214,19 +214,37 @@ header {
 
 /* ============ FORM CONTROLS ============ */
 form {
-  border: 1px dotted #f0f0f0; }
+  width: 100%; }
 
 fieldset {
+  width: 100%;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
+  color: #000;
+  background: #fff;
   border: 3px double #ccc;
   border-radius: .3rem; }
 
 fieldset legend {
   padding: .3rem .9rem;
+  font-weight: bold;
   text-transform: capitalize;
+  background: #fff;
   border: 1px solid #999;
   border-radius: .3rem; }
+
+legend span {
+  margin-right: .9rem;
+  padding: .15rem .6rem;
+  font-weight: normal;
+  color: #000;
+  background: gold;
+  text-transform: none;
+  border-radius: .15rem; }
+
+legend span::after {
+  display: inline-block;
+  content: ":"; }
 
 .label {
   display: inline-block;
@@ -423,10 +441,10 @@ textarea {
   background: #000;
   border: 1px solid #000; }
 
-.container-project-edit .btn-all-projects::before {
+.btn-all-projects::before {
   content: "\2190"; }
 
-.container-project-edit .btn-add-project::before {
+.btn-add-project::before {
   content: "\002B"; }
 
 .btn-debug {

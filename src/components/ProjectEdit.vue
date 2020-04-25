@@ -156,6 +156,7 @@
                   <li
 							v-for="(contact, ix) in project.contacts"
 							v-bind:key="ix"
+							class="contact"
 							v-bind:class="{ editMode: ix == contactIx }"
 						>
                      <div class="contact-data">
@@ -291,7 +292,7 @@
 		<div class="buttons">
 			<router-link
 				tag="button"
-				class="btn btn-color-2 btn-edit"
+				class="btn btn-color-1 btn-details"
 				:to="{ name: 'ProjectDetail', params: { id: this.id }}"
 				>exit (to detail view)
 			</router-link>
@@ -416,8 +417,7 @@
 
 			// TODO: rename this; ~ showNewContactForm ?
 			addContact: function(e) {
-			   this.addingContact = true; // add '.editMode' to .add-contact-wrapper
-				// this.project.contacts.push(this.newContact);
+			   this.addingContact = true; // adds '.editMode' to .add-contact-wrapper
 			},
 
 			saveNewContact: function(newContact) {
@@ -436,7 +436,7 @@
             this.contactIx = "-1";
 				this.addingContact = false;
 				console.log("pre: this.newContact", this.newContact);
-				// this successfully clears the object values (which solves the issue of the 'new contact' form being pre-poulated with last-added contact data) but why are they already gone at the preceeding log?
+				// this clears the object values ... but why are they already gone at the preceeding log?
 				// Object.keys(this.newContact).forEach(key => {
 				// 	this.newContact[key] = "";
 				// })
@@ -471,117 +471,98 @@
 	}
 
    /*
-      each <section> contains a def list, with <dt> els:
-         - 'Client', 'Gig', 'Contacts' ....
-   */
+      <section>s:
+		1 <dl>
+			<dt>Client</dl>
+			<dd> ...
+		2 <dl>
+			<dt>Gig</dl>
+			<dd> ...
+		3 <dl>
+			<dt>Contacts</dl>
+			<dd> ...
 
-   /* re: transitions: shared attributes */
-   /* section > dl,
-   section > .buttons, */
-   dl,
-   .buttons,
-	// heads-up; if this is eventually moved to global _form_controls.scss,
-	// not all .fieldset-wrapper will have section parent (could be appropriate)
+	 	.card > dl,
+		.card > .buttons
+		.card > .fieldset-wrapper
+		initial view: show project data & buttons, hide the fieldset-wrapper;
+		when .card has .editMode (isEditingClient, isEditingGig, etc.),
+		hide project data & buttons, show the fieldset-wrapper;
+		// https://www.the-art-of-web.com/css/format-dl/
+	*/
+
+	// initial view: show project data & buttons, hide the fieldset-wrappers (includes add-contact fieldset) ...
+   .card dl,
+   .card .buttons,
    .card .fieldset-wrapper { overflow: hidden; transition: all .9s ease-in-out; }
-   .card .fieldset-wrapper { width: 100%; }
+   .card > dl,
+	.card > .buttons { max-height: 900vh; }
+   .card .fieldset-wrapper { max-height: 0; }
+
+	/*
+		... when .card has .editMode (isEditingClient, isEditingGig, etc.),
+		hide project data & buttons, show the fieldset-wrapper
+	*/
+   .card.editMode > dl,
+   .card.editMode > .buttons { max-height: 0; }
+   .card.editMode .fieldset-wrapper { max-height: 100vh; }
 
 
-	fieldset,
-	legend { color: #000; background: #fff; font-weight: bold; text-transform: capitalize; }
-	legend { text-transform: uppercase; }
-	legend span {
-		margin-right: .9rem;
-		padding: .15rem .6rem;
-		font-weight: normal;
-		color: $b;
-		background: gold;
-		text-transform: none;
-		border-radius: .15rem;
-	}
-	legend span::after {
-		display: inline-block;
-		content: ":"
-	}
-
-   /* init view: show the static data + 'edit' buttons, and hide the fieldset-wrapper */
-   section > dl,
-	/* why'd ya do it? this is bad ? max-height a zillion in case there are enough contacts to be a problem */
-   section > .buttons { max-height: 900vh; }
-   section .fieldset-wrapper { max-height: 0; }
-
-   /* editMode: disappear the static data + 'edit' buttons, bring on the fieldset-wrapper */
-   section.editMode > dl,
-   section.editMode > .buttons { max-height: 0; }
-   section.editMode .fieldset-wrapper { max-height: 100vh; }
-
-   ul.contacts { margin: 0; padding: 0; }
+   // ul.contacts > li.contact
    .contact-name { font-weight: bold; color: #000; }
    .contact-title { color: #000; text-transform: uppercase; }
 
 
-   .contacts li > .contact-data,
-   .contacts li > .fieldset-wrapper { transition: all .9s ease-in-out; overflow: hidden; }
+	// initial view: show li.contact > div.contact-data, hide .contact > .fieldset-wrapper ...
+   .contact > .contact-data,
+   .contact > .fieldset-wrapper { transition: all .9s ease-in-out; overflow: hidden; }
+   .contact .contact-data { max-height: 100vh; }
+   .contact .fieldset-wrapper { max-height: 0; }
 
-   .contacts li .contact-data { max-height: 100vh; }
-   .contacts li .fieldset-wrapper { max-height: 0; }
-
-   li.editMode .contact-data { max-height: 0; }
-   li.editMode .fieldset-wrapper { max-height: 100vh; }
+	// ... when .contact has .editMode, hide .contact-data, show the .contact > .fieldset-wrapper
+   .contact.editMode .contact-data { max-height: 0; }
+   .contact.editMode .fieldset-wrapper { max-height: 100vh; }
 
 
+	/*
+		 .add-contact-wrapper is a child of .contacts-wrapper;
+		 - similar to above, init show .buttons, hide .fieldset-wrapper (be default, above)
+		 - .add-contact-wrapper has .editMode ? reverse
+	*/
    .add-contact-wrapper { width: 100%; }
    .add-contact-wrapper.editMode > .buttons { max-height: 0; }
    .add-contact-wrapper.editMode .fieldset-wrapper { max-height: 100vh; }
-	.add-contact   {
-		margin-bottom: 1.5rem;
-		padding: .9rem 0 1.5rem 1.5rem;
-		border: 3px double #999;
-		border-width: 3px 0;
+
+
+	.btn.btn-edit,
+	.btn.btn-delete {
+		margin-right: .9rem;
+		padding: 0;
+		text-transform: uppercase;
+		font-size: .99rem;
+		border: 0;
+		border-radius: 0;
+		background: transparent;
 	}
-	.add-contact h3   { margin-bottom: .9rem; }
+	.btn.btn-edit:hover,
+	.btn.btn-delete:hover {
+		background: transparent;
+		border: 0;
+		border-radius: 0;
+	}
 
-// nested dl in 'gig', but not in contacts, 'cause no need for ~dt, i.e., 'title', 'email', 'phone'
+	.btn.btn-edit { border-bottom: 1px dashed $theme2; }
+	.btn.btn-delete { border-bottom: 1px dashed $error; }
 
-// https://www.the-art-of-web.com/css/format-dl/
-
-
-.btn.btn-edit,
-.btn.btn-delete {
-	margin-right: .9rem;
-	padding: 0;
-	text-transform: uppercase;
-	font-size: .99rem;
-	border: 0;
-	border-radius: 0;
-	background: transparent;
-}
-.btn.btn-edit:hover,
-.btn.btn-delete:hover {
-	background: transparent;
-	border: 0;
-	border-radius: 0;
-}
-
-.btn.btn-edit {
-	// text-transform: uppercase;
-	border-bottom: 1px dashed $theme2;
-}
-.btn.btn-delete {
-	border-bottom: 1px dashed $error;
-	// text-transform: capitalize;
-}
-
-.btn.btn-edit:hover {
-	color: $theme2;
-	border-bottom: 1px solid $theme2;
-}
-.btn.btn-delete:hover {
-	color: $error;
-	border-bottom: 1px solid $error;
-}
+	.btn.btn-edit:hover {
+		color: $theme2;
+		border-bottom: 1px solid $theme2;
+	}
+	.btn.btn-delete:hover {
+		color: $error;
+		border-bottom: 1px solid $error;
+	}
 
 
-.btn-all-projects::before { content: "\2190"; }
-.btn-add-project::before { content: "\002B"; }
 
 </style>
