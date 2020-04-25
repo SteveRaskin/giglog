@@ -4,10 +4,10 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
-      <form v-if="!submitted">
+		<form>
 
          <div class="label-input text">
-            <label for="">client/company name</label>
+            <label for="">client (company name)</label>
             <input type="text" v-model.lazy="project.client" required />
          </div>
          <div class="label-input text">
@@ -69,7 +69,7 @@ v-model will ignore the initial value, checked or selected attributes found on a
 
 
          <div class="label-input text">
-            <label for="">referred by/source:</label>
+            <label for="">referrer:</label>
             <input type="text" v-model.lazy="project.source" />
          </div>
 
@@ -129,8 +129,9 @@ v-model will ignore the initial value, checked or selected attributes found on a
       data () {
          return {
 				viewName: "Add a Project",
-				fileName: "project-add.vue",
+				fileName: "ProjectCreate.vue",
             project: {
+					id: "",
                client: "",
                projectReference: "",
                address: "",
@@ -154,20 +155,25 @@ v-model will ignore the initial value, checked or selected attributes found on a
             this.project.contacts.push(this.contactInfo);
             this.contactInfo = {};
          },
+			validate: function() {
+				console.log("time to validate");
+			},
 			post: function() {
             console.log(this.project);
             this.$http.post("https://sr-giglog.firebaseio.com/projects.json", this.project)
-               .then(function(data){
+               .then(function(data) {
+						this.project.id = data.body.name;
                   this.submitted = true;
-               }
-         )} // post function
+               })
+					.then(function(data) {
+						this.$router.replace({ name: 'ProjectDetail', params: { id: this.project.id } })
+					})
+			} // post
       } // methods
    }
 </script>
 
 
 <style scoped>
-
-   /* @import url('/static/giglog.css'); */
 
 </style>

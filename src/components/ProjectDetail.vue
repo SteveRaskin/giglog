@@ -50,9 +50,13 @@
                   <li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
                      <div class="contact-data">
                         <!-- {{ ix + 1 }}. -->
-								<p class="contact-name">{{ contact.name }}</p>
+								<p class="contact-name">{{ capitalizer(contact.name) }}</p>
                         <p class="contact-title">{{ contact.title }}</p>
-                        <p class="contact-email">{{ contact.email }}</p>
+								<p class="contact-email">
+									<a :href="'mailto:contact.email'" :title="contact.email">
+										{{ contact.email }}
+									</a>
+								</p>
                         <p class="contact-phone">{{ contact.phone }}</p>
                      </div>
 						</li><!-- END .contact -->
@@ -82,6 +86,8 @@
 <script>
 
    // import search  from '../mixins/searchMixin.js';
+	import capitalizer from '@/mixins/mixin_capitalizer.js';
+
    export default {
 		props: {
 			client: String,
@@ -121,6 +127,7 @@
       }, // directives
       filters: {
       }, // filters
+		mixins: [ capitalizer ]
       // mixins: [ debugRoute ]
    } // export default
 </script>

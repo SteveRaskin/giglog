@@ -160,46 +160,42 @@
 						>
                      <div class="contact-data">
                         <!-- {{ ix + 1 }}. -->
-								<p class="contact-name">{{ contact.name }}</p>
-                        <p class="contact-title">{{ contact.title }}</p>
+								<p class="contact-name">{{ capitalizer(contact.name) }}</p>
+                        <p class="contact-title">{{ capitalizer(contact.title) }}</p>
                         <p class="contact-email">{{ contact.email }}</p>
                         <p class="contact-phone">{{ contact.phone }}</p>
-
                         <div class="buttons">
 									<app-button
 										buttonClass="btn-color-2 btn-edit"
 										buttonText="edit"
-										v-bind:key="ix"
 										v-on:click.native="editContact(ix)"
 									/>
-									<!-- <app-button
+									<app-button
 										buttonClass="btn-color-6 btn-delete"
-										buttonText="delete contact"
-										v-bind:key="ix"
+										buttonText="delete"
 										v-on:click.native="deleteContact(ix)"
-									/> -->
+									/>
                         </div>
                      </div><!-- END .contact-data -->
 
                      <div class="fieldset-wrapper">
-
                         <fieldset>
 									<legend><span>editing</span> contact</legend>
                            <div class="label-input text contact">
                               <label for="">name</label>
-                              <input type="text" class="contact-info" v-model.lazy="contact.name" required />
+										<input type="text" class="contact-info" v-model.lazy="contact.name" required />
                            </div>
                            <div class="label-input text contact">
                               <label for="">title</label>
-                              <input type="text" v-model.lazy="contact.title" required />
+										<input type="text" v-model.lazy="contact.title" required />
                            </div>
                            <div class="label-input text contact">
                               <label for="">email address</label>
-                              <input type="text" v-model.lazy="contact.email" required />
+										<input type="text" v-model.lazy="contact.email" required />
                            </div>
                            <div class="label-input text contact">
                               <label for="">phone</label>
-                              <input type="text" v-model.lazy="contact.phone" required />
+										<input type="number" v-model.lazy="contact.phone" required />
                            </div>
 
                            <div class="buttons">
@@ -207,12 +203,6 @@
 											buttonClass="btn-color-bw btn-cancel"
 											buttonText="cancel"
 											v-on:click.native="exitEditMode"
-										/>
-										<app-button
-											buttonClass="btn-color-6 btn-delete"
-											buttonText="delete contact"
-											v-bind:key="ix"
-											v-on:click.native="deleteContact(ix)"
 										/>
 										<app-button
 											buttonClass="btn-color-4 btn-save"
@@ -231,6 +221,7 @@
 
 			<!-- ==================================== 'ADD CONTACT' ==================================== -->
          <div class="add-contact-wrapper" v-bind:class="{ editMode: addingContact }">
+
             <div class="buttons">
 					<app-button
 						buttonClass="btn-color-2 btn-add"
@@ -244,19 +235,19 @@
 						<legend>add contact</legend>
                   <div class="label-input text contact">
                      <label for="">name</label>
-                     <input type="text" v-model.lazy="newContact.name" required />
+							<input type="text" v-model.lazy="newContact.name" required />
                   </div>
                   <div class="label-input text contact">
                      <label for="">title</label>
-                     <input type="text" v-model.lazy="newContact.title" required />
+							<input type="text" v-model.lazy="newContact.title" required />
                   </div>
                   <div class="label-input text contact">
                      <label for="">email address</label>
-                     <input type="text" v-model.lazy="newContact.email" required />
+							<input type="text" v-model.lazy="newContact.email" required />
                   </div>
                   <div class="label-input text contact">
                      <label for="">phone</label>
-                     <input type="text" v-model.lazy="newContact.phone" required />
+							<input type="text" v-model.lazy="newContact.phone" required />
                   </div>
                   <div class="buttons">
 							<app-button
@@ -319,6 +310,8 @@
 
 <script>
 
+	import capitalizer from '@/mixins/mixin_capitalizer.js';
+
    export default {
       props: {
 			client: String,
@@ -342,133 +335,122 @@
             // editingContact: [], // keep 'it 'til u recall source of .$set
             contactIx: "-1",
             addingContact: false,
-				// add.vue has 'contactInfo'; add contact oughta be a component since there's > 1
 				newContact: {
 					name: "",
 					title: "",
 					email: "",
 					phone: "",
-				}
+				},
             // contacts: []
          }
       }, // data
       created: function() {
-			// TAN 'why url, path must be ;id to get project data'
-			// odd, but strange: this.id is id prop which is only coming from the router link, yet unless the path variable is the id, the id prop is lost
-         this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
-         .then(data => data.json())
-         .then(data => {
-            /*
-               .$set = alias of the global Vue.set
-               https://vuejs.org/v2/api/#Vue-set
-               Vue.set( target, key, value )
-            */
-            // for (let contact of data.contacts) {
-            //    this.$set(contact, 'editingContact', false) // creates 'editingContact' key in each contact object in projects.json
-            // }
-            this.project = data;
-            // console.log("project-detail @create: ", this.project);
-         })
-         // console.log(this.project);
+			this.get();
       }, // created
 
       methods: {
-         // ======================== POST ========================
+
+			// ======================== GET ========================
+         get: function() {
+				// TAN 'why url, path must be ;id to get project data'
+				// this.id is router-link's 'id' prop, tho it's unavailable in $router obj unless it's the path variable
+	         this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
+	         .then(data => data.json())
+	         .then(data => {
+	            this.project = data;
+				}).then(function() {
+					this.exitEditMode();
+				})
+			},
+
+
+			// ======================== POST ========================
          post: function() {
-            console.log("post", this.project);
             this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json", this.project)
                .then(response => {
-                  console.log("response.body:", response.body);
+                  // console.log("response.body:", response.body);
                }, response => {
                   console.error(".error??? response.body", response.body);
                })
                .then(function(data){
                   this.submitted = true;
                })
-               // },
-               // response => {
-               //    console.error(response.body);
-               // )
-               this.isEditingClient = false;
-               this.isEditingGig = false;
+					.then(() => {
+						this.isEditingClient = false;
+	               this.isEditingGig = false;
+						this.get();
+					});
+         }, // post
 
-					// console.log(this.newContact.name, this.newContact.title, this.newContact.email, this.newContact.phone);
-
-               this.exitEditMode();
-         }, // post function
-
-			/*
-				re: editMode toggle:
-				1. default view (i.e., editMode FALSE) displays dl (static data) + buttons, undisplays fieldset;
-				2. click => toggle '.editMode' class on section:
-				 	dl + buttons hidden, fieldset displayed (CSS)
-
-				3. ergo, how to transition?
-				- orig version used toggled 'isEditingXyz' boolean prop; no classes involved, elements toggled by vue, e.g.,
-				- <dl v-if="!isEditingClient">
-				- <div class="buttons" v-if=!isEditingClient>
-				- etc.
-			*/
-
-         editMode: function(e) {
-            const buttonID = e.currentTarget.id;
+			editMode: function(e) {
+			   const buttonID = e.currentTarget.id;
 				console.log("editMode.buttonID", buttonID);
-            // toggle editMode of appropriate group
-            switch (buttonID) {
-            	case "edit-client":
-                  // get parent/sibling els, toggle classes
-                  this.isEditingClient = !this.isEditingClient;
-            		break;
-               case "edit-gig":
-            		this.isEditingGig = !this.isEditingGig;
-            		break;
-            	default:
-            }
-         },
+			   // toggle editMode of appropriate group
+			   switch (buttonID) {
+			   	case "edit-client":
+			         // get parent/sibling els, toggle classes
+			         this.isEditingClient = !this.isEditingClient;
+			   		break;
+			      case "edit-gig":
+			   		this.isEditingGig = !this.isEditingGig;
+			   		break;
+			   	default:
+			   }
+			},
 
+			// EDIT & DELETE: this.contactIx applies '.editMode' to corresponding li[ix] in ul.contacts
          editContact: function(ix) {
-            console.log("editContact; ix:", ix);
-				// updating this.contactIx => '.editMode' is applied to corresponding li[ix] in ul.contacts
             this.contactIx = ix;
-            console.log("this.contactIx: " + this.contactIx);
-         }, // editContact
-
-			addContact: function(e) {
-			   console.log('addContact');
-				// this.addingContact = true => '.editMode' applied to .add-contact-wrapper
-			   this.addingContact = true;
-				// this.project.contacts.push(this.newContact);
-			   // this.project.contacts.push(this.contactInfo); //
-			   // this.contactInfo = {};
-			},
-
-
+         },
 			deleteContact: function(ix) {
+				// TODO: now that delete is where it is, we still need the ix but not used for the same purpose as it's used in edit, so perhaps there should be a different data
 				this.contactIx = ix;
-				console.log('deleteContact this.contactIx', this.contactIx);
-				this.project.contacts.splice(ix, 1);
-				this.post();
-			   // this.project.contacts.push(this.contactInfo); //
-			   // this.contactInfo = {};
+				let fullName = this.capitalizer(this.project.contacts[this.contactIx].name);
+				if (confirm("Are you sure you want to delete " + fullName + "?")) {
+					this.project.contacts.splice(ix, 1);
+					this.post();
+				}
+				else this.exitEditMode();
 			},
 
+
+			// TODO: rename this; ~ showNewContactForm ?
+			addContact: function(e) {
+			   this.addingContact = true; // add '.editMode' to .add-contact-wrapper
+				// this.project.contacts.push(this.newContact);
+			},
 
 			saveNewContact: function(newContact) {
-				console.log("saveNewContact this.newContact", this.newContact);
+				// capitalizes pre-db
+				this.newContact.name = this.capitalizer(this.newContact.name);
+				if (!this.project.contacts) {
+					this.project.contacts = [];
+				}
 				this.project.contacts.push(this.newContact);
 				this.post();
 			},
 
 			exitEditMode: function() {
-            // console.log("exitEditMode");
             this.isEditingClient = false;
             this.isEditingGig = false;
             this.contactIx = "-1";
-            this.addingContact = false;
-         }, // exitEditMode
+				this.addingContact = false;
+				console.log("pre: this.newContact", this.newContact);
+				// this successfully clears the object values (which solves the issue of the 'new contact' form being pre-poulated with last-added contact data) but why are they already gone at the preceeding log?
+				// Object.keys(this.newContact).forEach(key => {
+				// 	this.newContact[key] = "";
+				// })
+				this.newContact.name = "";
+				this.newContact.title = "";
+				this.newContact.email = "";
+				this.newContact.phone = "";
+				console.log("post this.newContact", this.newContact);
+         }
 
-
-      } // methods
+      },
+		updated: function() {
+		},
+		mixins: [ capitalizer ]
    } // export default
 </script>
 
@@ -534,9 +516,8 @@
 
    ul.contacts { margin: 0; padding: 0; }
    .contact-name { font-weight: bold; color: #000; }
-   .contact-title { text-transform: uppercase; }
-   .contact-email,
-   .contact-phone { font-weight: bold; color: #000; }
+   .contact-title { color: #000; text-transform: uppercase; }
+
 
    .contacts li > .contact-data,
    .contacts li > .fieldset-wrapper { transition: all .9s ease-in-out; overflow: hidden; }
@@ -564,21 +545,41 @@
 // https://www.the-art-of-web.com/css/format-dl/
 
 
-.btn.btn-edit {
+.btn.btn-edit,
+.btn.btn-delete {
+	margin-right: .9rem;
 	padding: 0;
 	text-transform: uppercase;
+	font-size: .99rem;
 	border: 0;
-	border-bottom: 1px dashed $theme2;
 	border-radius: 0;
 	background: transparent;
 }
+.btn.btn-edit:hover,
+.btn.btn-delete:hover {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+}
+
+.btn.btn-edit {
+	// text-transform: uppercase;
+	border-bottom: 1px dashed $theme2;
+}
+.btn.btn-delete {
+	border-bottom: 1px dashed $error;
+	// text-transform: capitalize;
+}
+
 .btn.btn-edit:hover {
 	color: $theme2;
-	background: transparent;
-	border: 0;
-	border-radius: 0;
 	border-bottom: 1px solid $theme2;
 }
+.btn.btn-delete:hover {
+	color: $error;
+	border-bottom: 1px solid $error;
+}
+
 
 .btn-all-projects::before { content: "\2190"; }
 .btn-add-project::before { content: "\002B"; }

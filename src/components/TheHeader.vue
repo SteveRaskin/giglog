@@ -98,6 +98,7 @@
 	   h1 > a {
 			display: block;
 			color: $w;
+			border: 0;
 			transition: .3s all ease-in-out;
 		}
 		h1:hover {
@@ -106,7 +107,8 @@
 		}
 		h1:hover a {
 			color: $theme1;
-			border-radius: 1.5rem 0;
+			border: 0;
+			// border-radius: 1.5rem 0;
 		}
 
 		nav {
