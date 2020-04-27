@@ -49,6 +49,9 @@ img {
   max-width: 100%;
   height: auto; }
 
+.error {
+  color: red; }
+
 /* from project-detail.vue */
 /*
 	this is NG; we need ~ li.project in projects.vue
@@ -148,7 +151,8 @@ dd dd:not(:last-child) {
 html {
   width: 100%;
   /* DNU vw on html or body */
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  scroll-behavior: smooth; }
 
 body {
   width: 100%;
@@ -283,11 +287,13 @@ legend span::after {
   height: 0; }
 
 input[type="text"],
+input[type="email"],
 input[type="number"],
 input[type="password"] {
   border: 1px solid #ccc; }
 
 input[type="text"],
+input[type="email"],
 input[type="number"],
 input[type="password"],
 textarea {
@@ -300,12 +306,14 @@ textarea {
   resize: vertical; }
 
 input[type="text"],
+input[type="email"],
 input[type="number"] {
   font-size: .99rem;
   /* not inherited */
   border-radius: 3px; }
 
 input[type="text"],
+input[type="email"],
 input[type="number"],
 input[type="password"] {
   height: 2.1rem;
@@ -362,6 +370,13 @@ textarea {
   background: #000;
   border: 1px solid #000;
   border-radius: .3em; }
+
+.btn:disabled,
+.btn:disabled:hover {
+  color: #999999;
+  background: #fff;
+  border: 1px solid #999999;
+  cursor: not-allowed; }
 
 .btn::before {
   display: inline-block;

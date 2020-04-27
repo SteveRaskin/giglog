@@ -161,8 +161,8 @@
 						>
                      <div class="contact-data">
                         <!-- {{ ix + 1 }}. -->
-								<p class="contact-name">{{ capitalizer(contact.name) }}</p>
-                        <p class="contact-title">{{ capitalizer(contact.title) }}</p>
+								<p class="contact-name">{{ contact.name }}</p>
+                        <p class="contact-title">{{ contact.title }}</p>
                         <p class="contact-email">{{ contact.email }}</p>
                         <p class="contact-phone">{{ contact.phone }}</p>
                         <div class="buttons">

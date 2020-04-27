@@ -6,6 +6,7 @@
 		v-bind:class="buttonClass"
 		v-bind:id="buttonID"
 		v-bind:to="buttonPath"
+		v-bind:disabled="buttonDisabled"
 		>{{ buttonText }}
 	</button>
 
@@ -20,6 +21,7 @@
 			buttonClass: String,
 			buttonID: String,
 			buttonText: String,
+			buttonDisabled: Boolean,
 			path: {
 				type: String,
 				default: ""

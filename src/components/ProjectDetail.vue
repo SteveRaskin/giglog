@@ -50,7 +50,7 @@
                   <li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
                      <div class="contact-data">
                         <!-- {{ ix + 1 }}. -->
-								<p class="contact-name">{{ capitalizer(contact.name) }}</p>
+								<p class="contact-name">{{ contact.name }}</p>
                         <p class="contact-title">{{ contact.title }}</p>
 								<p class="contact-email">
 									<a :href="'mailto:contact.email'" :title="contact.email">
