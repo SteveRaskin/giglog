@@ -210,11 +210,19 @@ header {
   margin-top: calc(12rem + 0px); }
 
 .footer {
+  display: flex;
   min-height: 6rem;
-  background: #000;
-  color: #fff;
-  margin-bottom: 0;
-  border: 1px solid red; }
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding: 4.5rem 9%;
+  background: #1248ff;
+  color: #fff; }
+
+.footer .debug {
+  width: 100%; }
 
 /* ============ FORM CONTROLS ============ */
 form {

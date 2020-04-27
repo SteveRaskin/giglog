@@ -2,8 +2,11 @@
 
 	<footer class="footer">
 
-		<p>Footer.vue</p>
+		<p class="debug">Footer.vue</p>
+
 		<app-button buttonClass="btn-debug" buttonText="log route" @click.native="test"/>
+
+		<!-- <p class="debug">{{ titleCase("just testing, title case")}}</p> -->
 
 	</footer>
 
@@ -15,6 +18,7 @@
 <script>
 
 	import debugRoute from '@/mixins/debug_route.js';
+	import titleCase from '@/mixins/titleCase.js';
 
    export default {
 		props: {},
@@ -34,7 +38,7 @@
 
 		methods: {},
 
-		mixins: [debugRoute]
+		mixins: [ debugRoute, titleCase ]
 
    }
 </script>
@@ -42,17 +46,5 @@
 
 
 <style lang="scss">
-
-	.footer {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: flex-start;
-		align-content: center;
-		align-items: center;
-		margin-top: auto;
-		padding: 0 6%;
-		background: transparent;
-		border: 1px solid lime;
-	}
 
 </style>

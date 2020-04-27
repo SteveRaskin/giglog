@@ -86,7 +86,7 @@
 <script>
 
    // import search  from '../mixins/searchMixin.js';
-	import capitalizer from '@/mixins/mixin_capitalizer.js';
+	import titleCase from '@/mixins/titleCase.js';
 
    export default {
 		props: {
@@ -127,7 +127,7 @@
       }, // directives
       filters: {
       }, // filters
-		mixins: [ capitalizer ]
+		mixins: [ titleCase ]
       // mixins: [ debugRoute ]
    } // export default
 </script>

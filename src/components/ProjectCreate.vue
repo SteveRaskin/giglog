@@ -206,7 +206,7 @@
 
 <script>
 
-	import capitalizer from '@/mixins/mixin_capitalizer.js'
+	import titleCase from '@/mixins/titleCase.js'
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 
@@ -279,7 +279,7 @@
 				else {
 					this.contactError = false;
 					this.emailFormatError = false;
-					this.contactInfo.name = this.capitalizer(this.contactInfo.name);
+					this.contactInfo.name = this.titleCase(this.contactInfo.name);
 					this.project.contacts.push(this.contactInfo);
 	            this.contactInfo = {};
 				}
@@ -345,9 +345,9 @@
 				this.errors = [];
 				console.log("this.project", this.project);
 				if (this.validate(this.project)) {
-					this.project.client = this.capitalizer(this.project.client);
-					this.project.address = this.capitalizer(this.project.address);
-					this.project.city = this.capitalizer(this.project.city);
+					this.project.client = this.titleCase(this.project.client);
+					this.project.address = this.titleCase(this.project.address);
+					this.project.city = this.titleCase(this.project.city);
 					this.project.state = this.project.city.toUppercase;
 
 	            this.$http.post("https://sr-giglog.firebaseio.com/projects.json", this.project)
@@ -360,7 +360,7 @@
 				}
 			} // post
       }, // methods
-		mixins: [ capitalizer ]
+		mixins: [ titleCase ]
    }
 </script>
 

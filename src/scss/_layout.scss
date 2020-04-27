@@ -68,9 +68,16 @@ header {
 
 
 .footer {
-   min-height: 6rem;
-   background: #000;
+	display: flex;
+	min-height: 6rem;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	margin-top: auto;
+	padding: 4.5rem 9%;
+	background: $theme1;
    color: #fff;
-   margin-bottom: 0;
-	border: 1px solid red;
 }
+
+.footer .debug { width: 100%; }

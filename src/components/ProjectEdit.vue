@@ -320,7 +320,7 @@
 
 <script>
 
-	import capitalizer from '@/mixins/mixin_capitalizer.js';
+	import titleCase from '@/mixins/titleCase.js';
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 
@@ -418,7 +418,7 @@
 			deleteContact: function(ix) {
 				// TODO: now that delete is where it is, we still need the ix but not used for the same purpose as it's used in edit, so perhaps there should be a different data
 				this.contactIx = ix;
-				let fullName = this.capitalizer(this.project.contacts[this.contactIx].name);
+				let fullName = this.titleCase(this.project.contacts[this.contactIx].name);
 				if (confirm("Are you sure you want to delete " + fullName + "?")) {
 					this.project.contacts.splice(ix, 1);
 					this.post();
@@ -434,7 +434,7 @@
 
 			saveNewContact: function(newContact) {
 				// capitalizes pre-db
-				this.newContact.name = this.capitalizer(this.newContact.name);
+				this.newContact.name = this.titleCase(this.newContact.name);
 				if (!this.project.contacts) {
 					this.project.contacts = [];
 				}
@@ -462,7 +462,7 @@
       },
 		updated: function() {
 		},
-		mixins: [ capitalizer ]
+		mixins: [ titleCase ]
    } // export default
 </script>
 
