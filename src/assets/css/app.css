@@ -220,6 +220,9 @@ header {
 form {
   width: 100%; }
 
+.fieldset-wrapper {
+  width: 100%; }
+
 fieldset {
   width: 100%;
   margin-bottom: 1.5rem;

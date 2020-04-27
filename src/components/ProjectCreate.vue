@@ -24,6 +24,21 @@
 	            <input type="text" id="project-reference" v-model.lazy="project.projectReference" required />
 	         </div>
 
+				<div class="label-input">
+	            <!-- <label for="">start date</label> -->
+					<date-picker
+						valueType="format"
+						v-model="project.startDate"
+						type="date"
+						placeholder="select start date"
+						format="YYYY.MM.DD (ddd)"
+					>
+						<template v-slot:header="">
+							<p class="">oh, a slot</p>
+						</template>
+					</date-picker>
+	         </div>
+
 	         <!-- BUSINESS ADDRESS -->
 	         <fieldset>
 	            <legend>business address</legend>
@@ -46,6 +61,7 @@
 	               </div>
 	            </div>
 	         </fieldset>
+
 
 	         <!-- WORK LOCATION -->
 	         <fieldset class="radios">
@@ -159,14 +175,11 @@
 	         </div><!-- END .contacts-wrapper -->
 
 	         <!-- DATES & RATE -->
-	         <!-- <div class="label-input text">
-	            <label for="">start date (TODO: datepicker)</label>
-	            <input type="text" v-model.lazy="project.startDate" required />
-	         </div>
+
 	         <div class="label-input text">
 	      		<label for="">description</label>
 	      		<textarea v-model.lazy="project.description"></textarea>
-	         </div> -->
+	         </div>
 
 	         <div class="buttons">
 					<app-button
@@ -175,7 +188,14 @@
 						v-on:click.native="post"
 					/>
 	         </div><!-- END .buttons -->
-				<input type="submit" name="submit" value="submit" v-on:click="validate">
+				<!-- <input type="submit" name="submit" value="submit" v-on:click="validate"> -->
+
+<!-- <date-picker v-model="time1" valueType="format"></date-picker>
+<br />
+<date-picker v-model="time2" type="datetime"></date-picker>
+<br /> -->
+<!-- date|datetime|year|month|time|week -->
+
 			</form>
 		</section>
 
@@ -187,9 +207,14 @@
 <script>
 
 	import capitalizer from '@/mixins/mixin_capitalizer.js'
+	import DatePicker from 'vue2-datepicker';
+	import 'vue2-datepicker/index.css';
+
 
    export default {
       components: {
+			// 'cause it ain't global
+			DatePicker
       },
 
       data () {
@@ -220,7 +245,11 @@
 				errors: [],
 				btnAddContactDisabled: true,
 				contactError: false,
-				emailFormatError: false
+				emailFormatError: false,
+				time1: null,
+				time2: null,
+				time3: null,
+
          }
       }, // data
 		created: function() {
@@ -314,6 +343,7 @@
 
 			post: function() {
 				this.errors = [];
+				console.log("this.project", this.project);
 				if (this.validate(this.project)) {
 					this.project.client = this.capitalizer(this.project.client);
 					this.project.address = this.capitalizer(this.project.address);
@@ -336,4 +366,9 @@
 
 
 <style lang="scss" scoped>
+	// If your project uses SCSS, you can change the default style variables.
+	// To create a scss file. e.g. datepicker.scss:
+	// $default-color: #555;
+	// $primary-color: #1284e7;
+	// @import '~vue2-datepicker/scss/index.scss';
 </style>

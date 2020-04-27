@@ -132,8 +132,17 @@
                   </div>
                </fieldset><!-- END .radios -->
 					<div class="label-input text">
-						<label for="">start date (TODO: datepicker)</label>
-						<input type="text" v-model.lazy="project.startDate" required />
+						<date-picker
+							valueType="format"
+							v-model="project.startDate"
+							type="date"
+							placeholder="select start date"
+							format="YYYY.MM.DD (ddd)"
+						>
+							<template v-slot:header="">
+								<p class="">oh, a slot</p>
+							</template>
+						</date-picker>
 					</div>
 
                <div class="buttons">
@@ -312,6 +321,8 @@
 <script>
 
 	import capitalizer from '@/mixins/mixin_capitalizer.js';
+	import DatePicker from 'vue2-datepicker';
+	import 'vue2-datepicker/index.css';
 
    export default {
       props: {
@@ -319,6 +330,7 @@
 			id: String
 		},
       components: {
+			DatePicker
       },
       data () {
          return {
