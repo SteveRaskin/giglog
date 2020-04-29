@@ -15,9 +15,8 @@ import Footer from './components/TheFooter.vue';
 
 import Button from './components/AppButton.vue';
 
-
-
-
+import DatePicker from "vue2-datepicker";
+import "@/scss/datepicker.scss";
 
 import firebaseConfig from '@/router/firebaseConfig.js';
 var config = firebaseConfig.config;
@@ -31,7 +30,6 @@ Vue.component('app-subheader', Subheader);
 // Vue.component('app-buttons', Buttons);
 Vue.component('app-button', Button);
 Vue.component('app-footer', Footer);
-
 
 
 /* eslint-disable no-new */
@@ -71,5 +69,11 @@ router.beforeEach((to, from, next) => {
 		next();
 	}
 });
+
+
+
+DatePicker.install(Vue);
+
+
 
 Vue.config.productionTip = false

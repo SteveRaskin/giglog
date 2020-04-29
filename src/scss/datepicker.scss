@@ -1,0 +1,39 @@
+$default-color: #0000ff;
+$primary-color: #00ff00;
+
+.mx-input:hover,
+.mx-input:focus { border: 1px solid $theme1; }
+
+input[type="text"].mx-input,
+input[type="text"]::placeholder,
+input[type="text"].mx-input::placeholder {
+	font-size: 1.05rem;
+	font-weight: bold;
+	color: $theme1 !important;
+}
+
+
+
+.mx-btn-current-month,
+.mx-btn-current-year { text-transform: uppercase; color: $theme1; font-weight: bold; }
+
+.cell { color: $b; }
+
+.not-current-month div { color: lighten($b, 60%); }
+
+.mx-calendar-content .cell:hover {
+	color: $b;
+	background: $w;
+	border: 1px solid $theme1;
+	border-radius: 51%;
+}
+
+
+.mx-calendar-content .cell.active {
+	background: $theme1;
+	font-weight: bold;
+	border-radius: 51%;
+}
+.mx-calendar-content .cell.active:hover { color: $w; }
+
+.mx-table-date .today { color: $theme1; font-weight: bold; }

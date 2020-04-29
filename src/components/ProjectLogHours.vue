@@ -1,53 +1,99 @@
 <template>
 
-   <div class="container" id="log-hours">
+   <div class="container container-log-hours">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
       <h3 class="client"><strong>{{ project.client }}</strong></h3>
 
-		<form v-if="!submitted">
+		<!-- <form novalidate=true> -->
+		<!-- <form v-on:submit.prevent="onSubmit"> -->
+		<form v-on:submit.prevent>
+
+			<div v-if="errors.length" style="margin-bottom: .9rem; padding: .9rem;">
+				<b>Please include:</b>
+				<ul>
+					<li class="error" v-for="(error, ix) in errors" v-bind:key="ix">- {{ error }}</li>
+				</ul>
+			</div>
+
 
 			<!-- ============ DATE ============ -->
 			<div class="date-group">
-				<div class="label-input date">
-					<label for="">date</label>
-					<input type="date" id="date" value="" required v-model="logDate.date" />
-				</div>
-			</div><!-- END .date-group -->
+				<div class="label-input">
+					<label for="date">date</label>
+					<!-- ================ NATIVE DATE INPUT ================ -->
+					<!-- <input
+						type="date"
+						ref="dateInput"
+						v-model="logDate.date"
+					/> -->
 
+					<!-- ================ DATEPICKER ================ -->
+					<!--
+						value-type:
+							'date' returns a Date object (default)
+							'format'	returns a string using pattern of format attr, e.g., format="YYYY.MM.DD (ddd)"
+					-->
+					<date-picker
+						type="date"
+						ref="datepicker"
+						v-model="logDate.datepicker"
+						:placeholder="logDate.datepickerPlaceholder"
+						@blur="setDatepickerDate"
+					></date-picker>
+				</div>
+				<p>{{logDate.date}}</p>
+			</div>
 
 			<!-- ============ HOURS ============ -->
 			<div class="hours-group">
-				<!--
-					The value of the time input is always in 24-hour format: "HH:mm", "HH:mm:ss"; HH is 00-23, mm & ss are 00-59;
-					"v-model when you can, v-bind when you must" (both ok re: default values for timeIn, timeOut)
-				-->
+
+				<p class="error hours-error" :class="{ show: this.hoursError }">
+					{{ hoursErrorMsg }}
+				</p>
+
 	         <div class="label-input time">
 	            <label for="">time in</label>
-					<input type="time" id="time-in" required step="900" pattern="[0-9]{2}:[0-9]{2}" v-model="logDate.timeIn" v-on:blur="sumHours" />
+					<input
+						type="time"
+						ref="timeIn"
+						pattern="[0-9]{2}:[0-9]{2}"
+						step="900"
+						v-model="logDate.timeIn"
+						v-on:change="sumHours"
+					/>
 	         </div>
 				<div class="label-input time">
 	            <label for="">time out</label>
-					<input type="time" id="time-out" required step="900" pattern="[0-9]{2}:[0-9]{2}" v-model="logDate.timeOut" v-on:blur="sumHours" />
+					<input
+						type="time"
+						ref="timeOut"
+						pattern="[0-9]{2}:[0-9]{2}"
+						step="900"
+						v-model="logDate.timeOut"
+						v-on:change="sumHours"
+					/>
 	         </div>
 
 				<div class="label-input time break-time">
-	            <label for="">break? (minutes)</label>
-					<input type="text" id="break-time" v-model="logDate.timeBreak" v-on:blur="sumHours" />
+	            <label for="">break</label>
+					<input type="number" ref="breakTime" min="0" step="15" v-model="logDate.timeBreak" v-on:change="sumHours" />
+					<p>(minutes)</p>
 	         </div>
 
 				<div class="label-input text total-hours">
 	            <label for="">total hours</label>
 					<input type="text" class="total-hours" v-model="logDate.totalHours" readonly />
 	         </div>
+
 			</div><!-- END .hours-group -->
 
 
 			<div class="rate-group">
 				<div class="label-input text">
-	            <label for="">rate</label>
-	            <input type="text" v-model.lazy="logDate.rate" required />
+	            <label for="">rate $/hr.</label>
+	            <input type="number" placeholder="60" min="60" step="10" v-model.lazy="logDate.rate" />
 	         </div>
 			</div><!-- END .rate-group -->
 
@@ -56,16 +102,17 @@
    			<textarea v-model.lazy="logDate.notes"></textarea>
          </div>
 
+
 			<div class="buttons">
-				<app-button buttonClass="btn-color-4 btn-save" buttonText="save" path="" v-on:click.native="post" />
+				<app-button
+					buttonClass="btn-color-4 btn-save"
+					buttonText="save"
+					v-on:click.native="validate"
+				/>
 			</div>
 
 		</form>
 
-		<div class="" v-if="submitted">
-			<h3>"submitted!"</h3>
-
-		</div>
 
 		<div class="preview">
 			<h3>preview</h3>
@@ -81,28 +128,40 @@
 
 <script>
 
+	import titleCase from '@/mixins/titleCase.js';
+	import DatePicker from 'vue2-datepicker';
+	// import 'vue2-datepicker/index.css';
 
    export default {
       props: {
 			// projectID: String
 		},
       components: {
+			DatePicker
       },
       data () {
          return {
             id: this.$route.params.id,
 				viewName: "Log Hours",
-				fileName: "log-hours.vue",
+				fileName: "ProjectLogHours.vue",
             subtitle: "ID: " + this.$route.params.id + ", (hours.json)",
             project: {},
             logDate: {
 					date: "",
-					dateIn: "",
+					// logDate.datepicker is it's 'value', but not .value
+					datepicker: "",
+					datepickerPlaceholder: "select date",
 					timeIn: "09:00",
-					timeOut: "17:00",
+					timeOut: "18:00",
+					// timeIn: "",
+					// timeOut: "",
 					timeBreak: "00",
-					totalHours: ""
+					totalHours: "",
+					rate: null
 				},
+				errors: [],
+				hoursError: false,
+				hoursErrorMsg: "'Time Out' cannot precede 'Time In'. Hours must be logged per-date (is AM/PM correct?)",
 				submitted: false
          }
       }, // data
@@ -117,75 +176,144 @@
                this.project = data;
             })
 				.then(function setDateDefault() {
-					const dateInput = document.querySelector("#date"); // to focus
+					this.$refs.datepicker.focus();
 					const today = new Date(); // not a legit format to set as date input value (required: "yyyy-mm-dd"), ergo:
 					const currentYear = today.getFullYear();
 					/*
-						.getMonth() returns number as 0-based index, w/out leading zero, ergo:
+						.getMonth() returns 0-based index w/out leading zero, ergo:
 						- '"0" + ' adds leading zero (& coerces to string), "+1" for readability, and slice() to eliminate superfluous leading zeros
 					*/
 					const currentMonth = ("0" + (today.getMonth() + 1)).slice(-2);
 					const currentDate = ("0" + today.getDate()).slice(-2);
 					// regardless of display, required date format is "yyyy-mm-dd"
-					this.logDate.date = (currentYear + "-" + currentMonth + "-" + currentDate);
-					dateInput.focus();
+					this.logDate.datepicker = (currentYear + "." + currentMonth + "." + currentDate);
 				})
       }, // created
       methods: {
+			setDatepickerDate: function() {
+				this.logDate.datepickerPlaceholder = this.logDate.datepicker;
+				this.$refs.timeIn.focus();
+			},
+
 			sumHours: function(e) {
-				const timeIn = document.querySelector("#time-in").value; // string
-				const timeOut = document.querySelector("#time-out").value; // string
-				const timeBreak = (Math.round((document.querySelector("#break-time").value * 1 / 60) / 0.25) * 0.25).toFixed(2);
-				const timeInHrs = parseInt(timeIn.slice(0, 2));
+				console.clear();
+				const timeIn = this.$refs.timeIn.value;
+				const timeOut = this.$refs.timeOut.value;
+				const timeBreak = (Math.round((this.$refs.breakTime.value * 1 / 60) / 0.25) * 0.25).toFixed(2);
+
+				const timeInHr = parseInt(timeIn.slice(0, 2));
 				const timeInMins = Math.round(parseInt(timeIn.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-				const timeOutHrs = parseInt(timeOut.slice(0, 2));
+
+				const timeOutHr = parseInt(timeOut.slice(0, 2));
 				const timeOutMins = Math.round(parseInt(timeOut.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-				const timeInDate = new Date(this.logDate.date).setHours(timeInHrs, timeInMins);
-				const timeOutDate = new Date(this.logDate.date).setHours(timeOutHrs, timeOutMins);
+
+				const timeInDate = new Date(this.logDate.datepicker).setHours(timeInHr, timeInMins);
+				const timeOutDate = new Date(this.logDate.datepicker).setHours(timeOutHr, timeOutMins);
+
+				timeInDate > timeOutDate ? this.hoursError = true : this.hoursError = false;
+
 				let totalHours = ((timeOutDate - timeInDate) / 3600000);
             // post-midnight timeOut doesn't increment date, ergo:
 				totalHours < 0 ? totalHours += 24 : totalHours;
 				totalHours = parseFloat((totalHours - timeBreak).toFixed(2));
-				this.logDate.totalHours = totalHours;
+
+				if (isNaN(totalHours)) {
+					console.log("totalHours isNaN", "(" + totalHours + ")");
+				}
+				else {
+					this.logDate.totalHours = totalHours;
+				}
 			},
-			post: function() {
-				console.log("log-hours @post");
-				this.$router.replace({ name: 'Projects' })
-			}
-      } // methods
+
+			validate: function() {
+				console.log("validate");
+				// datepicker's 'value' ain't .value
+				if (!this.logDate.datepicker) {
+					this.errors.push("date selection required");
+				}
+
+				if (!this.logDate.timeIn) {
+					this.errors.push("start time required");
+				}
+				if (!this.logDate.timeOut) {
+					this.errors.push("finishing time required");
+				}
+				console.log("this.errors", this.errors);
+
+				// if (this.errors.length) {
+				// 	this.$refs.form.scrollTo({
+				// 		left: 0,
+				// 		top: "-300px",
+				// 		behavior: "smooth"
+				// 	});
+				// 	return false;
+				// }
+				// else {
+				// 	return true;
+				// }
+			},
+
+			// post: function() {
+			// 	this.errors = [];
+			// 	console.log("this.project", this.project);
+			// 	if (this.validate(this.project)) {
+			// 		this.project.client = this.titleCase(this.project.client);
+			// 		this.project.address = this.titleCase(this.project.address);
+			// 		this.project.city = this.titleCase(this.project.city);
+			// 		this.project.state = this.project.city.toUppercase;
+			//
+			// 		this.$http.post("https://sr-giglog.firebaseio.com/projects.json", this.project)
+			// 			.then(function(data) {
+			// 				this.project.id = data.body.name;
+			// 			})
+			// 			.then(function(data) {
+			// 				this.$router.replace({ name: 'ProjectDetail', params: { id: this.project.id } })
+			// 			})
+			// 	}
+			// }, // post
+
+
+
+
+
+
+
+
+			// reservedMethod: function() {
+			// 	this.$router.replace({ name: 'Projects' })
+			// }
+      }, // methods
+
+		mixins: [ titleCase ]
    }
 </script>
 
 
-<style scoped>
-
-   /* @import url('/static/giglog.css'); */
-
-	h1 { margin-bottom: 1.5rem; }
-	h1 .project-id { font-size: 1.2rem; color: #999; }
+<style lang="scss" scoped>
 
    h3.client {
       display: inline-block;
       width: auto;
       margin-bottom: 3rem;
-      color: darkgreen;
+      color: $theme4;
       text-transform: uppercase;
-      border-bottom: 3px double darkgreen;
+      border-bottom: 3px double $theme4;
    }
 
-   form { display: flex; flex-flow: row wrap; justify-content: flex-start; }
+   form {
+   	display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+	}
 
-	.label-input { flex-flow: column wrap; margin-right: .9rem; }
-	.label-input.select { display: none; }
-	.label-input label { display: block; }
+	.label-input { flex-flow: column wrap; }
+	.label-input label { display: block; text-transform: capitalize; }
 	.label-input label:after { content: ":"; }
 
-	select,
 	input[type="date"],
    input[type="time"],
    input[type="datetime-local"],
 	textarea {
-		width: 100%;
 		font-size: .99rem;
 		padding: .3rem .9rem;
 		border: 1px solid #ccc;
@@ -197,31 +325,67 @@
 		font-size: .9rem;
 	}
 
-	textarea { /*border: 1px solid #ccc; border-radius: .3rem;*/ min-height: 6rem; resize: vertical; }
 
 	/* ~rows */
 	.date-group,
 	.hours-group,
 	.rate-group {
 		width: 100%;
-		margin-bottom: .9rem;
+		margin-bottom: 1.5rem;
 		display: flex;
-		flex-flow: row nowrap;
-		justify-content: flex-start;
-		border: 1px dotted #eee;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		border-bottom: 1px dotted #000;
 	}
 
-	.hours-group .label-input { min-width: 9.45rem; /*max-width: 12rem;*/ width: 30%; }
+	.hours-group .label-input {
+		// border: 1px dotted red;
+	}
+
+	.label-input.time { width: 30%; }
 
 	.label-input.break-time,
-	.label-input.total-hours { max-width: 15%; text-align: center; }
+	.label-input.total-hours {
+		width: auto;
+		text-align: center;
+	}
 
-	.label-input.break-time input,
-	.label-input.total-hours input { max-width: 3.6rem; height: calc(2.1rem + 2px); margin: auto; }
+	.time input { max-width: 90%; }
+
+	.break-time input,
+	.total-hours input {
+		max-width: 4.5rem;
+		height: calc(2.1rem + 2px);
+		margin: auto;
+		text-align: center;
+	}
+	.break-time input { padding-left: .75rem; }
 
 
-	.label-input.textarea { width: 51%; }
-	.label-input + .buttons { width: 100%; }
+	.hours-error {
+		width: 100%;
+		max-height: 0;
+		margin-bottom: .9rem;
+		padding: 0 .45rem;
+		border: 0;
+		border-radius: .45rem;
+		transition: all .45s ease-in-out;
+		overflow: hidden;
+	}
+	.hours-error.show {
+		max-height: 100vh;
+		padding: .45rem;
+		border: 1px solid $error;
+	}
+
+
+	.textarea { width: 100%; }
+	textarea {
+		min-width: 100%;
+		min-height: 9rem;
+		resize: horizontal;
+	}
 
 	.preview	{
 		order: 9;
@@ -231,7 +395,6 @@
 		border: 1px dotted #f0f0f0;
 	}
 
-
-
+	.calendar-slot { display: flex; flex-flow: row nowrap; justify-content: space-around; }
 
 </style>

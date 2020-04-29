@@ -477,4 +477,45 @@ textarea {
   background: #999;
   color: #fff; }
 
+.mx-input:hover,
+.mx-input:focus {
+  border: 1px solid #1248ff; }
+
+input[type="text"].mx-input,
+input[type="text"]::placeholder,
+input[type="text"].mx-input::placeholder {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #1248ff !important; }
+
+.mx-btn-current-month,
+.mx-btn-current-year {
+  text-transform: uppercase;
+  color: #1248ff;
+  font-weight: bold; }
+
+.cell {
+  color: #000; }
+
+.not-current-month div {
+  color: #999999; }
+
+.mx-calendar-content .cell:hover {
+  color: #000;
+  background: #fff;
+  border: 1px solid #1248ff;
+  border-radius: 51%; }
+
+.mx-calendar-content .cell.active {
+  background: #1248ff;
+  font-weight: bold;
+  border-radius: 51%; }
+
+.mx-calendar-content .cell.active:hover {
+  color: #fff; }
+
+.mx-table-date .today {
+  color: #1248ff;
+  font-weight: bold; }
+
 /*# sourceMappingURL=app.css.map */

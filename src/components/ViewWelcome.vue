@@ -10,6 +10,13 @@
 				Welcome to Gigz.
 			</p>
 
+			stuff i've learned and/or decided during development;
+
+			as to a calendar plug-in;
+			a fine job but I encounter an issue and while it's discussed in the dude's github page, the code offered to resolve it failed in my app, and I decided at that point - which is to say, if it ain't perfect, and if I have to jump through debugging hoops, then I'd just as soon work with the native input. I'm more concerned with working out the validation than I am with someone else's timesuck for an arguably pointless feature. Furthermore if I'm gonna use his plug-in for datepicker then why not timepicker as well, and in this case the timepicker sucked
+
+
+
 			<p>
 				no account yet?
 				<router-link

@@ -8,12 +8,12 @@
 
 			<form ref="form">
 
-				<p v-if="errors.length" style="margin-bottom: .9rem; padding: .9rem;">
+				<div v-if="errors.length" style="margin-bottom: .9rem; padding: .9rem;">
 					<b>Please include:</b>
 					<ul>
 						<li class="error" v-for="(error, ix) in errors" v-bind:key="ix">- {{ error }}</li>
 					</ul>
-				</p>
+				</div>
 
 	         <div class="label-input text">
 	            <label for="name">client (company name)</label>
@@ -25,7 +25,6 @@
 	         </div>
 
 				<div class="label-input">
-	            <!-- <label for="">start date</label> -->
 					<date-picker
 						valueType="format"
 						v-model="project.startDate"
@@ -162,7 +161,6 @@
 	               </div>
 
 	               <div class="buttons">
-							<!-- :buttonText="project.contacts.length ? 'add another contact' : 'add contact'" -->
 							<app-button
 								ref="btnAddContact"
 								buttonClass="btn-color-2 btn-add"
@@ -188,14 +186,6 @@
 						v-on:click.native="post"
 					/>
 	         </div><!-- END .buttons -->
-				<!-- <input type="submit" name="submit" value="submit" v-on:click="validate"> -->
-
-<!-- <date-picker v-model="time1" valueType="format"></date-picker>
-<br />
-<date-picker v-model="time2" type="datetime"></date-picker>
-<br /> -->
-<!-- date|datetime|year|month|time|week -->
-
 			</form>
 		</section>
 
@@ -209,7 +199,6 @@
 	import titleCase from '@/mixins/titleCase.js'
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
-
 
    export default {
       components: {
@@ -308,25 +297,25 @@
 				// 	errOneContact: "please provide at least one full contact "
 				// }
 				if (!this.project.client) {
-					this.errors.push('client (company name)');
+					this.errors.push("client (company name)");
 				}
 				if (!this.project.address) {
-					this.errors.push('client street address');
+					this.errors.push("client street address");
 				}
 				if (!this.project.city) {
-					this.errors.push('city');
+					this.errors.push("city");
 				}
 				if (!this.project.state) {
-					this.errors.push('state');
+					this.errors.push("state");
 				}
 				if (!this.workLocation) {
-					this.errors.push('a work location');
+					this.errors.push("a work location");
 				}
 				if (this.workLocation === "other address" && !this.project.workLocation) {
-					this.errors.push('a work location');
+					this.errors.push("a work location");
 				}
 				if (!this.project.contacts.length) {
-					this.errors.push('at least one full contact');
+					this.errors.push("at least one full contact");
 				}
 				if (this.errors.length) {
 					this.$refs.form.scrollTo({
@@ -355,7 +344,7 @@
 							this.project.id = data.body.name;
 	               })
 						.then(function(data) {
-							this.$router.replace({ name: 'ProjectDetail', params: { id: this.project.id } })
+							this.$router.replace({ name: "ProjectDetail", params: { id: this.project.id } })
 						})
 				}
 			} // post
