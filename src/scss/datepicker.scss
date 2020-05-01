@@ -12,15 +12,24 @@ input[type="text"].mx-input::placeholder {
 	color: $theme1 !important;
 }
 
+.cell { color: $b; }
 
 
 .mx-btn-current-month,
-.mx-btn-current-year { text-transform: uppercase; color: $theme1; font-weight: bold; }
+.mx-btn-current-year,
+.mx-btn:hover {
+	text-transform: uppercase;
+	color: $theme1;
+	font-weight: bold;
+}
 
-.cell { color: $b; }
 
 .not-current-month div { color: lighten($b, 60%); }
 
+
+.mx-calendar-content .cell {
+	border: 1px solid transparent;
+}
 .mx-calendar-content .cell:hover {
 	color: $b;
 	background: $w;
@@ -36,4 +45,41 @@ input[type="text"].mx-input::placeholder {
 }
 .mx-calendar-content .cell.active:hover { color: $w; }
 
+
+.mx-calendar-content [data-month].cell,
+.mx-calendar-content [data-year].cell {
+	border-radius: 0;
+}
+.mx-calendar-content [data-month].cell:hover,
+.mx-calendar-content [data-year].cell:hover {
+	border: 1px solid $theme1;
+}
+.mx-calendar-content [data-month].cell.active,
+.mx-calendar-content [data-year].cell.active {}
+
+
 .mx-table-date .today { color: $theme1; font-weight: bold; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

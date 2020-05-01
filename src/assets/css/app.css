@@ -488,17 +488,21 @@ input[type="text"].mx-input::placeholder {
   font-weight: bold;
   color: #1248ff !important; }
 
+.cell {
+  color: #000; }
+
 .mx-btn-current-month,
-.mx-btn-current-year {
+.mx-btn-current-year,
+.mx-btn:hover {
   text-transform: uppercase;
   color: #1248ff;
   font-weight: bold; }
 
-.cell {
-  color: #000; }
-
 .not-current-month div {
   color: #999999; }
+
+.mx-calendar-content .cell {
+  border: 1px solid transparent; }
 
 .mx-calendar-content .cell:hover {
   color: #000;
@@ -513,6 +517,14 @@ input[type="text"].mx-input::placeholder {
 
 .mx-calendar-content .cell.active:hover {
   color: #fff; }
+
+.mx-calendar-content [data-month].cell,
+.mx-calendar-content [data-year].cell {
+  border-radius: 0; }
+
+.mx-calendar-content [data-month].cell:hover,
+.mx-calendar-content [data-year].cell:hover {
+  border: 1px solid #1248ff; }
 
 .mx-table-date .today {
   color: #1248ff;

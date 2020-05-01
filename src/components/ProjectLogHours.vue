@@ -4,19 +4,7 @@
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
-      <h3 class="client"><strong>{{ project.client }}</strong></h3>
-
-		<!-- <form novalidate=true> -->
-		<!-- <form v-on:submit.prevent="onSubmit"> -->
-
-		<div class="logged-hours" v-if="showLoggedHours">
-			<p>hours: <strong>{{ project.client }}</strong>:</p>
-			<ul>
-				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
-					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} hrs @ {{ date.rate }}/hr. = <strong>$ {{ date.totalAmount }}</strong> ... "{{ date.notes }}"
-				</li>
-			</ul>
-		</div>
+      <!-- <h3 class="client"><strong>{{ project.client }}</strong></h3> -->
 
 		<form ref="form" v-on:submit.prevent>
 
@@ -158,6 +146,15 @@
 			</div>
 
 		</form>
+
+		<div class="logged-hours" v-if="showLoggedHours">
+			<p>hours: <strong>{{ project.client }}</strong>:</p>
+			<ul>
+				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
+					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} hrs @ {{ date.rate }}/hr. = <strong>$ {{ date.totalAmount }}</strong> ... "{{ date.notes }}"
+				</li>
+			</ul>
+		</div>
 
    </div><!-- END .container -->
 </template>
@@ -329,7 +326,7 @@
    }
 
 	.logged-hours {
-		margin-bottom: 1.5rem;
+		margin: 3rem 0;
 		padding: .9rem;
 		color: $theme1;
 		border: 3px double $theme1;

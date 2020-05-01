@@ -95,7 +95,6 @@
 
 <script>
 
-   // import search  from '../mixins/searchMixin.js';
 	import titleCase from '@/mixins/titleCase.js';
 
    export default {
@@ -136,7 +135,6 @@
 				// console.log("ProjectDetail @debug: project.id", id);
 			},
 			displayLoggedHours: function() {
-				console.log("displayLoggedHours");
 				if (this.project.hours && this.project.hours.length) {
 					this.showLoggedHours = true;
 				}
@@ -154,7 +152,6 @@
       filters: {
       }, // filters
 		mixins: [ titleCase ]
-      // mixins: [ debugRoute ]
    } // export default
 </script>
 

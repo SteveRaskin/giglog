@@ -200,8 +200,11 @@
 										<input type="text" v-model.lazy="contact.title" required />
                            </div>
                            <div class="label-input text contact">
+										<p v-if="editingContactEmailFormatError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
+											<b>email address is optional but if you want to save one it must be a valid email</b>
+										</p>
                               <label for="">email address</label>
-										<input type="text" v-model.lazy="contact.email" required />
+										<input type="text" v-model.lazy="contact.email" required ref="editingEmail" />
                            </div>
                            <div class="label-input text contact">
                               <label for="">phone</label>
@@ -212,12 +215,12 @@
 										<app-button
 											buttonClass="btn-color-bw btn-cancel"
 											buttonText="cancel"
-											v-on:click.native="exitEditMode"
+											v-on:click.native="cancelEditContact(ix)"
 										/>
 										<app-button
 											buttonClass="btn-color-4 btn-save"
 											buttonText="save changes"
-											v-on:click.native="post"
+											v-on:click.native="saveEditedContact(ix)"
 										/>
                            </div><!-- END .buttons -->
                         </fieldset>
@@ -241,6 +244,11 @@
             </div><!-- END .buttons -->
 
             <div class="fieldset-wrapper">
+
+					<p v-if="newContactError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
+						<b>New Contact must include at least a name</b>
+					</p>
+
                <fieldset>
 						<legend>add contact</legend>
                   <div class="label-input text contact">
@@ -252,6 +260,10 @@
 							<input type="text" v-model.lazy="newContact.title" required />
                   </div>
                   <div class="label-input text contact">
+							<p v-if="newContactEmailFormatError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
+								<b>email address is optional but if you want to save one it must be a valid email</b>
+							</p>
+
                      <label for="">email address</label>
 							<input type="text" v-model.lazy="newContact.email" required />
                   </div>
@@ -260,10 +272,14 @@
 							<input type="text" v-model.lazy="newContact.phone" required />
                   </div>
                   <div class="buttons">
+							<!--
+								cancelNewContact(ix)
+								saveNewContact(ix)
+							-->
 							<app-button
 								buttonClass="btn-color-bw btn-cancel"
 								buttonText="cancel"
-								v-on:click.native="exitEditMode"
+								v-on:click.native="cancelNewContact"
 							/>
 							<app-button
 								buttonClass="btn-color-4 btn-save"
@@ -276,24 +292,8 @@
             </div><!-- END .add-contact-fieldset-wrapper -->
          </div><!-- END .add-contact-wrapper -->
 
-
       </section><!-- END .contacts -->
 
-         <!-- DATES & RATE -->
-<!--
-			<div class="label-input text">
-            <label for="">start date (TODO: datepicker)</label>
-            <input type="text" v-model.lazy="project.startDate" required />
-         </div>
-         <div class="label-input text">
-      		<label for="">description</label>
-      		<textarea v-model.lazy="project.description"></textarea>
-         </div>
-
-         <div class="buttons">
-            <button v-on:click.prevent="post">save project</button>
-         </div>
- -->
 
 		<div class="buttons">
 			<router-link
@@ -318,6 +318,7 @@
 <script>
 
 	import titleCase from '@/mixins/titleCase.js';
+	import validEmail from '@/mixins/validateEmail.js';
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 
@@ -350,6 +351,10 @@
 					email: "",
 					phone: "",
 				},
+				preEditEmail: "",
+				editingContactEmailFormatError: false,
+				newContactError: false,
+				newContactEmailFormatError: false
          }
       }, // data
 
@@ -357,8 +362,8 @@
 			this.get();
       }, // created
 
-      methods: {
 
+      methods: {
 			// ======================== GET ========================
          get: function() {
 				// TAN 'why url, path must be ;id to get project data'
@@ -391,6 +396,7 @@
 					});
          }, // post
 
+
 			editMode: function(e) {
 			   const buttonID = e.currentTarget.id;
 				console.log("editMode.buttonID", buttonID);
@@ -410,6 +416,8 @@
 			// EDIT & DELETE: this.contactIx applies '.editMode' to corresponding li[ix] in ul.contacts
          editContact: function(ix) {
             this.contactIx = ix;
+				let initEmail = this.project.contacts[this.contactIx].email;
+				this.preEditEmail = initEmail;
          },
 			deleteContact: function(ix) {
 				// TODO: now that delete is where it is, we still need the ix but not used for the same purpose as it's used in edit, so perhaps there should be a different data
@@ -428,14 +436,63 @@
 			   this.addingContact = true; // adds '.editMode' to .add-contact-wrapper
 			},
 
-			saveNewContact: function(newContact) {
-				// capitalizes pre-db
-				this.newContact.name = this.titleCase(this.newContact.name);
-				if (!this.project.contacts) {
-					this.project.contacts = [];
+			cancelEditContact: function(ix) {
+				let editedContact = this.project.contacts[this.contactIx];
+				editedContact.email = this.preEditEmail;
+				this.editingContactEmailFormatError = false; // e.g., if canceled after invalid email error
+				this.exitEditMode();
+			},
+			saveEditedContact: function(ix) {
+				let editedContact = this.project.contacts[this.contactIx];
+				if (!editedContact.email.length) {
+					if (confirm("ARE YOU SURE YOU WANT TO SAVE A CONTACT WITHOUT AN EMAIL ADDRESS?")) {
+						this.post();
+					}
+					else {
+						this.$refs.editingEmail[ix].focus();
+					}
 				}
-				this.project.contacts.push(this.newContact);
-				this.post();
+				else {
+					if (!this.validEmail(editedContact.email)) {
+						this.editingContactEmailFormatError = true;
+						this.$refs.editingEmail[ix].focus();
+						editedContact.email = this.preEditEmail;
+					}
+					else {
+						this.editingContactEmailFormatError = false;
+						this.post();
+					}
+				}
+			},
+
+			cancelNewContact: function() {
+				this.newContactError = false;
+				this.newContactEmailFormatError = false;
+				this.exitEditMode();
+			},
+
+			saveNewContact: function(newContact) {
+				if (!this.newContact.name) {
+					this.newContactError = true;
+				}
+				else {
+					this.newContactError = false;
+					if (this.newContact.email) {
+						if (!this.validEmail(this.newContact.email)) {
+							this.newContactEmailFormatError = true;
+						}
+						else {
+							this.newContactEmailFormatError = false;
+							this.project.contacts.push(this.newContact);
+							this.post();
+						}
+					}
+					else {
+						this.newContact.name = this.titleCase(this.newContact.name);
+						this.project.contacts.push(this.newContact);
+						this.post();
+					}
+				} // else name
 			},
 
 			exitEditMode: function() {
@@ -443,22 +500,16 @@
             this.isEditingGig = false;
             this.contactIx = "-1";
 				this.addingContact = false;
-				console.log("pre: this.newContact", this.newContact);
-				// this clears the object values ... but why are they already gone at the preceeding log?
-				// Object.keys(this.newContact).forEach(key => {
-				// 	this.newContact[key] = "";
-				// })
 				this.newContact.name = "";
 				this.newContact.title = "";
 				this.newContact.email = "";
 				this.newContact.phone = "";
-				console.log("post this.newContact", this.newContact);
          }
 
       },
 		updated: function() {
 		},
-		mixins: [ titleCase ]
+		mixins: [ titleCase, validEmail ]
    } // export default
 </script>
 
@@ -571,6 +622,12 @@
 		border-bottom: 1px solid $error;
 	}
 
+	.error {
+		width: 100%;
+		padding: .3rem .9rem;
+		border: 1px solid $error;
+		border-radius: .3rem;
+	}
 
 
 </style>

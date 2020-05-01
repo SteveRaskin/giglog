@@ -103,7 +103,7 @@
 
 
 				<!-- ============ CONTACTS INFO ============ -->
-	         <div class="contacts-wrapper" style="border: 1px solid red;">
+	         <div class="contacts-wrapper">
 
 					<ul style="margin-bottom: 1.5rem;">
 						<li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
@@ -165,7 +165,7 @@
 								ref="btnAddContact"
 								buttonClass="btn-color-2 btn-add"
 								buttonText="add contact"
-								v-on:click.native="addContact"
+								v-on:click.native.prevent="addContact"
 								:disabled="btnAddContactDisabled"
 							/>
 	   				</div><!-- END .buttons -->
@@ -197,6 +197,7 @@
 <script>
 
 	import titleCase from '@/mixins/titleCase.js'
+	import validEmail from '@/mixins/validateEmail.js';
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 
@@ -238,13 +239,10 @@
 				time1: null,
 				time2: null,
 				time3: null,
-
          }
       }, // data
-		created: function() {
-		},
-		mounted: function() {
-		},
+		created: function() {},
+		mounted: function() {},
 		watch: {},
 		computed: {},
       methods: {
@@ -257,7 +255,6 @@
 				}
 			},
 			addContact: function(e) {
-            e.preventDefault();
 				// interim validation to ensure at least one legit contact entry
 				if (!this.contactInfo.name || !this.contactInfo.email) {
 					this.contactError = true;
@@ -273,10 +270,6 @@
 	            this.contactInfo = {};
 				}
          },
-			validEmail: function(email) {
-	      	var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	      	return re.test(email);
-			},
 
 			validate: function(project) {
 				// https://frontstuff.io/a-better-way-to-perform-multiple-comparisons-in-javascript
@@ -349,7 +342,7 @@
 				}
 			} // post
       }, // methods
-		mixins: [ titleCase ]
+		mixins: [ titleCase, validEmail ]
    }
 </script>
 
