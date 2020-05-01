@@ -294,9 +294,6 @@
             <button v-on:click.prevent="post">save project</button>
          </div>
  -->
-         <form v-if="!submitted">
-
-		</form>
 
 		<div class="buttons">
 			<router-link
@@ -342,10 +339,9 @@
 				project: {},
             contactInfo: {},
             workLocation: true,
-            submitted: false,
             isEditingClient: false,
             isEditingGig: false,
-            // editingContact: [], // keep 'it 'til u recall source of .$set
+            // editingContact: [], // TODO: keep re: source of .$set ?
             contactIx: "-1",
             addingContact: false,
 				newContact: {
@@ -354,9 +350,9 @@
 					email: "",
 					phone: "",
 				},
-            // contacts: []
          }
       }, // data
+
       created: function() {
 			this.get();
       }, // created
@@ -371,13 +367,13 @@
 	         .then(data => data.json())
 	         .then(data => {
 	            this.project = data;
-				}).then(function() {
+				}).then(() => {
 					this.exitEditMode();
 				})
 			},
 
 
-			// ======================== POST ========================
+			// ======================== POST (PUT, ACTUALLY) ========================
          post: function() {
             this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json", this.project)
                .then(response => {
@@ -385,8 +381,8 @@
                }, response => {
                   console.error(".error??? response.body", response.body);
                })
-               .then(function(data){
-                  this.submitted = true;
+               .then((data) => {
+                  // this.submitted = true;
                })
 					.then(() => {
 						this.isEditingClient = false;

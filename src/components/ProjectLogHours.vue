@@ -8,10 +8,20 @@
 
 		<!-- <form novalidate=true> -->
 		<!-- <form v-on:submit.prevent="onSubmit"> -->
-		<form v-on:submit.prevent>
+
+		<div class="logged-hours" v-if="showLoggedHours">
+			<p>logged hours for this project:</p>
+			<ul>
+				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
+					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} @{{ date.rate }} = {{ date.totalAmount }}
+				</li>
+			</ul>
+		</div>
+
+		<form ref="form" v-on:submit.prevent>
 
 			<div v-if="errors.length" style="margin-bottom: .9rem; padding: .9rem;">
-				<b>Please include:</b>
+				<p class="error"><b>Errors:</b></p>
 				<ul>
 					<li class="error" v-for="(error, ix) in errors" v-bind:key="ix">- {{ error }}</li>
 				</ul>
@@ -34,16 +44,15 @@
 						value-type:
 							'date' returns a Date object (default)
 							'format'	returns a string using pattern of format attr, e.g., format="YYYY.MM.DD (ddd)"
+							USE v-model !!! DNU value or :value
 					-->
 					<date-picker
 						type="date"
 						ref="datepicker"
-						v-model="logDate.datepicker"
-						:placeholder="logDate.datepickerPlaceholder"
-						@blur="setDatepickerDate"
+						v-model="logDate.date"
+						:placeholder="datepickerPlaceholder"
 					></date-picker>
 				</div>
-				<p>{{logDate.date}}</p>
 			</div>
 
 			<!-- ============ HOURS ============ -->
@@ -61,7 +70,7 @@
 						pattern="[0-9]{2}:[0-9]{2}"
 						step="900"
 						v-model="logDate.timeIn"
-						v-on:change="sumHours"
+						@change="sumHours"
 					/>
 	         </div>
 				<div class="label-input time">
@@ -72,34 +81,65 @@
 						pattern="[0-9]{2}:[0-9]{2}"
 						step="900"
 						v-model="logDate.timeOut"
-						v-on:change="sumHours"
+						@change="sumHours"
 					/>
 	         </div>
 
 				<div class="label-input time break-time">
-	            <label for="">break</label>
-					<input type="number" ref="breakTime" min="0" step="15" v-model="logDate.timeBreak" v-on:change="sumHours" />
-					<p>(minutes)</p>
+	            <label for="breakTime">break time<span>(s)</span></label>
+					<input
+						type="number"
+						ref="breakTime"
+						min="0"
+						step="15"
+						v-model="logDate.timeBreak"
+						v-on:change="sumHours"
+					/>
+					<p class="info">minutes</p>
 	         </div>
 
 				<div class="label-input text total-hours">
-	            <label for="">total hours</label>
-					<input type="text" class="total-hours" v-model="logDate.totalHours" readonly />
+	            <label for="totalHours">total hours</label>
+					<input
+						type="text"
+						ref="totalHours"
+						class="total-hours"
+						v-model="logDate.totalHours"
+						readonly
+						tabindex="-1"
+					/>
 	         </div>
-
 			</div><!-- END .hours-group -->
 
+			<!-- ============ RATE/TOTAL ============ -->
+			<div class="rate-total-amount">
 
-			<div class="rate-group">
-				<div class="label-input text">
-	            <label for="">rate $/hr.</label>
-	            <input type="number" placeholder="60" min="60" step="10" v-model.lazy="logDate.rate" />
+				<div class="label-input text rate">
+					<label for="rate">rate $/hr.</label>
+	            <input
+						type="number"
+						ref="rate"
+						placeholder="60"
+						min="60"
+						step="5"
+						v-model.lazy="logDate.rate"
+						@change="sumHours"
+					/>
 	         </div>
-			</div><!-- END .rate-group -->
 
+				<p class="total-amount" ref="totalAmount">
+					<b>{{ dateString(logDate.date) }}</b> total billable
+					<br />
+					<span>{{ logDate.totalAmount }}</span>
+				</p>
+			</div><!-- END .ate-total-amount -->
+
+
+			<!-- ============ NOTES? ============ -->
 			<div class="label-input textarea">
             <label for="">notes</label>
-   			<textarea v-model.lazy="logDate.notes"></textarea>
+   			<textarea v-model.lazy="logDate.notes">
+				</textarea>
          </div>
 
 
@@ -107,19 +147,11 @@
 				<app-button
 					buttonClass="btn-color-4 btn-save"
 					buttonText="save"
-					v-on:click.native="validate"
+					v-on:click.native="post"
 				/>
 			</div>
 
 		</form>
-
-
-		<div class="preview">
-			<h3>preview</h3>
-			<p>logDate.date: <b>{{ logDate.date }}</b></p>
-			<p>logDate.timeIn: <b>{{ logDate.timeIn }}</b></p>
-			<p>logDate.timeOut: <b>{{ logDate.timeOut }}</b></p>
-		</div>
 
    </div><!-- END .container -->
 </template>
@@ -134,7 +166,7 @@
 
    export default {
       props: {
-			// projectID: String
+			projectID: String
 		},
       components: {
 			DatePicker
@@ -145,54 +177,61 @@
 				viewName: "Log Hours",
 				fileName: "ProjectLogHours.vue",
             subtitle: "ID: " + this.$route.params.id + ", (hours.json)",
+
             project: {},
+				showLoggedHours: false,
+				datepickerPlaceholder: "select date",
             logDate: {
+					// date: "",
 					date: "",
-					// logDate.datepicker is it's 'value', but not .value
-					datepicker: "",
-					datepickerPlaceholder: "select date",
 					timeIn: "09:00",
 					timeOut: "18:00",
-					// timeIn: "",
-					// timeOut: "",
 					timeBreak: "00",
 					totalHours: "",
-					rate: null
+					rate: 75,
+					totalAmount: null
 				},
 				errors: [],
 				hoursError: false,
-				hoursErrorMsg: "'Time Out' cannot precede 'Time In'. Hours must be logged per-date (is AM/PM correct?)",
-				submitted: false
+				hoursErrorMsg: "'ERROR: Time Out' cannot precede 'Time In'. Hours must be logged per-date (is AM/PM correct?)",
          }
       }, // data
 
 		beforeMount: function() {
       }, // beforeMount
 
-      created: function() {
-         this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
-            .then(data => data.json())
-            .then(data => {
-               this.project = data;
-            })
-				.then(function setDateDefault() {
-					this.$refs.datepicker.focus();
-					const today = new Date(); // not a legit format to set as date input value (required: "yyyy-mm-dd"), ergo:
-					const currentYear = today.getFullYear();
-					/*
-						.getMonth() returns 0-based index w/out leading zero, ergo:
-						- '"0" + ' adds leading zero (& coerces to string), "+1" for readability, and slice() to eliminate superfluous leading zeros
-					*/
-					const currentMonth = ("0" + (today.getMonth() + 1)).slice(-2);
-					const currentDate = ("0" + today.getDate()).slice(-2);
-					// regardless of display, required date format is "yyyy-mm-dd"
-					this.logDate.datepicker = (currentYear + "." + currentMonth + "." + currentDate);
-				})
+		created: function() {
+			this.get();
       }, // created
+
       methods: {
-			setDatepickerDate: function() {
-				this.logDate.datepickerPlaceholder = this.logDate.datepicker;
-				this.$refs.timeIn.focus();
+         get: function() {
+	         this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
+	            .then(data => data.json())
+	            .then(data => {
+	               this.project = data;
+						console.log("this.project", this.project);
+	            })
+					.then(() => {
+						this.displayLoggedHours();
+						this.setDateDefault();
+						this.sumHours();
+					})
+	      },
+
+			displayLoggedHours: function() {
+				if (this.project.hours && this.project.hours.length) {
+					this.showLoggedHours = true;
+				}
+			},
+
+			setDateDefault: function() {
+				this.$refs.datepicker.focus();
+				this.logDate.date = new Date();
+			},
+
+			dateString: function(dateObj) {
+				return dateObj.toString().slice(0, 10).toUpperCase();
 			},
 
 			sumHours: function(e) {
@@ -200,88 +239,71 @@
 				const timeIn = this.$refs.timeIn.value;
 				const timeOut = this.$refs.timeOut.value;
 				const timeBreak = (Math.round((this.$refs.breakTime.value * 1 / 60) / 0.25) * 0.25).toFixed(2);
-
 				const timeInHr = parseInt(timeIn.slice(0, 2));
 				const timeInMins = Math.round(parseInt(timeIn.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-
 				const timeOutHr = parseInt(timeOut.slice(0, 2));
 				const timeOutMins = Math.round(parseInt(timeOut.slice(3)) / 15) * 15; // round to nearest 1/4 hour
-
-				const timeInDate = new Date(this.logDate.datepicker).setHours(timeInHr, timeInMins);
-				const timeOutDate = new Date(this.logDate.datepicker).setHours(timeOutHr, timeOutMins);
-
+				const timeInDate = new Date(this.logDate.date).setHours(timeInHr, timeInMins);
+				const timeOutDate = new Date(this.logDate.date).setHours(timeOutHr, timeOutMins);
 				timeInDate > timeOutDate ? this.hoursError = true : this.hoursError = false;
-
 				let totalHours = ((timeOutDate - timeInDate) / 3600000);
             // post-midnight timeOut doesn't increment date, ergo:
 				totalHours < 0 ? totalHours += 24 : totalHours;
 				totalHours = parseFloat((totalHours - timeBreak).toFixed(2));
-
 				if (isNaN(totalHours)) {
 					console.log("totalHours isNaN", "(" + totalHours + ")");
 				}
 				else {
 					this.logDate.totalHours = totalHours;
 				}
+				const rate = this.$refs.rate.value;
+				let amt = parseFloat(totalHours * rate).toFixed(2);
+				this.logDate.totalAmount = amt;
 			},
 
 			validate: function() {
-				console.log("validate");
-				// datepicker's 'value' ain't .value
-				if (!this.logDate.datepicker) {
-					this.errors.push("date selection required");
-				}
-
+				console.clear();
+				this.errors = [];
+				// datepicker value ensured
 				if (!this.logDate.timeIn) {
 					this.errors.push("start time required");
 				}
 				if (!this.logDate.timeOut) {
 					this.errors.push("finishing time required");
 				}
-				console.log("this.errors", this.errors);
+				if (this.errors.length) {
+					this.$refs.form.scrollTo({
+						left: 0,
+						top: 0,
+						behavior: "smooth"
+					});
+					return false;
+				}
+				else {
+					return true;
+				}
+			}, // validate
 
-				// if (this.errors.length) {
-				// 	this.$refs.form.scrollTo({
-				// 		left: 0,
-				// 		top: "-300px",
-				// 		behavior: "smooth"
-				// 	});
-				// 	return false;
-				// }
-				// else {
-				// 	return true;
-				// }
-			},
-
-			// post: function() {
-			// 	this.errors = [];
-			// 	console.log("this.project", this.project);
-			// 	if (this.validate(this.project)) {
-			// 		this.project.client = this.titleCase(this.project.client);
-			// 		this.project.address = this.titleCase(this.project.address);
-			// 		this.project.city = this.titleCase(this.project.city);
-			// 		this.project.state = this.project.city.toUppercase;
-			//
-			// 		this.$http.post("https://sr-giglog.firebaseio.com/projects.json", this.project)
-			// 			.then(function(data) {
-			// 				this.project.id = data.body.name;
-			// 			})
-			// 			.then(function(data) {
-			// 				this.$router.replace({ name: 'ProjectDetail', params: { id: this.project.id } })
-			// 			})
-			// 	}
-			// }, // post
-
-
-
-
-
-
-
-
-			// reservedMethod: function() {
-			// 	this.$router.replace({ name: 'Projects' })
-			// }
+			post: function() {
+				this.errors = [];
+				if (this.validate(this.logDate)) {
+					if (!this.project.hours) {
+						this.project.hours = [];
+					}
+					this.project.hours.push(this.logDate);
+					this.logDate.notes = this.dateString(this.logDate.date) + ": " + this.logDate.totalHours + "hrs @ " + this.logDate.rate;
+					this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json", this.project)
+	               .then(response => {
+	                  // console.log("response.body:", response.body);
+	               }, response => {
+	                  console.error("error? response.body", response.body);
+	               })
+						.then(() => {
+							this.get();
+							// this.$router.replace({ name: 'ProjectDetail', params: { id: this.project.id } })
+						});
+				} // if valid
+			} // post
       }, // methods
 
 		mixins: [ titleCase ]
@@ -300,6 +322,18 @@
       border-bottom: 3px double $theme4;
    }
 
+	.logged-hours {
+		margin-bottom: 1.5rem;
+		padding: .9rem;
+		color: $theme1;
+		border: 3px double $theme1;
+		border-radius: .3rem;
+	}
+	.logged-hours p {
+		margin-bottom: .9rem;
+		text-transform: uppercase;
+	}
+
    form {
    	display: flex;
 		flex-flow: row wrap;
@@ -309,6 +343,7 @@
 	.label-input { flex-flow: column wrap; }
 	.label-input label { display: block; text-transform: capitalize; }
 	.label-input label:after { content: ":"; }
+	.label-input label span { text-transform: none; }
 
 	input[type="date"],
    input[type="time"],
@@ -329,7 +364,7 @@
 	/* ~rows */
 	.date-group,
 	.hours-group,
-	.rate-group {
+	.rate-total-amount {
 		width: 100%;
 		margin-bottom: 1.5rem;
 		display: flex;
@@ -338,21 +373,17 @@
 		align-items: flex-start;
 		border-bottom: 1px dotted #000;
 	}
+	// .rate-subtotal { justify-content: flex-start; }
 
-	.hours-group .label-input {
-		// border: 1px dotted red;
-	}
-
-	.label-input.time { width: 30%; }
-
+	.label-input.time { width: 24%; }
 	.label-input.break-time,
 	.label-input.total-hours {
 		width: auto;
 		text-align: center;
+		// border: 1px dotted red;
 	}
 
 	.time input { max-width: 90%; }
-
 	.break-time input,
 	.total-hours input {
 		max-width: 4.5rem;
@@ -361,7 +392,6 @@
 		text-align: center;
 	}
 	.break-time input { padding-left: .75rem; }
-
 
 	.hours-error {
 		width: 100%;
@@ -377,6 +407,27 @@
 		max-height: 100vh;
 		padding: .45rem;
 		border: 1px solid $error;
+	}
+
+	.label-input.rate,
+	.total-amount {
+		width: auto;
+		flex-shrink: 3;
+		// border: 1px solid lime;
+	}
+	.label-input.rate input { max-width: 7.5rem; }
+	.total-amount {
+		text-align: right;
+		text-transform: capitalize;
+	}
+	.total-amount span {
+		color: $theme4;
+		font-weight: bold;
+	}
+	.total-amount span::before {
+		display: inline-block;
+		padding-right: .9rem;
+		content: "$";
 	}
 
 

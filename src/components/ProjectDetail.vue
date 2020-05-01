@@ -65,6 +65,17 @@
          </dl>
       </section><!-- END .contacts -->
 
+		<section class="card logged-hours" v-if="showLoggedHours">
+			<p>logged hours for this project:</p>
+			<ul>
+				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
+					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} @{{ date.rate }} = {{ date.totalAmount }}
+				</li>
+			</ul>
+		</section>
+
+
+
 		<div class="buttons">
 			<router-link
 				tag="button"
@@ -101,15 +112,10 @@
 				fileName: "ProjectDetail.vue",
 				project: {},
             search: "",
+				showLoggedHours: false
 				// data via props (also $route object params):
          }
       }, // data
-
-		methods: {
-			debug: function(id) {
-				// console.log("ProjectDetail @debug: project.id", id);
-			}
-		}, // methods
 
       created: function() {
 			// TAN 'note; why url, path must be ;id to get project data'
@@ -117,10 +123,31 @@
 			// odd, but strange: this.id is id prop which is only coming from the router link, yet unless the path variable is the id, the id prop is lost
 			this.$http.get("https://sr-giglog.firebaseio.com/projects/" + this.id + ".json")
 			.then(data => data.json())
-         .then(data => {
+			.then(data => {
 				this.project = data;
 			})
+			.then(() => {
+				this.displayLoggedHours();
+			})
       }, // created
+
+
+		methods: {
+			debug: function(id) {
+				// console.log("ProjectDetail @debug: project.id", id);
+			},
+			displayLoggedHours: function() {
+				console.log("displayLoggedHours");
+				if (this.project.hours && this.project.hours.length) {
+					this.showLoggedHours = true;
+				}
+			},
+			dateString: function(dateObj) {
+				return dateObj.toString().slice(0, 10).toUpperCase();
+			},
+		}, // methods
+
+
       computed: {
       }, // computed
       directives: {
