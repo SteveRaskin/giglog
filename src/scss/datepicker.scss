@@ -5,7 +5,6 @@ $primary-color: #00ff00;
 .mx-input:focus { border: 1px solid $theme1; }
 
 input[type="text"].mx-input,
-input[type="text"]::placeholder,
 input[type="text"].mx-input::placeholder {
 	font-size: 1.05rem;
 	font-weight: bold;

@@ -1,7 +1,7 @@
 <template>
    <!-- custom directive with optional argument (corresponds to binding.arg in the directive instance) -->
 
-	<div class="container project-detail">
+	<div class="container container-project-detail">
 
 		<app-subheader v-bind:fileName="fileName" v-bind:viewName="viewName" />
 
@@ -10,29 +10,29 @@
          <dl>
             <dt>client:</dt>
             <dd>
-               <p><strong>{{ project.client }}</strong></p>
-               <p>{{ project.address }}</p>
-               <p>{{ project.city }} {{ project.state }} {{ project.zip }}</p>
+					<p class="client">{{ project.client }}</p>
+               <p class="street-address">{{ project.address }}</p>
 					<p>
-						<span class="label">ID:</span>
-						<span class="value"> {{ this.id }}</span>
+						<span class="city">{{ project.city }}</span>
+						<span class="state">{{ project.state }}</span>
+						<span class="zip">{{ project.zip }}</span>
 					</p>
+					<!-- <p><span class="label">ID:</span><span class="value"> {{ this.id }}</span></p> -->
             </dd>
          </dl>
-			<!-- TODO: confirm whether .label & .value are required after porting in markup from Edit -->
-		</section><!-- END .client-data -->
+		</section>
+
 
 		<!-- ======================== GIG INFO ======================== -->
       <section class="gig-data">
-
 			<dl>
             <dt>gig:</dt>
             <dd>
                <dl>
-                  <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
                   <dt>task:</dt> <dd>{{ project.description }}</dd>
+						<dt>website:</dt> <dd>{{ project.projectReference }}</dd>
 						<dt>referrer:</dt> <dd>{{ project.source }}</dd>
-						<dt>reference ???:</dt> <dd>{{ project.projectReference }}</dd>
+						<dt>work site:</dt> <dd>{{ project.workLocation }}</dd>
                   <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
             </dd>
@@ -45,7 +45,6 @@
 			<dl>
             <dt>contacts:</dt>
             <dd>
-
                <ul class="contacts">
                   <li v-for="(contact, ix) in project.contacts" v-bind:key="ix">
                      <div class="contact-data">

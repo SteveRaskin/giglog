@@ -9,9 +9,9 @@ Error: Undefined variable: "$theme1".
 5: .mx-input:focus { border: 1px solid $theme1; }
 6: 
 7: input[type="text"].mx-input,
-8: input[type="text"]::placeholder,
-9: input[type="text"].mx-input::placeholder {
-10: 	font-size: 1.05rem;
+8: input[type="text"].mx-input::placeholder {
+9: 	font-size: 1.05rem;
+10: 	font-weight: bold;
 
 Backtrace:
 scss/datepicker.scss:5
@@ -72,4 +72,4 @@ scss/datepicker.scss:5
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$theme1\".\A         on line 5 of scss/datepicker.scss\A \A 1: $default-color: #0000ff;\A 2: $primary-color: #00ff00;\A 3: \A 4: .mx-input:hover,\A 5: .mx-input:focus { border: 1px solid $theme1; }\A 6: \A 7: input[type=\"text\"].mx-input,\A 8: input[type=\"text\"]::placeholder,\A 9: input[type=\"text\"].mx-input::placeholder {\A 10: 	font-size: 1.05rem;"; }
+  content: "Error: Undefined variable: \"$theme1\".\A         on line 5 of scss/datepicker.scss\A \A 1: $default-color: #0000ff;\A 2: $primary-color: #00ff00;\A 3: \A 4: .mx-input:hover,\A 5: .mx-input:focus { border: 1px solid $theme1; }\A 6: \A 7: input[type=\"text\"].mx-input,\A 8: input[type=\"text\"].mx-input::placeholder {\A 9: 	font-size: 1.05rem;\A 10: 	font-weight: bold;"; }

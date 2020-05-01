@@ -9,10 +9,10 @@
 		<ol class="projects">
 
 			<li class="project" v-for="(project, ix) in reverseprojects" v-bind:key="project.key">
-				<!-- <h5>{{ ix + 1 }}.</h5> -->
             <p>
-					<!-- <span class="label">{{ ix + 1 }}: </span> -->
-					<span class="client">{{ ix + 1 }}: {{ project.client }} <span class="project-id">({{ project.id }})</span></span>
+					<span class="client">{{ ix + 1 }}. {{ project.client }}
+						<!-- <span class="project-id">({{ project.id }})</span> -->
+					</span>
 				</p>
 				<p>
 					<span class="label">start date:</span> <span class="value">{{ project.startDate }}</span>
@@ -21,7 +21,7 @@
 					<span class="label">task:</span>
 					<span class="value">
 						{{ project.projectReference }}
-						<router-link v-bind:to="'/project-detail/' + project.id">[ see full details ]</router-link>
+						<!-- <router-link v-bind:to="'/project-detail/' + project.id">[ see full details ]</router-link> -->
 					</span>
 				</p>
 				<p>

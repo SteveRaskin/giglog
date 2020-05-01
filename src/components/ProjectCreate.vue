@@ -8,7 +8,7 @@
 
 			<form ref="form">
 
-				<div v-if="errors.length" style="margin-bottom: .9rem; padding: .9rem;">
+				<div class="errors" v-if="errors.length">
 					<b>Please include:</b>
 					<ul>
 						<li class="error" v-for="(error, ix) in errors" v-bind:key="ix">- {{ error }}</li>
@@ -112,12 +112,16 @@
 					</ul>
 
 	            <fieldset class="contacts">
-						<p v-if="contactError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
-							<b>Please provide name &amp; email address for at least one contact</b>
-						</p>
-						<p v-if="emailFormatError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
-							<b>Please provide a valid email address for this contact</b>
-						</p>
+						<div class="errors" v-if="contactError">
+							<p class="error">
+								<b>Please provide name &amp; email address for at least one contact</b>
+							</p>
+						</div>
+						<div class="errors" v-if="emailFormatError">
+							<p class="error">
+								<b>Please provide a valid email address for this contact</b>
+							</p>
+						</div>
 
 	               <legend>Contact(s):</legend>
 

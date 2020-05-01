@@ -17,6 +17,7 @@
 					>Project List
 				</router-link>
 				<router-link
+					v-if="(viewName !== 'AddProject')"
 					tag="button"
 					class="btn btn-color-1 btn-add-projects"
 					:to="{ name: 'AddProject', params: {}}"

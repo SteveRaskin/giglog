@@ -44,7 +44,18 @@ ul { list-style: none; }
 
 img { max-width: 100%; height: auto; }
 
-.error { color: $error; }
+.errors {
+	width: 100%;
+	margin-bottom: .9rem;
+	padding: .9rem;
+	color: $error;
+	border: 1px solid $error;
+	border-radius: .3rem;
+}
+.error {
+	color: $error;
+}
+
 
 /* from project-detail.vue */
 /*
@@ -122,7 +133,6 @@ dt {
 	margin-bottom: .3rem;
 	color: #000;
 	font-weight: bold;
-	font-size: 1.35rem;
 	text-transform: uppercase;
 }
 
@@ -136,13 +146,41 @@ dd:last-of-type { margin-bottom: 0; }
 dd dl {}
 dd dt {
 	width: 7.5rem;
-	color: #333;
+	color: lighten($b, 30%);
+	font-weight: normal;
 	text-align: left;
-	font-size: .9rem;
-	text-transform: none;
+	text-transform: capitalize;
 }
-dd dd { width: calc(100% - 7.5rem); }
+dd dd {
+	width: calc(100% - 7.5rem);
+	font-weight: bold;
+}
 dd dd:not(:last-child) { margin-bottom: .9rem; }
 
 
 // dl + .buttons { display: inline-block; margin-top: 0; }
+
+
+// Detail, Edit
+.client { font-weight: bold; }
+.container-project-detail .client,
+.container-project-edit .client { color: $theme1; }
+
+.street-address { text-transform: capitalize; }
+.city {
+	margin-right: .6rem;
+	text-transform: capitalize;
+}
+.state {
+	margin-right: .6rem;
+	text-transform: uppercase;
+}
+
+// ul.contacts > li.contact
+.contact-name {
+	font-weight: bold;
+	text-transform: capitalize;
+}
+.contact-title {
+	text-transform: uppercase;
+}

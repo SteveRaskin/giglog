@@ -9,9 +9,13 @@
          <dl>
             <dt>client:</dt>
             <dd>
-               <p><strong>{{ project.client }}</strong></p>
-               <p>{{ project.address }}</p>
-               <p>{{ project.city }} {{ project.state }} {{ project.zip }}</p>
+               <p class="client">{{ project.client }}</p>
+               <p class="street-address">{{ project.address }}</p>
+					<p>
+						<span class="city">{{ project.city }}</span>
+						<span class="state">{{ project.state }}</span>
+						<span class="zip">{{ project.zip }}</span>
+					</p>
             </dd>
          </dl>
          <div class="buttons">
@@ -75,9 +79,10 @@
             <dt>gig:</dt>
             <dd>
                <dl>
-                  <dt>work location:</dt> <dd>{{ project.workLocation }}</dd>
-                  <dt>description:</dt> <dd>{{ project.description }}</dd>
-                  <dt>source:</dt> <dd>{{ project.source }}</dd>
+						<dt>task:</dt> <dd>{{ project.description }}</dd>
+						<dt>website:</dt> <dd>{{ project.projectReference }}</dd>
+						<dt>referrer:</dt> <dd>{{ project.source }}</dd>
+						<dt>work site:</dt> <dd>{{ project.workLocation }}</dd>
                   <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
             </dd>
@@ -157,7 +162,6 @@
 
       <!-- ======================== CONTACTS ======================== -->
       <section class="card contacts-wrapper">
-
          <dl>
             <dt>contacts:</dt>
             <dd>
@@ -200,9 +204,11 @@
 										<input type="text" v-model.lazy="contact.title" required />
                            </div>
                            <div class="label-input text contact">
-										<p v-if="editingContactEmailFormatError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
-											<b>email address is optional but if you want to save one it must be a valid email</b>
-										</p>
+										<div class="errors" v-if="editingContactEmailFormatError">
+											<p class="error">
+												email address is optional but to save one it must be in a valid format
+											</p>
+										</div>
                               <label for="">email address</label>
 										<input type="text" v-model.lazy="contact.email" required ref="editingEmail" />
                            </div>
@@ -245,9 +251,11 @@
 
             <div class="fieldset-wrapper">
 
-					<p v-if="newContactError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
-						<b>New Contact must include at least a name</b>
-					</p>
+					<div class="errors" v-if="newContactError">
+						<p class="error">
+							New Contact must include at least a name
+						</p>
+					</div>
 
                <fieldset>
 						<legend>add contact</legend>
@@ -260,10 +268,11 @@
 							<input type="text" v-model.lazy="newContact.title" required />
                   </div>
                   <div class="label-input text contact">
-							<p v-if="newContactEmailFormatError" class="error" style="margin-bottom: .9rem; padding: .9rem;">
-								<b>email address is optional but if you want to save one it must be a valid email</b>
-							</p>
-
+							<div class="errors" v-if="newContactEmailFormatError">
+								<p class="error">
+									<b>email address is optional but if you want to save one it must be a valid email</b>
+								</p>
+							</div>
                      <label for="">email address</label>
 							<input type="text" v-model.lazy="newContact.email" required />
                   </div>
@@ -272,10 +281,6 @@
 							<input type="text" v-model.lazy="newContact.phone" required />
                   </div>
                   <div class="buttons">
-							<!--
-								cancelNewContact(ix)
-								saveNewContact(ix)
-							-->
 							<app-button
 								buttonClass="btn-color-bw btn-cancel"
 								buttonText="cancel"
@@ -318,6 +323,7 @@
 <script>
 
 	import titleCase from '@/mixins/titleCase.js';
+	import upperCase from '@/mixins/upperCase.js';
 	import validEmail from '@/mixins/validateEmail.js';
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
@@ -395,7 +401,6 @@
 						this.get();
 					});
          }, // post
-
 
 			editMode: function(e) {
 			   const buttonID = e.currentTarget.id;
@@ -509,7 +514,7 @@
       },
 		updated: function() {
 		},
-		mixins: [ titleCase, validEmail ]
+		mixins: [ titleCase, upperCase, validEmail ]
    } // export default
 </script>
 
@@ -567,11 +572,6 @@
    .card.editMode .fieldset-wrapper { max-height: 100vh; }
 
 
-   // ul.contacts > li.contact
-   .contact-name { font-weight: bold; color: #000; }
-   .contact-title { color: #000; text-transform: uppercase; }
-
-
 	// initial view: show li.contact > div.contact-data, hide .contact > .fieldset-wrapper ...
    .contact > .contact-data,
    .contact > .fieldset-wrapper { transition: all .9s ease-in-out; overflow: hidden; }
@@ -585,7 +585,7 @@
 
 	/*
 		 .add-contact-wrapper is a child of .contacts-wrapper;
-		 - similar to above, init show .buttons, hide .fieldset-wrapper (be default, above)
+		 - similar to above, init show .buttons, hide .fieldset-wrapper (by default, above)
 		 - .add-contact-wrapper has .editMode ? reverse
 	*/
    .add-contact-wrapper { width: 100%; }
@@ -621,13 +621,5 @@
 		color: $error;
 		border-bottom: 1px solid $error;
 	}
-
-	.error {
-		width: 100%;
-		padding: .3rem .9rem;
-		border: 1px solid $error;
-		border-radius: .3rem;
-	}
-
 
 </style>
