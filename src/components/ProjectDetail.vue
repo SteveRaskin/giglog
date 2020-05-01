@@ -66,14 +66,13 @@
       </section><!-- END .contacts -->
 
 		<section class="card logged-hours" v-if="showLoggedHours">
-			<p>logged hours for this project:</p>
+			<p>hours: <strong>{{ project.client }}</strong>:</p>
 			<ul>
 				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
-					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} @{{ date.rate }} = {{ date.totalAmount }}
+					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} hrs @ {{ date.rate }}/hr. = <strong>$ {{ date.totalAmount }}</strong> ... "{{ date.notes }}"
 				</li>
 			</ul>
 		</section>
-
 
 
 		<div class="buttons">

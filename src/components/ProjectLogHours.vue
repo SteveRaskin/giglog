@@ -10,10 +10,10 @@
 		<!-- <form v-on:submit.prevent="onSubmit"> -->
 
 		<div class="logged-hours" v-if="showLoggedHours">
-			<p>logged hours for this project:</p>
+			<p>hours: <strong>{{ project.client }}</strong>:</p>
 			<ul>
 				<li v-for="(date, ix) in project.hours" v-bind:key="ix">
-					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} @{{ date.rate }} = {{ date.totalAmount }}
+					<b>{{ dateString(date.date) }}</b>: {{ date.totalHours }} hrs @ {{ date.rate }}/hr. = <strong>$ {{ date.totalAmount }}</strong> ... "{{ date.notes }}"
 				</li>
 			</ul>
 		</div>
@@ -149,6 +149,12 @@
 					buttonText="save"
 					v-on:click.native="post"
 				/>
+				<router-link
+					tag="button"
+					class="btn btn-color-1 btn-details"
+					:to="{ name: 'ProjectDetail', params: { id: this.id }}"
+					>exit (to detail view)
+				</router-link>
 			</div>
 
 		</form>
@@ -291,7 +297,7 @@
 						this.project.hours = [];
 					}
 					this.project.hours.push(this.logDate);
-					this.logDate.notes = this.dateString(this.logDate.date) + ": " + this.logDate.totalHours + "hrs @ " + this.logDate.rate;
+					// this.logDate.notes = this.dateString(this.logDate.date) + ": " + this.logDate.totalHours + "hrs @ " + this.logDate.rate;
 					this.$http.put("https://sr-giglog.firebaseio.com/projects/" + this.$route.params.id + ".json", this.project)
 	               .then(response => {
 	                  // console.log("response.body:", response.body);
@@ -331,7 +337,7 @@
 	}
 	.logged-hours p {
 		margin-bottom: .9rem;
-		text-transform: uppercase;
+		text-transform: capitalize;
 	}
 
    form {

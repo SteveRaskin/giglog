@@ -474,7 +474,7 @@
 	}
 	.card:hover,
 	.card.editMode {
-		background: #f0f0ff;
+		background: #f0f0f0;
 		box-shadow: .9rem .9rem .9rem #ccc;
 	}
 
