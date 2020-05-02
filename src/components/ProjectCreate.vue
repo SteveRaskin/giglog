@@ -173,7 +173,12 @@
 	            </fieldset><!-- END .contacts -->
 	         </div><!-- END .contacts-wrapper -->
 
-	         <!-- DATES & RATE -->
+
+				<div class="label-input text">
+	            <label for="tech-stack">tech stack</label>
+	            <input type="text" id="tech-stack" v-model.lazy="project.techstack" />
+	         </div>
+
 
 	         <div class="label-input text">
 	      		<label for="">description</label>
@@ -224,6 +229,7 @@
                contacts: [],
 					source: "",
                startDate: "",
+					techstack: "",
                description: ""
 				},
             contactInfo: {

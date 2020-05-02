@@ -79,9 +79,10 @@
             <dt>gig:</dt>
             <dd>
                <dl>
-						<dt>task:</dt> <dd>{{ project.description }}</dd>
+						<dt>notes:</dt> <dd>{{ project.description }}</dd>
 						<dt>website:</dt> <dd>{{ project.projectReference }}</dd>
 						<dt>referrer:</dt> <dd>{{ project.source }}</dd>
+						<dt>tech stack:</dt> <dd>{{ project.techstack }}</dd>
 						<dt>work site:</dt> <dd>{{ project.workLocation }}</dd>
                   <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
@@ -102,9 +103,13 @@
 				<fieldset>
                <legend><span>editing</span> gig</legend>
 
-               <div class="label-input text">
-                  <label for="">referrer:</label>
+					<div class="label-input text">
+                  <label for="">referrer</label>
                   <input type="text" v-model.lazy="project.source" />
+               </div>
+					<div class="label-input text">
+                  <label for="tech-stack">tech stack</label>
+                  <input type="text" id="tech-stack" v-model.lazy="project.techstack" />
                </div>
                <div class="label-input text">
             		<label for="">description</label>
@@ -346,6 +351,7 @@
 				project: {},
             contactInfo: {},
             workLocation: true,
+				techstack: "",
             isEditingClient: false,
             isEditingGig: false,
             // editingContact: [], // TODO: keep re: source of .$set ?

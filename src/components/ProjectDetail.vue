@@ -29,11 +29,12 @@
             <dt>gig:</dt>
             <dd>
                <dl>
+						<dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                   <dt>task:</dt> <dd>{{ project.description }}</dd>
 						<dt>website:</dt> <dd>{{ project.projectReference }}</dd>
+						<dt>tech stack:</dt> <dd>{{ project.techstack }}</dd>
 						<dt>referrer:</dt> <dd>{{ project.source }}</dd>
 						<dt>work site:</dt> <dd>{{ project.workLocation }}</dd>
-                  <dt>start date:</dt> <dd>{{ project.startDate }}</dd>
                </dl>
             </dd>
          </dl>

@@ -6,28 +6,38 @@
 
 		<app-search v-if="(viewName == 'Projects')" v-bind:projects="projects" />
 
+<!--
+li:
+	<p>{{ project.client }}</p>
+	<p>{{ project.city }}</p>
+<dl>
+	<dt>start date</dt><dd>{{ project.startDate }}</dd>
+</dl>
+-->
+
 		<ol class="projects">
 
+
 			<li class="project" v-for="(project, ix) in reverseprojects" v-bind:key="project.key">
-            <p class="client">
-					<span>{{ ix + 1 }}. {{ project.client }}
-						<!-- <span class="project-id">({{ project.id }})</span> -->
-					</span>
+				<p class="client-city">
+					<span class="client">{{ ix + 1 }}. {{ project.client }}</span>
+					<span class="city">{{ project.city }}</span>
+					<span class="state">{{ project.state }}</span>
 				</p>
-				<p>
+
+				<p class="start-date">
 					<span class="label">start date:</span> <span class="value">{{ project.startDate }}</span>
 				</p>
-				<p>
-					<span class="label">task:</span>
-					<span class="value">
-						{{ project.projectReference }}
-						<!-- <router-link v-bind:to="'/project-detail/' + project.id">[ see full details ]</router-link> -->
-					</span>
+
+				<p class="description-short">
+					<span class="label">summary:</span>
+					<span class="value">{{ project.projectReference }}</span>
 				</p>
-				<p>
-					<span class="label">source:</span>
-					<span class="value"> {{ project.source }}</span>
+				<p class="tech-stack">
+					<span class="label">tech stack:</span>
+					<span class="value"> {{ project.techstack }}</span>
 				</p>
+
 				<div class="buttons">
 					<router-link
 						tag="button"
@@ -126,44 +136,48 @@
 
 <style lang="scss" scoped>
 
-	ol.projects   {
+	.projects {
 		list-style-position: inside;
-		/*max-width: 33rem;*/
-		margin: 0 auto 1.5rem;
+		margin: 0 auto 3rem;
 	}
 
-	li.project > h5 {
+	.project {
+		display: flex;
+		flex-flow: row wrap;
+		width: 100%;
+		margin-bottom: 2.4rem;
+		padding: 0 .9rem 2.4rem 0;
+		border-bottom: 3px double #ccc;
+		// border: 1px double #ccc;
+	}
+
+	.project p { width: 100%; /*!!!*/}
+	.project p:last-of-type { margin-bottom: 1.2rem; }
+
+
+	.client-city .client {
+		text-transform: uppercase;
 		margin-right: .6rem;
 	}
+	.client-city .city { text-transform: capitalize; }
+	.client-city .state { text-transform: uppercase; }
+	.client-city .city:before { content: "("}
+	.client-city .state:after { content: ")"}
 
-	li.project > h5 + p:first-of-type {
-		display: inline-flex;
-		align-items: center;
-		width: auto;
-	}
 
-	.project .client { text-transform: uppercase; }
+
 
 	.project p .label {
-		width: 6rem;
+		width: 6.9rem;
 		float: left;
 		text-align: right;
-		border: 1px dotted #ccc;
 	}
 	.project p .value {
-		width: calc(100% - 6.9rem);
+		width: calc(100% - 7.5rem);
 		float: left;
-		border: 1px dotted lime;
-	}
-	.value .project-id {
-		font-weight: normal;
-		color: #666;
-		border: 1px dotted red;
 	}
 
-	li.project .label { margin-right: .6rem; }
-
- 	.buttons { margin: 1.5rem 0; }
+	.project .label { margin-right: .6rem; }
 
 
 </style>

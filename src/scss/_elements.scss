@@ -57,25 +57,6 @@ img { max-width: 100%; height: auto; }
 }
 
 
-/* from project-detail.vue */
-/*
-	this is NG; we need ~ li.project in projects.vue
-	& something in project-detail.vue to wrap a sibling of .contacts-wrapper
-*/
-.project {
-	display: flex;
-	flex-flow: row wrap;
-	width: 100%;
-	/*margin-bottom: .9rem;*/
-	padding: .9rem .9rem .9rem 0;
-	border-bottom: 3px double #ccc;
-}
-
-.project p { width: 100%; }
-
-.project .btns { margin-top: .3rem; }
-
-
 .contacts li { margin-bottom: 1.5rem; }
 
 .done { border: 1px solid red !important; }
@@ -162,7 +143,7 @@ dd dd:not(:last-child) { margin-bottom: .9rem; }
 
 
 // Detail, Edit
-.client { font-weight: bold; }
+.client { font-weight: bold; text-transform: capitalize; }
 .container-project-detail .client,
 .container-project-edit .client { color: $theme1; }
 
