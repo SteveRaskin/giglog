@@ -344,25 +344,6 @@
 	}
 
 	.label-input { flex-flow: column wrap; }
-	.label-input label { display: block; text-transform: capitalize; }
-	.label-input label:after { content: ":"; }
-	.label-input label span { text-transform: none; }
-
-	input[type="date"],
-   input[type="time"],
-   input[type="datetime-local"],
-	textarea {
-		font-size: .99rem;
-		padding: .3rem .9rem;
-		border: 1px solid #ccc;
-		border-radius: 3px;
-	}
-	select   {
-		min-width: 7.5rem;
-		height: calc(2.1rem + 2px);
-		font-size: .9rem;
-	}
-
 
 	/* ~rows */
 	.date-group,
@@ -387,14 +368,17 @@
 	}
 
 	.time input { max-width: 90%; }
-	.break-time input,
-	.total-hours input {
-		max-width: 4.5rem;
-		height: calc(2.1rem + 2px);
+
+	.break-time input[type="number"],
+	.total-hours input[type="text"] {
+		max-width: 5.4rem;
+		// height: calc(2.1rem + 2px);
 		margin: auto;
 		text-align: center;
 	}
-	.break-time input { padding-left: .75rem; }
+	.break-time input[type="number"] {
+		padding-left: .9rem;
+	}
 
 	.hours-error {
 		width: 100%;
@@ -418,7 +402,10 @@
 		flex-shrink: 3;
 		// border: 1px solid lime;
 	}
-	.label-input.rate input { max-width: 7.5rem; }
+	.label-input.rate input[type="number"] {
+		max-width: 6rem;
+		padding-left: .9rem;
+	}
 	.total-amount {
 		text-align: right;
 		text-transform: capitalize;
@@ -434,20 +421,7 @@
 	}
 
 
-	.textarea { width: 100%; }
-	textarea {
-		min-width: 100%;
-		min-height: 9rem;
-		resize: horizontal;
-	}
-
-	.preview	{
-		order: 9;
-		width: 100%;
-		margin-top: 3rem;
-		padding: 0 1.5rem;
-		border: 1px dotted #f0f0f0;
-	}
+	.label-input.textarea { width: 100%; }
 
 	.calendar-slot { display: flex; flex-flow: row nowrap; justify-content: space-around; }
 

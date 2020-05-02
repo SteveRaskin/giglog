@@ -308,6 +308,16 @@ legend span::after {
   flex-flow: row wrap;
   margin-bottom: 1.5rem; }
 
+.label-input label {
+  display: block;
+  text-transform: capitalize; }
+
+.label-input label:after {
+  content: ":"; }
+
+.label-input label span {
+  text-transform: none; }
+
 .state-zip {
   display: flex;
   flex-flow: row nowrap;
@@ -330,39 +340,33 @@ legend span::after {
   visibility: hidden;
   height: 0; }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="password"] {
-  border: 1px solid #ccc; }
-
-input[type="text"],
+input[type="date"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
+input[type="text"],
+input[type="time"],
 textarea {
   display: block;
   width: 100%;
-  padding: .9rem;
-  font-size: .99rem; }
-
-textarea {
-  resize: vertical; }
-
-input[type="text"],
-input[type="email"],
-input[type="number"] {
+  padding: 1.2rem .9rem;
   font-size: .99rem;
   /* not inherited */
-  border-radius: 3px; }
+  border: 1px solid #ccc;
+  border-radius: .3rem; }
 
-input[type="text"],
+input[type="date"],
 input[type="email"],
 input[type="number"],
-input[type="password"] {
-  height: 2.1rem;
-  padding: 0 .3rem;
-  /* NG: vertical padding re: FF */ }
+input[type="password"],
+input[type="text"],
+input[type="time"] {
+  height: 2.7rem; }
+
+textarea {
+  height: 6rem;
+  padding: .6rem .9rem;
+  resize: vertical; }
 
 .checkboxes label,
 .checkboxes input {

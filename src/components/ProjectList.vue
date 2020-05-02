@@ -9,8 +9,8 @@
 		<ol class="projects">
 
 			<li class="project" v-for="(project, ix) in reverseprojects" v-bind:key="project.key">
-            <p>
-					<span class="client">{{ ix + 1 }}. {{ project.client }}
+            <p class="client">
+					<span>{{ ix + 1 }}. {{ project.client }}
 						<!-- <span class="project-id">({{ project.id }})</span> -->
 					</span>
 				</p>
@@ -142,35 +142,24 @@
 		width: auto;
 	}
 
-	.project p {
-		/* border: 1px dotted #ccc; */
-	}
-	.project p span {
-		display: inline-block;
-		/* border: 1px dotted #f00; */
-	}
-	.project .client {
-		font-weight: bold;
-		text-transform: uppercase;
-	}
-	.project .client span {
-		font-weight: normal;
-		text-transform: none;
-	}
+	.project .client { text-transform: uppercase; }
+
 	.project p .label {
 		width: 6rem;
 		float: left;
 		text-align: right;
+		border: 1px dotted #ccc;
 	}
 	.project p .value {
 		width: calc(100% - 6.9rem);
 		float: left;
+		border: 1px dotted lime;
 	}
 	.value .project-id {
 		font-weight: normal;
 		color: #666;
+		border: 1px dotted red;
 	}
-
 
 	li.project .label { margin-right: .6rem; }
 

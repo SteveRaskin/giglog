@@ -64,28 +64,25 @@
 
 	         <!-- WORK LOCATION -->
 	         <fieldset class="radios">
-	            <legend>work location:</legend>
+	            <legend>work location</legend>
 
 	            <div class="label-input radio">
 						<!-- these v-model values of 'workLocation' refer to the boolean -->
-	               <label>
-	                  <input type="radio" name="work-location" id="remote" value="remote" v-model="workLocation" />
-	                  remote/at home
-	               </label>
+						<label>
+							<input type="radio" name="work-location" id="remote" value="remote" v-model="workLocation" />
+							remote/at home</label>
 	            </div>
 
 	            <div class="label-input radio">
 	               <label>
 	                  <input type="radio" name="work-location" id="business-address" value="business-address" v-model="workLocation" />
-	                  at business address
-	               </label>
+	                  at business address</label>
 	            </div>
 
 	            <div class="label-input radio">
 	               <label>
 	                  <input type="radio" name="work-location" id="other-address" value="other address" v-model="workLocation" />
-	                  elsewhere:
-	               </label>
+	                  elsewhere</label>
 	            </div>
 
 
@@ -97,7 +94,7 @@
 
 
 	         <div class="label-input text">
-	            <label for="referrer">referrer:</label>
+	            <label for="referrer">referrer</label>
 	            <input type="text" id="referrer" v-model.lazy="project.source" />
 	         </div>
 
@@ -123,7 +120,7 @@
 							</p>
 						</div>
 
-	               <legend>Contact(s):</legend>
+	               <legend>Contact<span>(s)</span></legend>
 
 	               <div class="label-input text contact">
 	                  <label for="contact-name">name</label>
