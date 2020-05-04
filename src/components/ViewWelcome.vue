@@ -4,39 +4,49 @@
 
 		<section>
 
-			<h1>welcome</h1>
+			<h1>Welcome to Giglog</h1>
 
-			<p>
-				Welcome to Gigz.
+			<p class="welcome">
+				I should probably say something here about my objective in building this app, you know, like learning stuff about Vue.
 			</p>
 
-			stuff i've learned and/or decided during development;
 
-			as to a calendar plug-in;
-			a fine job but I encounter an issue and while it's discussed in the dude's github page, the code offered to resolve it failed in my app, and I decided at that point - which is to say, if it ain't perfect, and if I have to jump through debugging hoops, then I'd just as soon work with the native input. I'm more concerned with working out the validation than I am with someone else's timesuck for an arguably pointless feature. Furthermore if I'm gonna use his plug-in for datepicker then why not timepicker as well, and in this case the timepicker sucked
+			<div class="" v-if="!loggedIn">
+				<p class="welcome">
+					If you have an account, please
+					<router-link
+						tag="a"
+						class="btn btn-welcome"
+						:to="{ name: 'LogIn', params: {} }"
+						>log in
+					</router-link>
+				</p>
 
+				<p class="welcome">
+					Otherwise, please
+					<router-link
+						tag="a"
+						class="btn btn-welcome"
+						:to="{ name: 'SignUp', params: {} }"
+						>sign up
+					</router-link>
+				</p>
+			</div>
 
+			<div class="" v-if="loggedIn">
+				<p>
+					you're logged in; wanna
+					<router-link
+						tag="a"
+						class="btn btn-welcome"
+						v-on:click.native="signOut"
+						:to="{ name: 'Welcome', params: {} }"
+						>log out
+					</router-link>
+					?
+				</p>
 
-			<p>
-				no account yet?
-				<router-link
-					tag="button"
-					class="btn btn-color-1"
-					:to="{ name: 'SignUp', params: {} }"
-					>sign up
-				</router-link>
-			</p>
-
-			<p>
-				already have an account?
-				<router-link
-					tag="button"
-					class="btn btn-color-1"
-					:to="{ name: 'LogIn', params: {} }"
-					>log in
-				</router-link>
-
-			</p>
+			</div>
 
 
 		</section>
@@ -48,9 +58,11 @@
 
 <script>
 
+	import firebase from 'firebase';
 
 	export default {
 		name: "Welcome",
+
 		data: function() {
 			return {
 				email: "",
@@ -59,11 +71,31 @@
 				error: false,
 				errorMsgBefore: "oh nohz! somethin' ain't right!",
 				errorMsgAfter: "please try again",
-				errorMsg: ""
+				errorMsg: "",
+				loggedIn: false
 			}
 		},
+		created: function() {
+			// console.log("this.$router", this.$router);
+			var _this = this;
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					_this.loggedIn = true;
+				} else {
+					_this.loggedIn = false;
+				}
+			});
+		},
 		methods: {
-		}, // methods
+			signOut: function() {
+				firebase.auth().signOut().then(() => {
+					// TODO: try again with a mixin for signOut 'cause it's duped in Welcome'
+					// p.s. avoid conflict with rules in main.js by just offing any $router call
+					// this.$router.replace('LogIn')
+					// this.$router.replace({ name: 'Welcome' })
+				})
+			}
+		},
 		watch: {}
 	}
 </script>
@@ -72,7 +104,24 @@
 
 <style lang="scss">
 
-
-
+	.welcome { margin-bottom: 1.5rem; }
+	.btn.btn-welcome {
+		padding: 0;
+		text-transform: uppercase;
+		font-size: .99rem;
+		font-weight: 600;
+		color: $theme1;
+		border: 0;
+		border-bottom: 1px dashed $theme1;
+		border-radius: 0;
+		background: transparent;
+	}
+	.btn.btn-welcome:hover {
+		color: $theme1;
+		background: transparent;
+		border: 0;
+		border-bottom: 1px solid $theme1;
+		border-radius: 0;
+	}
 
 </style>

@@ -22,31 +22,21 @@
 <script>
 
 	export default {
-		components: {
-		},
+		components: {},
 		data() {
          return {
 				viewName: ""
          }
       }, // data
 
-		// watch: {
-		// 	viewName: function(newVal, oldVal) {
-		// 		console.log("'viewName' changed: ", newVal, " | was: ", oldVal);
-		// 		// this.viewName = newVal;
-		// 	}
-		// },
 		created: function() {
+			console.log("this.$route.name", this.$route.name);
 			this.viewName = this.$route.name;
 		},
-
-		methods: {
-		}, // methods
+		methods: {},
 		updated: function() {
 			this.viewName = this.$route.name;
 		},
-
-
 	}
 
 </script>
@@ -54,7 +44,7 @@
 
 <style lang="scss">
 
-	// @import '@/assets/css/app.css';
+	@import './assets/css/app.css';
 
 	.component-fade-enter-active,
 	.component-fade-leave-active {

@@ -3,7 +3,10 @@
 	<header>
 
 		<h1>
-			<router-link :to="{ path: '/' }">gigz</router-link>
+			<router-link
+				:to="{ name: 'Welcome', params: {} }"
+				>gigz
+			</router-link>
 		</h1>
 
 		<p style="display: none; color: orangered; font-size: 1.2rem;">viewName: <b>{{ viewName }}</b></p>
@@ -67,10 +70,12 @@
 		methods: {
 			signOut: function() {
 				firebase.auth().signOut().then(() => {
+					// TODO: try again with a mixin for signOut 'cause it's duped in Welcome'
+					// p.s. avoid conflict with rules in main.js by just offing any $router call
 					// this.$router.replace('LogIn')
-					this.$router.replace({ name: 'LogIn' })
+					this.$router.replace({ name: 'Welcome' })
 				})
-			}
+			},
 		}, // methods
 		updated: function() {
 		}
@@ -86,10 +91,8 @@
 	   h1	{
 			display: flex;
 			align-items: center;
-			height: 100%;
-			max-height: 4.2rem;
-			margin-left: -1.8rem;
-			padding: 0 3rem .3rem 3rem;
+			margin-bottom: .9rem;
+			padding: .9rem 3rem;
 			font-size: 2.4rem;
 			text-transform: lowercase;
 			background: $theme1;
@@ -109,7 +112,6 @@
 		h1:hover a {
 			color: $theme1;
 			border: 0;
-			// border-radius: 1.5rem 0;
 		}
 
 		nav {

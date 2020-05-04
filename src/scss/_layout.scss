@@ -18,7 +18,9 @@ body {
 
 #app {
 	display: flex;
+	max-width: 1200px;
 	height: 100vh;
+	margin: auto;
 	flex-flow: column nowrap;
 	justify-content: space-between;
 	font-size: 1.11rem;
@@ -35,18 +37,21 @@ body {
 */
 
 header {
-	order: 0;
+	display: flex;
+	// order: 0;
    position: fixed;
    top: 0;
 	width: 100%;
+	max-width: 1200px;
    height: 10.5rem; // TBD re; responsiveness; see .main margin-top
-	display: flex;
+	height: auto;
+	margin-bottom: .9rem;
+	// padding: 1.5rem 3rem 3rem 0;
+	padding: 1.5rem .9rem 3rem;
 	flex-flow: row wrap;
 	justify-content: space-between;
 	align-content: center;
 	align-items: center;
-	margin-bottom: .9rem;
-	padding: 1.5rem 3rem 3rem 11%; // match width constraint of .container
 	background: $w;
    z-index: 999;
 	.subhead {
@@ -55,6 +60,7 @@ header {
 		justify-content: space-between;
 		margin: 1.5rem 0;
 	}
+	border-bottom: 1px dotted #ccc;
 }
 
 .main {
@@ -63,9 +69,12 @@ header {
 	width: 100%;
 	position: relative;
 	margin-top: calc(12rem + 0px); //  TBD re; responsiveness, per Header height
-	// border: 3px dotted red;
+	padding: .9rem;
 }
-
+@media all and (min-width: 900px) {
+	.main {
+	}
+}
 
 .footer {
 	display: flex;
@@ -75,7 +84,7 @@ header {
 	align-content: center;
 	align-items: center;
 	margin-top: auto;
-	padding: 4.5rem 9%;
+	padding: 1.5rem .9rem;
 	background: $theme1;
    color: #fff;
 }

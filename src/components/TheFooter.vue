@@ -2,7 +2,7 @@
 
 	<footer class="footer">
 
-		<p class="debug">Footer.vue</p>
+		<p class="debug">TheFooter.vue; not much going on here just yet</p>
 
 		<app-button buttonClass="btn-debug" buttonText="log route" @click.native="test"/>
 

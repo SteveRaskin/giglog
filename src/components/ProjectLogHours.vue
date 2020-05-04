@@ -196,7 +196,7 @@
 				},
 				errors: [],
 				hoursError: false,
-				hoursErrorMsg: "'ERROR: Time Out' cannot precede 'Time In'. Hours must be logged per-date (is AM/PM correct?)",
+				hoursErrorMsg: "ERROR: 'Time Out' cannot precede 'Time In'; hours are logged per-date (is AM/PM correct?)",
          }
       }, // data
 

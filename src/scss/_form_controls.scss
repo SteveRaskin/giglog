@@ -137,15 +137,17 @@ textarea {
 
 .btn {
 	display: inline-block;
-	padding: .45rem 1.8rem;
+	// padding: .45rem 1.8rem;
+	padding: .3rem 1.5rem;
 	text-align: center;
 	color: $b;
 	background: $w;
+	line-height: 1.11rem;
 	font-weight: 500;
 	text-transform: capitalize;
 	word-spacing: .3rem;
 	border: 1px solid $b;
-	border-radius: 1.5em;
+	border-radius: .9em;
 	cursor: pointer;
 	transition: .15s ease-in-out;
 }

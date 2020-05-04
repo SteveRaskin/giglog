@@ -5,7 +5,22 @@
 
 			<h1>log in</h1>
 
-         <div class="fieldset-wrapper">
+
+			<div class="" v-if="loggedIn">
+				<p>
+					you're logged in; wanna
+					<router-link
+						tag="a"
+						class="btn btn-welcome"
+						v-on:click.native="signOut"
+						:to="{ name: 'Welcome', params: {} }"
+						>log out
+					</router-link>
+					?
+				</p>
+			</div>
+
+         <div class="fieldset-wrapper" v-if="!loggedIn">
             <fieldset>
                <legend>giglog login</legend>
 
@@ -17,8 +32,8 @@
 
 					<!-- EMAIL ADDRESS -->
                <div class="label-input text">
-                  <label for="">email address</label>
-                  <input type="text" id="email" v-model="email" placeholder="email address" required />
+                  <label for="email">email address</label>
+                  <input type="text" id="email" ref="emailInput" v-model="email" placeholder="email address" required />
                </div>
 
                <!-- PASSWORD -->
@@ -34,7 +49,7 @@
 
          </div><!-- END .fieldset-wrapper -->
 
-			<p>
+			<p v-if="!loggedIn">
 				If you don't yet have an account, please create one on the
 				<router-link tag="a" class="" :to="{ name: 'SignUp', params: {} }">sign up page</router-link>
 			</p>
@@ -61,22 +76,30 @@
 				errorMsgBefore: "Message from firebase.io:",
 				errorMsgAfter: "Please try again.",
 				errorMsg: "",
-				loginButtonPath: null
+				loginButtonPath: null,
+				loggedIn: false
 			}
 		},
 
-      props: {
+      props: {},
+   	components: {},
+
+		created: function() {
+			// console.log("this.$router", this.$router);
+			var _this = this;
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					_this.loggedIn = true;
+				} else {
+					_this.loggedIn = false;
+				}
+			});
 		},
 
-      components: {
-      },
-
-      created: function() {
-			console.log('login.vue @created');
-      },
 		mounted: function() {
-			let emailInput = document.querySelector("#email");
-			emailInput.focus();
+			// let emailInput = document.querySelector("#email");
+			// emailInput.focus();
+			this.$refs.emailInput.focus();
 		},
       methods: {
 			logIn: function() {
@@ -97,9 +120,14 @@
 					}
 				)
 			}, // logIn
+
+			signOut: function() {
+				firebase.auth().signOut().then(() => {
+					// this.$router.replace('LogIn')
+					this.$router.replace({ name: 'LogIn' })
+				})
+			}
       },
-		watch: {
-		},
 
    } // export default
 </script>
@@ -115,6 +143,28 @@
 		padding-bottom: 1.5rem;
 		h1 { margin-bottom: 1.5rem; font-size: 1.8rem; color: $theme1; text-transform: uppercase; }
    }
+
+	.btn.btn-welcome {
+		padding: 0;
+		text-transform: uppercase;
+		font-size: .99rem;
+		font-weight: 600;
+		color: $theme1;
+		border: 0;
+		border-bottom: 1px dashed $theme1;
+		border-radius: 0;
+		background: transparent;
+	}
+	.btn.btn-welcome:hover {
+		color: $theme1;
+		background: transparent;
+		border: 0;
+		border-bottom: 1px solid $theme1;
+		border-radius: 0;
+	}
+
+
+
 
 	.fieldset-wrapper { width: 100%; }
 	legend { color: #000; font-weight: bold; text-transform: uppercase; }

@@ -99,6 +99,7 @@
 						(user) => {
 							const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
 							alert('your account has been created, ' + userFirstName + ', please log in');
+							firebase.auth().signOut();
 							this.$router.replace({ name: 'LogIn' })
 						},
 						(err) => {

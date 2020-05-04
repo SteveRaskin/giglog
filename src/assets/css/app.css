@@ -92,7 +92,6 @@ h5 {
 
 .container {
   display: flex;
-  max-width: 78%;
   margin: 0 auto 3rem;
   flex-flow: column nowrap;
   justify-content: space-between; }
@@ -183,7 +182,9 @@ body {
 
 #app {
   display: flex;
+  max-width: 1200px;
   height: 100vh;
+  margin: auto;
   flex-flow: column nowrap;
   justify-content: space-between;
   font-size: 1.11rem; }
@@ -197,20 +198,22 @@ body {
 	- - <footer>
 */
 header {
-  order: 0;
+  display: flex;
   position: fixed;
   top: 0;
   width: 100%;
+  max-width: 1200px;
   height: 10.5rem;
-  display: flex;
+  height: auto;
+  margin-bottom: .9rem;
+  padding: 1.5rem .9rem 3rem;
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  margin-bottom: .9rem;
-  padding: 1.5rem 3rem 3rem 11%;
   background: #fff;
-  z-index: 999; }
+  z-index: 999;
+  border-bottom: 1px dotted #ccc; }
   header .subhead {
     display: flex;
     flex-flow: row nowrap;
@@ -222,7 +225,8 @@ header {
   flex-shrink: 0;
   width: 100%;
   position: relative;
-  margin-top: calc(12rem + 0px); }
+  margin-top: calc(12rem + 0px);
+  padding: .9rem; }
 
 .footer {
   display: flex;
@@ -232,7 +236,7 @@ header {
   align-content: center;
   align-items: center;
   margin-top: auto;
-  padding: 4.5rem 9%;
+  padding: 1.5rem .9rem;
   background: #1248ff;
   color: #fff; }
 
@@ -383,15 +387,16 @@ textarea {
 */
 .btn {
   display: inline-block;
-  padding: .45rem 1.8rem;
+  padding: .3rem 1.5rem;
   text-align: center;
   color: #000;
   background: #fff;
+  line-height: 1.11rem;
   font-weight: 500;
   text-transform: capitalize;
   word-spacing: .3rem;
   border: 1px solid #000;
-  border-radius: 1.5em;
+  border-radius: .9em;
   cursor: pointer;
   transition: .15s ease-in-out; }
 
