@@ -30,7 +30,6 @@
       }, // data
 
 		created: function() {
-			console.log("this.$route.name", this.$route.name);
 			this.viewName = this.$route.name;
 		},
 		methods: {},

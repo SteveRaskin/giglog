@@ -47,7 +47,8 @@ header {
 	height: auto;
 	margin-bottom: .9rem;
 	// padding: 1.5rem 3rem 3rem 0;
-	padding: 1.5rem .9rem 3rem;
+	// padding: 1.5rem .9rem 3rem;
+	padding: 1.5rem 3rem;
 	flex-flow: row wrap;
 	justify-content: space-between;
 	align-content: center;
@@ -69,7 +70,7 @@ header {
 	width: 100%;
 	position: relative;
 	margin-top: calc(12rem + 0px); //  TBD re; responsiveness, per Header height
-	padding: .9rem;
+	padding: 3rem;
 }
 @media all and (min-width: 900px) {
 	.main {

@@ -20,15 +20,17 @@ export default new VueRouter({
 	// the base URL of the app; if the SPA is served at domain.com/app/, then base should be "/app/" (default: "/")
 	base: '/giglog/',
 	routes: [
-      // !quotes around imports (i.e., name key/component key values)
-		//  *** HEADS-UP; CAREFUL IF RENAMING ***
-		// question remains: how to keep index.html alive, because if user refreshes at outtolaunch.com/giglog/, they'll load outtolaunch.com/[index.php]
+		// redirect to a path, not a name
 		{
 			path: '*',
-			redirect: '/'
+			redirect: '/index.html'
 		},
 		{
 			path: '/',
+			redirect: '/index.html'
+		},
+		{
+			path: '/index.html',
 			name: 'Welcome',
 			component: welcome,
 			meta: {
@@ -51,6 +53,9 @@ export default new VueRouter({
 				requiresAuth: false
 			}
 		},
+
+		// ===========================================================
+		// requiresAuth: true
 		{
 			path: '/projects',
 			name: 'Projects',
@@ -69,7 +74,7 @@ export default new VueRouter({
 		},
 
 		// ===========================================================
-
+		// dyanmic routes
 		{
 			path: '/project-detail/:id',
 			name: 'ProjectDetail',
@@ -111,16 +116,3 @@ export default new VueRouter({
 		}
 	]
 })
-
-
-
-
-
-
-
-
-
-
-
-
-//

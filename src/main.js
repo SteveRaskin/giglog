@@ -68,10 +68,6 @@ router.beforeEach((to, from, next) => {
 		// from.name === "LogIn" && next.name !== "Projects" ? next() : next("LogIn"); //
 		next('Welcome');
 	}
-	//
-	// else if (!requiresAuth && currentUser) {
-	// 	from.name === "SignUp" ? next() : next("Projects"); //
-	// }
 	else {
 		next();
 	}
