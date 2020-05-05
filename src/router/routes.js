@@ -9,6 +9,7 @@ import projectEdit from '../components/ProjectEdit.vue';
 import logHours from '../components/ProjectLogHours.vue';
 import login from '../components/ViewLogIn.vue';
 import signup from '../components/ViewSignUp.vue';
+import ux from '../components/ViewUX.vue';
 
 
 
@@ -70,6 +71,14 @@ export default new VueRouter({
 			component: projectAdd,
 			meta: {
 				requiresAuth: true
+			}
+		},
+		{
+			path: '/ux',
+			name: 'UX',
+			component: ux,
+			meta: {
+				requiresAuth: false
 			}
 		},
 
