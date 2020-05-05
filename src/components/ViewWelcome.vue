@@ -20,7 +20,7 @@
 					<b>incorporate dynamic routes;</b> inevitable, considering the data and how it's used;
 				</li>
 				<li>
-					<b>incorporate a search function;</b> full disclosure: this was initially a leftover mixin from a tutorial app I built some time ago, but it definitely required time and attention for present purposes;
+					<b>incorporate a search function;</b> full disclosure: this was initially a leftover mixin from a tutorial app I built some time ago, but it did require somewhat of a re-write for present purposes;
 				</li>
 				<li>
 					<b>adopt Vue.js' recommended practices with regard to a consistent approach to component naming and architecture;</b> this was also informed by my recent experience 10-month stint working on an enterprise GWT-based (Java) application, far more complex than this one;
@@ -29,10 +29,10 @@
 					<b>form validation:</b> I tried to be reasonably thorough in anticipating possible usage and interactions, and employ validation to account for them, to preclude bad data.
 				</li>
 				<li>
-					regarding CSS (my wheelhouse): configure vue.config.js to <b>use SCSS</b>, enabling (scoped) SCSS in various component where it seemed advantageous, otherwise maintaining CSS as globally as design variance allowed;
+					regarding CSS (my wheelhouse): <b>configure vue.config.js to use SCSS</b>, enabling (scoped) SCSS in various component where it seemed advantageous, otherwise maintaining CSS as globally as design variance allowed;
 				</li>
 				<li>
-					<b>keep things native, within reason:</b> it's not an accident that this app doesn't look as slick - or familiar - as it might if I'd employed a design library, not that I'm opposed, as I expect to do so with a future version of giglog, but I wanted to minimize time spent down 3rd-party rabbit holes; while the calendar plug is an exception, the validation is mostly home-grown, for my edification and practice;
+					<b>keep things native, within reason:</b> it's not an accident that this app doesn't look as slick - or familiar - as it might if I'd employed a design library, not that I'm opposed, as I expect to do so with a future version of giglog, but I wanted to minimize time spent down 3rd-party rabbit holes; while the calendar plug is an exception, the validation is mostly home-grown, for my edification;
 				</li>
 				<li>
 					<b>add a few mixins to the mix;</b> (TODO: having added some dyamic account-related function to this view among others, move some repeated logic to a mixin for firebase methods)
@@ -43,7 +43,7 @@
 			</ul>
 
 			<p class="welcome">
-				So please click through it and feel free to add, edit or delete any data - it's all junk for the demo. I'll have the code up on github shortly. Comments, pro or con, are most welcome; <a v-bind:href="emailAddress" v-bind:title="{ emailText }">{{ emailText }}</a>
+				So please click through it and feel free to add, edit or delete any data - it's all junk for demo purposes. I'll have the code up on github shortly. Comments, pro or con, are most welcome; <a v-bind:href="emailAddress" v-bind:title="{ emailText }">{{ emailText }}</a>
 			</p>
 
 
