@@ -7,23 +7,23 @@
 			<h1>Welcome to Giglog</h1>
 
 			<p class="welcome">
-				Giglog is an application I've built for the purpose of learning some of the ins and outs of Vue.js. I certainly didn't expect to learn it all with one app (and I have a couple of other apps in the works) but I figured I could check a few boxes in developing this one, e.g.:
+				Giglog is one of my initial forays into the Vue.js application framework. Among whatever other lessons would come through this project, I figured I would at least check a few boxes in building this one, e.g.:
 			</p>
 
 			<ul class="lessons">
 				<li>
-					<b>employ ViewResource to make the .get(), .post() &amp; .put() API calls</b> to Firebase, to create and then fully access, edit and/or delete demo data (JSON);</li>
+					<b>employ ViewResource to make the .get(), .post() &amp; .put() API calls</b> to Firebase, to create and then access, edit and/or delete demo data (JSON);</li>
 				<li>
-					<b>establish protected routes,</b> employing various methods available in firebase to enforce the rules, thereby requiring <b>account creation and log in processes</b>;
+					<b>establish protected routes,</b> employing methods available in firebase to enforce the rules, ergo <b>account creation and log in processes</b>;
 				</li>
 				<li>
-					<b>incorporate dynamic routes;</b> inevitable, considering the data and how it's used;
+					<b>incorporate dynamic routes;</b>
 				</li>
 				<li>
-					<b>incorporate a search function;</b> full disclosure: this was initially a leftover mixin from a tutorial app I built some time ago, but it did require somewhat of a re-write for present purposes;
+					<b>incorporate a search function;</b>
 				</li>
 				<li>
-					<b>adopt Vue.js' recommended practices with regard to a consistent approach to component naming and architecture;</b> this was also informed by my recent experience 10-month stint working on an enterprise GWT-based (Java) application, far more complex than this one;
+					<b>adopt Vue.js' recommended practices with regard to a consistent approach to component naming and architecture;</b> this was also informed by my recent experience working on an enterprise GWT-based (Java) application, one of far greater complexity than this one;
 				</li>
 				<li>
 					<b>form validation:</b> I tried to be reasonably thorough in anticipating possible usage and interactions, and employ validation to account for them, to preclude bad data.
@@ -32,7 +32,7 @@
 					regarding CSS (my wheelhouse): <b>configure vue.config.js to use SCSS</b>, enabling (scoped) SCSS in various component where it seemed advantageous, otherwise maintaining CSS as globally as design variance allowed;
 				</li>
 				<li>
-					<b>keep things native, within reason:</b> it's not an accident that this app doesn't look as slick - or familiar - as it might if I'd employed a design library, not that I'm opposed, as I expect to do so with a future version of giglog, but I wanted to minimize time spent down 3rd-party rabbit holes; while the calendar plug is an exception, the validation is mostly home-grown, for my edification;
+					<b>keep things (mostly) native:</b> it's no accident that this app doesn't look as slick as it might if I'd employed a design library - as I'm likely to do with a future version of giglog, but I wanted to keep my focus on the ins and outs of Vue.js rather than diving into 3rd-party rabbit holes (the calendar is the notable exception);
 				</li>
 				<li>
 					<b>add a few mixins to the mix;</b> (TODO: having added some dyamic account-related function to this view among others, move some repeated logic to a mixin for firebase methods)
