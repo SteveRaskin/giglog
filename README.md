@@ -23,4 +23,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-demo: http://outtolaunch.com/giglog/index.html
+[demo] (http://outtolaunch.com/giglog/index.html)

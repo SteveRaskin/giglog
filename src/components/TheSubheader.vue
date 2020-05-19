@@ -12,8 +12,6 @@
 
 <script>
 
-	// import searchMixin  from '../mixins/searchMixin.js';
-
    export default {
 		components: {
 		},
@@ -40,13 +38,6 @@
 		// mixins: [ searchMixin ],
 
 		computed: {
-			// TODO: put this somewhere appropriate
-			searchResultsLength: function() {
-				// eslint bitched about 'let filteredProjects ... '
-				let filteredProjects = [];
-				// console.log("filteredProjects.length", filteredProjects.length);
-				return filteredProjects.length;
-			}
 		} // computed
 
    }
