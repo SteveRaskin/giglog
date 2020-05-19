@@ -1,7 +1,7 @@
 export default {
 	created: function() {},
 	computed: {
-		filteredProjects: function() {
+		searchResults: function() {
 			const searchTerm = this.search.toLowerCase();
 			if (!searchTerm) {
 				return false;
@@ -9,7 +9,6 @@ export default {
 			// .filter() returns an array, so .length() to return false when empty
 			// client, contacts, projectReference, description, source
 			return this.projects.filter((project) => {
-				// TODO: stop hacking this mixin and solve the problem @data!
 				if (project.client && project.contacts !== undefined && project.contacts.length && project.projectReference && project.description && project.source) {
 					return (project.client.toLowerCase().match(searchTerm)) ||
 								(project.contacts.filter((el) => {

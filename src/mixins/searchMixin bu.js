@@ -1,6 +1,6 @@
 export default {
 	computed: {
-		filteredProjects: function() {
+		searchResults: function() {
 			const searchTerm = this.search.toLowerCase();
 			if (!searchTerm) {
 				return false;
@@ -20,7 +20,7 @@ export default {
 
 
 
-		} // filteredProjects
+		} // searchResults
 	} // computed
 }
 

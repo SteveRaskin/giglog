@@ -6,17 +6,17 @@
 			<input type="text" v-model="search" placeholder="search by client (company), contact name, description" />
 		</div>
 
-		<div class="search-results-wrapper" v-bind:class="[{ open: filteredProjects.length > 0 }, { noresults: filteredProjects.length < 1 }]">
+		<div class="search-results-wrapper" v-bind:class="[{ open: searchResults.length > 0 }, { noresults: searchResults.length < 1 }]">
 
-			<h4 class="results-count" v-if="filteredProjects.length == 0">
+			<h4 class="results-count" v-if="searchResults.length == 0">
 				no results matching "{{ search }}":
 			</h4>
-			<h4 class="results-count" v-if="filteredProjects.length > 0">
-				{{ filteredProjects.length }} result<span v-if="filteredProjects.length > 1">s</span> matching search "{{ search }}":
+			<h4 class="results-count" v-if="searchResults.length > 0">
+				{{ searchResults.length }} result<span v-if="searchResults.length > 1">s</span> matching search "{{ search }}":
 			</h4>
 
 			<ul class="search-results">
-				<li v-for="(project, ix) in filteredProjects" :key="ix">
+				<li v-for="(project, ix) in searchResults" :key="ix">
 					{{ ix + 1 }}.
 					<router-link v-bind:to="'/project-detail/' + project.id">
 						{{ project.client }} ({{ project.projectReference }})
