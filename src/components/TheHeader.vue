@@ -38,7 +38,7 @@
 
 <script>
 
-	import firebase from 'firebase';
+	import mixinFirebase from '@/mixins/mixin_firebase.js';
 
    export default {
 		props: {
@@ -53,32 +53,14 @@
          }
     	},
 
-		watch: {
-		},
+		watch: {},
 
-		created: function() {
-			var _this = this;
-			firebase.auth().onAuthStateChanged(function(user) {
-				if (user) {
-					_this.loggedIn = true;
-				} else {
-					_this.loggedIn = false;
-				}
-			});
-		},
+		created: function() {},
 
-		methods: {
-			signOut: function() {
-				firebase.auth().signOut().then(() => {
-					// TODO: try again with a mixin for signOut 'cause it's duped in Welcome'
-					// p.s. avoid conflict with rules in main.js by just offing any $router call
-					// this.$router.replace('LogIn')
-					this.$router.replace({ name: 'Welcome' })
-				})
-			},
-		}, // methods
-		updated: function() {
-		}
+		methods: {},
+		updated: function() {},
+
+		mixins: [ mixinFirebase ]
 
    }
 </script>

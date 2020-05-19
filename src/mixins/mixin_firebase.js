@@ -2,21 +2,18 @@ import firebase from 'firebase';
 
 export default {
 	created: function() {
-		// this.getLoggedIn();
-		// console.log("mixin fb @created: this.loggedIn", this.loggedIn);
-		// var _this = this;
-		// firebase.auth().onAuthStateChanged(function(user) {
-		// 	if (user) {
-		// 		_this.loggedIn = true;
-		// 	} else {
-		// 		_this.loggedIn = false;
-		// 	}
-		// });
+		var _this = this;
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				_this.loggedIn = true;
+			} else {
+				_this.loggedIn = false;
+			}
+		});
 	},
 
 	methods: {
 		getLoggedIn: function() {
-			console.log("mixin fb @created: this.loggedIn", this.loggedIn);
 			var _this = this;
 			firebase.auth().onAuthStateChanged(function(user) {
 				if (user) {
@@ -26,6 +23,8 @@ export default {
 				}
 			});
 		},
+
+
 
 		signUp: function() {
 			const passwordInput = document.querySelector("#password");
@@ -43,6 +42,7 @@ export default {
 					(user) => {
 						const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
 						alert('your account has been created, ' + userFirstName + ', please log in');
+						firebase.auth().signOut();
 						this.$router.replace({ name: 'LogIn' })
 					},
 					(err) => {
@@ -75,14 +75,11 @@ export default {
 		}, // logIn
 
 		signOut: function() {
-			console.log("signOut");
 			firebase.auth().signOut().then(() => {
-				// this.$router.replace('LogIn')
-				// this.$router.replace({ name: 'LogIn' })
-				this.$router.replace({ name: 'Welcome' });
-				// if (this.$router.from !== "Welcome") {
-				// 	this.$router.replace({ name: 'Welcome' });
-				// }
+				// if (this.$route.name !== "Welcome") {
+				if (this.$router.currentRoute.name !== "Welcome") {
+					this.$router.replace({ name: 'Welcome' })
+				}
 			})
 		}
 	}, // methods

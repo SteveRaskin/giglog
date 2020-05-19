@@ -35,7 +35,7 @@
 		},
 
 		methods: {},
-		// mixins: [ searchMixin ],
+		// mixins: [ mixin_search ],
 
 		computed: {
 		} // computed

@@ -91,7 +91,7 @@
 
 <script>
 
-	import firebase from 'firebase';
+	import mixinFirebase from '@/mixins/mixin_firebase.js';
 
 	export default {
 		name: "Welcome",
@@ -110,17 +110,7 @@
 				emailText: ""
 			}
 		},
-		created: function() {
-			// console.log("this.$router", this.$router);
-			var _this = this;
-			firebase.auth().onAuthStateChanged(function(user) {
-				if (user) {
-					_this.loggedIn = true;
-				} else {
-					_this.loggedIn = false;
-				}
-			});
-		},
+		created: function() {},
 		mounted: function() {
 			const s1 = "giglog";
 			const s2 = "@";
@@ -131,17 +121,9 @@
 			this.emailText = "I'm all ears";
 			// console.log("this.emailText", this.emailText);
 		},
-		methods: {
-			signOut: function() {
-				firebase.auth().signOut().then(() => {
-					// TODO: try again with a mixin for signOut 'cause it's duped in Welcome'
-					// p.s. avoid conflict with rules in main.js by just offing any $router call
-					// this.$router.replace('LogIn')
-					// this.$router.replace({ name: 'Welcome' })
-				})
-			},
-		},
-		watch: {}
+		methods: {},
+		watch: {},
+		mixins: [ mixinFirebase ]
 	}
 </script>
 

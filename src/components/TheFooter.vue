@@ -25,7 +25,7 @@
 
 <script>
 
-	import debugRoute from '@/mixins/debug_route.js';
+	import debugRoute from '@/mixins/mixin_debug_route.js';
 	import titleCase from '@/mixins/titleCase.js';
 
    export default {

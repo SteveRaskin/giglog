@@ -67,7 +67,7 @@
 
 <script>
 
-	import firebase from 'firebase';
+	import mixinFirebase from '@/mixins/mixin_firebase.js';
 
 	export default {
 		name: "signUp",
@@ -82,37 +82,9 @@
 				errorMsg: "",
 			}
 		},
-		methods: {
-			signUp: function() {
-				const passwordInput = document.querySelector("#password");
-				const emailInput = document.querySelector("#email");
-				if (this.password !== this.confirmPassword) {
-					this.error = true;
-					this.errorMsg = "passwords don't match";
-					this.password = "";
-					this.confirmPassword = "";
-					passwordInput.focus();
-				}
-				else {
-					firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-						// arrow function non-optional re: this.$router
-						(user) => {
-							const userFirstName = this.email.charAt(0).toUpperCase() + this.email.slice(1).split('@')[0];
-							alert('your account has been created, ' + userFirstName + ', please log in');
-							firebase.auth().signOut();
-							this.$router.replace({ name: 'LogIn' })
-						},
-						(err) => {
-							console.log("err.message:", err.message);
-							this.error = true;
-							this.errorMsg = err.message;
-							emailInput.focus();
-						}
-					)
-				}
-			} // signUp
-		}, // methods
-		watch: {}
+		methods: {}, // methods
+		watch: {},
+		mixins: [ mixinFirebase ]
 	}
 </script>
 
